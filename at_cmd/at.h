@@ -8,9 +8,20 @@ typedef enum{
   at_statIpSending,
   at_statIpSended,
   at_statTranInit,
-  at_statIpTraning
-}at_stateType;
+  at_statIpTraning,
+  
+  //透传模式状态机
+  at_statTransportIdle,
+  at_statTransportRecv,
+  at_statTransportSending
 
+}at_stateType;
+typedef enum
+{
+  AtModeCMD,
+  AtModeTransport
+
+}AtMode_t;
 typedef struct
 {
     char *at_cmdName;

@@ -101,25 +101,27 @@ void uart1_write_string(uint8_t *buf)
 
     while(*buf != '\0')
     {
-    disableInterrupts();
+    //disableInterrupts();
         USART1->DR = *buf++;
         while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);
-    enableInterrupts();
+    //enableInterrupts();
     }
 
 }
+#if 0
 void uart1_write_cstring(const uint8_t *buf)
 {
 
     while(*buf != '\0')
     {
-    disableInterrupts();
+    //disableInterrupts();
         USART1->DR = *buf++;
         while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);
-    enableInterrupts();
+    //enableInterrupts();
     }
 
 }
+#endif
 uint8_t uart1_read()
 {
     return USART1->DR;

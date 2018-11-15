@@ -3,6 +3,7 @@
 
 #include "ebox.h"
 
+#define USE_IO 0
 #define USE_REG 0
 #define USE_READ_STATE 0
 
@@ -23,12 +24,16 @@ void at_CmdSend(char *pPara);
 void at_CmdGetRssi(char *pPara);
 
 void at_CmdAck(char *pPara);
+
+void at_CmdTransport(char *pPara);
+
+#if USE_IO
 void at_CmdPB0(char *pPara);
 void at_CmdPC4(char *pPara);
 void at_CmdPD0(char *pPara);
 void at_CmdPWM1(char *pPara);
 void at_CmdPWM2(char *pPara);
-
+#endif
 #if USE_REG
 void at_CmdReg(char *pPara);
 #endif

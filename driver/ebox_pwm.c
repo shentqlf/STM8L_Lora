@@ -1,5 +1,5 @@
 #include "ebox_pwm.h"
-
+#if 0
 void pwm1_config(uint8_t prescaler,uint16_t period,uint16_t pulse)
 {
 
@@ -49,3 +49,4 @@ void pwm2_config(uint8_t prescaler,uint16_t period,uint16_t pulse)
     TIM3->BKR |= TIM_BKR_MOE ;//output enable
     TIM3->CR1 |= 0X01;/*¿ªÆô¶¨Ê±Æ÷*/
 }
+#endif

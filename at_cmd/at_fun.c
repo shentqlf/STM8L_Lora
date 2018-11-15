@@ -5,8 +5,9 @@
 #include "misc.h"
 #include "low_power.h"
 
-extern at_stateType  at_state;
 
+extern AtMode_t at_mode ;
+extern at_stateType  at_state;
 
 bool CheckPara(char *pPara)
 {
@@ -386,7 +387,15 @@ void at_CmdAck(char *pPara)
     }
     at_state = at_statIdle;
 
-}        
+}      
+
+void at_CmdTransport(char *pPara)
+{
+    at_mode = AtModeTransport;
+    at_back_para_ok("+++");
+    at_state = at_statTransportIdle;
+}
+#if USE_IO
 
 void at_CmdPB0(char *pPara)
 {
@@ -535,6 +544,9 @@ void at_CmdPWM2(char *pPara)
     }
     at_state = at_statIdle;
 }
+#endif 
+
+
 #if USE_REG
 void at_CmdReg(char *pPara)
 {

@@ -7,11 +7,16 @@
 #include "low_power.h"
 
 uint8_t halt_mode = 0;
-const uint8_t info[]="MODULE:Ting-01M(V0.4)\r\nVendor:eBox&Widora\r\n";
+const uint8_t info[]="Ting-01M(V0.5)\r\n";
 uint8_t ack_on;
 uint32_t ack_on_time;
 extern uint8_t RFBuffer[];
 extern uint8_t RxPacketSize;
+
+extern AtMode_t at_mode ;
+extern at_stateType  at_state;
+
+
 void ForwardPacket()
 {
    // *size = RxPacketSize;
@@ -37,17 +42,20 @@ void ForwardPacket()
             GPIOD->ODR |= GPIO_Pin_0;
             ack_on_time = millis();
         }
-        uart1_write_string("LR,");
-        buf[0] = D2C((sourceAddr.val&0xF000) >> 12);
-        buf[1] = D2C((sourceAddr.val&0x0F00) >> 8);
-        buf[2] = D2C((sourceAddr.val&0x00F0) >> 4);
-        buf[3] = D2C((sourceAddr.val&0x000F) >> 0);
-        buf[4] = ',';
-        buf[5] = D2C((len&0xF0) >> 4);
-        buf[6] = D2C((len&0x0F) >> 0);
-        buf[7] = ',';
+        if(at_mode == AtModeCMD)
+        {
+          uart1_write_string("LR,");
+          buf[0] = D2C((sourceAddr.val&0xF000) >> 12);
+          buf[1] = D2C((sourceAddr.val&0x0F00) >> 8);
+          buf[2] = D2C((sourceAddr.val&0x00F0) >> 4);
+          buf[3] = D2C((sourceAddr.val&0x000F) >> 0);
+          buf[4] = ',';
+          buf[5] = D2C((len&0xF0) >> 4);
+          buf[6] = D2C((len&0x0F) >> 0);
+          buf[7] = ',';
 
-        uart1_write((uint8_t*)buf,8);
+          uart1_write((uint8_t*)buf,8);
+        }
         
         uart1_write((RFBuffer+4),len);
         uart1_write_string("\r\n"); 
@@ -69,7 +77,7 @@ void main(void)
                 USART_StopBits_1,
                 USART_Parity_No,
                 (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
-    uart1_write_cstring(info);
+    uart1_write_string((uint8_t *)info);
     LoadConfig();
     SX1278Init();
    
@@ -97,6 +105,11 @@ void main(void)
            // gpio_pb0_toggle();
             break;
         case RF_TX_DONE:
+            if(at_state == at_statTransportSending)
+            {
+              at_state = at_statTransportIdle;
+             break;
+           }
             //RFLRState = RFLR_STATE_RX_INIT;
             //SX1278SetRFState(RFLR_STATE_RX_INIT);
             //uart1_write_string("TX done\n");
