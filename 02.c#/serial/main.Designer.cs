@@ -97,6 +97,7 @@
             this.cbRXSingle = new System.Windows.Forms.ComboBox();
             this.btnSettings = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnRX = new System.Windows.Forms.Button();
             this.btnIDLE = new System.Windows.Forms.Button();
@@ -135,7 +136,9 @@
             this.btnACK = new System.Windows.Forms.Button();
             this.tbACK = new System.Windows.Forms.TextBox();
             this.cbLiangChan = new System.Windows.Forms.CheckBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.tbAddrEn = new System.Windows.Forms.TextBox();
+            this.btnAddrEn = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -877,6 +880,16 @@
             this.panel1.Size = new System.Drawing.Size(321, 381);
             this.panel1.TabIndex = 86;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(213, 204);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(86, 23);
+            this.button3.TabIndex = 105;
+            this.button3.Text = "TSP";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(14, 355);
@@ -1235,21 +1248,42 @@
             this.cbLiangChan.UseVisualStyleBackColor = true;
             this.cbLiangChan.CheckedChanged += new System.EventHandler(this.cbLiangChan_CheckedChanged);
             // 
-            // button3
+            // tbAddrEn
             // 
-            this.button3.Location = new System.Drawing.Point(213, 204);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(86, 23);
-            this.button3.TabIndex = 105;
-            this.button3.Text = "TSP";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.tbAddrEn.Location = new System.Drawing.Point(647, 452);
+            this.tbAddrEn.Name = "tbAddrEn";
+            this.tbAddrEn.Size = new System.Drawing.Size(40, 21);
+            this.tbAddrEn.TabIndex = 116;
+            this.tbAddrEn.Text = "1";
+            // 
+            // btnAddrEn
+            // 
+            this.btnAddrEn.Location = new System.Drawing.Point(555, 450);
+            this.btnAddrEn.Name = "btnAddrEn";
+            this.btnAddrEn.Size = new System.Drawing.Size(86, 23);
+            this.btnAddrEn.TabIndex = 115;
+            this.btnAddrEn.Text = "ADDREN";
+            this.btnAddrEn.UseVisualStyleBackColor = true;
+            this.btnAddrEn.Click += new System.EventHandler(this.btnAddrEn_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(723, 428);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(86, 23);
+            this.button4.TabIndex = 117;
+            this.button4.Text = "+++";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 499);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.tbAddrEn);
+            this.Controls.Add(this.btnAddrEn);
             this.Controls.Add(this.cbLiangChan);
             this.Controls.Add(this.tbACK);
             this.Controls.Add(this.btnACK);
@@ -1439,6 +1473,9 @@
         private System.Windows.Forms.TextBox tbACK;
         private System.Windows.Forms.CheckBox cbLiangChan;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox tbAddrEn;
+        private System.Windows.Forms.Button btnAddrEn;
+        private System.Windows.Forms.Button button4;
     }
 }
 

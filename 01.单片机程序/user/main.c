@@ -13,9 +13,7 @@ uint32_t ack_on_time;
 extern uint8_t RFBuffer[];
 extern uint8_t RxPacketSize;
 
-extern AtMode_t at_mode ;
 extern at_stateType  at_state;
-
 
 void ForwardPacket()
 {
@@ -31,8 +29,11 @@ void ForwardPacket()
     
     destAddr.byte[0] = *(RFBuffer+2);
     destAddr.byte[1] = *(RFBuffer+3);
-    if(LoRaAddr == destAddr.val || destAddr.val == 0xffff || LoRaAddr == 0xffff)
+    if(AddrEnable == 1)
     {
+      
+      if(LoRaAddr == destAddr.val || destAddr.val == 0xffff || LoRaAddr == 0xffff)
+      {
         if(ack_on == 1)
         {
             TIM3->CCER1 &= ~TIM_CCER1_CC2E;//输出使能
@@ -42,24 +43,37 @@ void ForwardPacket()
             GPIOD->ODR |= GPIO_Pin_0;
             ack_on_time = millis();
         }
-        if(at_mode == AtModeCMD)
-        {
-          uart1_write_string("LR,");
-          buf[0] = D2C((sourceAddr.val&0xF000) >> 12);
-          buf[1] = D2C((sourceAddr.val&0x0F00) >> 8);
-          buf[2] = D2C((sourceAddr.val&0x00F0) >> 4);
-          buf[3] = D2C((sourceAddr.val&0x000F) >> 0);
-          buf[4] = ',';
-          buf[5] = D2C((len&0xF0) >> 4);
-          buf[6] = D2C((len&0x0F) >> 0);
-          buf[7] = ',';
-
-          uart1_write((uint8_t*)buf,8);
-        }
         
-        uart1_write((RFBuffer+4),len);
-        uart1_write_string("\r\n"); 
-    }
+        uart1_write_string("LR,");
+        buf[0] = D2C((sourceAddr.val&0xF000) >> 12);
+        buf[1] = D2C((sourceAddr.val&0x0F00) >> 8);
+        buf[2] = D2C((sourceAddr.val&0x00F0) >> 4);
+        buf[3] = D2C((sourceAddr.val&0x000F) >> 0);
+        buf[4] = ',';
+        buf[5] = D2C((len&0xF0) >> 4);
+        buf[6] = D2C((len&0x0F) >> 0);
+        buf[7] = ',';
+
+        uart1_write((uint8_t*)buf,8);
+          
+          
+          uart1_write((RFBuffer+4),len);
+          uart1_write_string("\r\n"); 
+        }
+      }
+      else
+      {
+        if(ack_on == 1)
+        {
+            TIM3->CCER1 &= ~TIM_CCER1_CC2E;//输出使能
+            CLK->PCKENR1 &= ~CLK_PCKENR1_TIM3;//关闭定时器PWM输出
+            GPIOD->DDR |= GPIO_Pin_0;//OUTPUT
+            GPIOD->CR1 |= GPIO_Pin_0;//PP
+            GPIOD->ODR |= GPIO_Pin_0;
+            ack_on_time = millis();
+        }
+        uart1_write((RFBuffer),len);
+      }
 
 
 
@@ -80,8 +94,9 @@ void main(void)
     uart1_write_string((uint8_t *)info);
     LoadConfig();
     SX1278Init();
-   
+    SX1278SetRFState(RFLR_STATE_RX_INIT);
 
+    at_state = at_statTransportIdle;
     while (1)
     {
         switch( SX1278Process( ) )
@@ -107,8 +122,9 @@ void main(void)
         case RF_TX_DONE:
             if(at_state == at_statTransportSending)
             {
-              at_state = at_statTransportIdle;
-             break;
+
+                  at_state = at_statTransportIdle;
+                  break;
            }
             //RFLRState = RFLR_STATE_RX_INIT;
             //SX1278SetRFState(RFLR_STATE_RX_INIT);

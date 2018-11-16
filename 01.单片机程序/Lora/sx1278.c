@@ -27,6 +27,7 @@ int RxPacketRssiValue;
 
 uint16_t LoRaAddr = 0xffff;
 uint16_t DestAddr = 0xffff;
+uint8_t AddrEnable = 0;
 
 Packet_t LoRaPacket;
 // Default settings
@@ -75,6 +76,7 @@ uint8_t SaveConfig()
     EEPROM_Write(4,(uint8_t *)&ack_on,sizeof(ack_on));
     EEPROM_Write(64,(uint8_t *)&LoRaAddr,sizeof(LoRaAddr));
     EEPROM_Write(68,(uint8_t *)&DestAddr,sizeof(DestAddr));
+    EEPROM_Write(100,(uint8_t *)&AddrEnable,sizeof(AddrEnable));
     EEPROM_Write(128, (uint8_t *)&LoRaSettings,sizeof(LoRaSettings));
     return 1;
 }
@@ -87,7 +89,9 @@ uint8_t LoadConfig()
         EEPROM_Read(4,(uint8_t *)&ack_on,sizeof(ack_on));
         EEPROM_Read(64,(uint8_t *)&LoRaAddr,sizeof(LoRaAddr));
         EEPROM_Read(68,(uint8_t *)&DestAddr,sizeof(DestAddr));
+        EEPROM_Read(100,(uint8_t *)&AddrEnable,sizeof(AddrEnable));
         EEPROM_Read(128, (uint8_t *)&LoRaSettings,sizeof(LoRaSettings));
+
         return 1;
     }
     else
@@ -314,13 +318,22 @@ void SX1278SetTxPacket(Packet_t* packet)
     }
     else
     {
-        TxPacketSize = packet->len ;
+        TxPacketSize = packet->len  ;
     }
-    *p++ =packet->source.byte[0];
-    *p++ =packet->source.byte[1];
-    *p++ =packet->destination.byte[0];
-    *p++ =packet->destination.byte[1];
-    memcpy( ( void * )(RFBuffer + 4), packet->data, ( size_t )(TxPacketSize - 4 ) ); 
+    if(AddrEnable == 1)
+    {
+      *p++ =packet->source.byte[0];
+      *p++ =packet->source.byte[1];
+      *p++ =packet->destination.byte[0];
+      *p++ =packet->destination.byte[1];
+
+      memcpy( ( void * )(RFBuffer + 4), packet->data, ( size_t )(TxPacketSize -4 ) ); 
+    }
+    else
+    {
+      memcpy( ( void * )(RFBuffer ), packet->data, ( size_t )(TxPacketSize ) ); 
+    }
+
     RFLRState = RFLR_STATE_TX_INIT;
 }
 

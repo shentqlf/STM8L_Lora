@@ -13,6 +13,7 @@ at_funcationType at_fun[at_cmdNum]={
 {"+CFG",        4,  at_CmdConfig,   },
 {"+ADDR",       5,  at_CmdAddr,     },
 {"+DEST",       5,  at_CmdDestAddr, },
+{"+ADDREN",     7,  at_CmdAddrEnable,},
 {"+SAVE",       5,  at_CmdSaveConfig,   },
 {"+RX",         3,  at_CmdRxMode,   },
 {"+SEND",       5,  at_CmdSend,     },

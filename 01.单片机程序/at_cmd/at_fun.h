@@ -18,6 +18,7 @@ void at_CmdIdle(char *pPara);
 void at_CmdConfig(char *pPara);
 void at_CmdAddr(char *pPara);
 void at_CmdDestAddr(char *pPara);
+void at_CmdAddrEnable(char *pPara);
 void at_CmdSaveConfig(char *pPara);
 void at_CmdRxMode(char *pPara);
 void at_CmdSend(char *pPara);

@@ -6,7 +6,6 @@
 #include "low_power.h"
 
 
-extern AtMode_t at_mode ;
 extern at_stateType  at_state;
 
 bool CheckPara(char *pPara)
@@ -298,6 +297,35 @@ void at_CmdDestAddr(char *pPara)
     }
     at_state = at_statIdle;
 }
+
+void at_CmdAddrEnable(char *pPara)
+{
+
+    uint8_t buf[8];
+
+    if(*pPara == '=')
+    {
+        AddrEnable = getPara(&pPara,10);
+        if(AddrEnable != 0 && AddrEnable != 1)
+            at_back(AT_ERR_PARA_ID);
+        else
+            at_back(AT_ERR_OK_ID);
+    }
+    else if(*pPara == '?')
+    {
+        
+        buf[0] = D2C(AddrEnable);
+        buf[1] = 0;
+        
+        //len = digital2HexString(LoRaAddr,buf);
+        at_back_para_ok(buf);
+    }
+    else
+    {
+        at_back(AT_ERR_SYMBLE_ID);
+    }
+    at_state = at_statIdle;
+}
 void at_CmdSaveConfig(char *pPara)
 {
     SaveConfig();
@@ -391,9 +419,8 @@ void at_CmdAck(char *pPara)
 
 void at_CmdTransport(char *pPara)
 {
-    at_mode = AtModeTransport;
-    at_back_para_ok("+++");
     at_state = at_statTransportIdle;
+    at_back_para_ok("+++");
 }
 #if USE_IO
 

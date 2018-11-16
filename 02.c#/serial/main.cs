@@ -1186,6 +1186,28 @@ namespace serial
             tsLoRaCMD.Text = str;
         }
 
+        private void btnAddrEn_Click(object sender, EventArgs e)
+        {
+            byte[] buf = new byte[256];
+            string str = "AT+ADDREN=" + tbAddrEn.Text +  "\r\n";
+
+            for (int i = 0; i < str.Length; i++)
+                buf[i] = Convert.ToByte(str[i]);
+            sp1.Write(buf, 0, str.Length);
+            tsLoRaCMD.Text = str;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            byte[] buf = new byte[256];
+            string str = "+++";
+
+            for (int i = 0; i < str.Length; i++)
+                buf[i] = Convert.ToByte(str[i]);
+            sp1.Write(buf, 0, str.Length);
+            tsLoRaCMD.Text = str;
+        }
+
 
 
 

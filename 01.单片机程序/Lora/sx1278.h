@@ -159,6 +159,7 @@ typedef struct
 extern tLoRaSettings LoRaSettings;
 extern int RxPacketRssiValue;
 extern uint16_t LoRaAddr,DestAddr;
+extern uint8_t AddrEnable ;
 extern Packet_t LoRaPacket;
 
 void SX1278Init();
