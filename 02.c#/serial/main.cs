@@ -21,6 +21,8 @@ namespace serial
 
         int ReadAddFlag = 0;
         int ReadDestAddrFlag = 0;
+        int ReadACKFlag = 0;
+        int ReadAddrEnableFlag = 0;
         int ReadConfig = 0;
 
 
@@ -89,6 +91,8 @@ namespace serial
             t2 = new Thread(new ThreadStart(serialRecv));
             t2.Start();
 
+
+
         }
         #endregion
 
@@ -104,9 +108,7 @@ namespace serial
             btnRestart.Enabled = true;
             btnTest.Enabled = true;
             btnReadVersion.Enabled = true;
-            gbPB0.Enabled = true;
-            gbPD0.Enabled = true;
-            gbPC4.Enabled = true;
+
             btnAddr.Enabled = true;
             btnReadAddr.Enabled = true;
             btnSleep.Enabled = true;
@@ -119,8 +121,13 @@ namespace serial
             btnLoRaSendLength.Enabled = true;
             btnReadRSSI.Enabled = true;
             btnRX.Enabled = true;
-            btnPWM1.Enabled = true;
-            btnPWM2.Enabled = true;
+            btnACK.Enabled = true;
+            btnAddrEn.Enabled = true;
+            btnReadACK.Enabled = true;
+            btnReadAddrEnable.Enabled = true;
+            btnTransportIn.Enabled = true;
+            btnTransportOut.Enabled = true;
+            btnSaveParament.Enabled = true;
             
             cbAutoSend.Enabled = true;
 
@@ -139,9 +146,7 @@ namespace serial
             btnRestart.Enabled = false;
             btnTest.Enabled = false;
             btnReadVersion.Enabled = false;
-            gbPB0.Enabled = false;
-            gbPD0.Enabled = false;
-            gbPC4.Enabled = false;
+
             btnAddr.Enabled = false;
             btnReadAddr.Enabled = false;
             btnSleep.Enabled = false;
@@ -155,8 +160,13 @@ namespace serial
             btnStopDownload.Enabled = false;
             btnReadRSSI.Enabled = false;
             btnRX.Enabled = false;
-            btnPWM1.Enabled = false;
-            btnPWM2.Enabled = false;
+            btnACK.Enabled = false;
+            btnAddrEn.Enabled = false;
+            btnReadACK.Enabled = false;
+            btnReadAddrEnable.Enabled = false;
+            btnTransportIn.Enabled = false;
+            btnTransportOut.Enabled = false;
+            btnSaveParament.Enabled = false;
             cbAutoSend.Enabled = false;
 
             cbBaudRate.Enabled = true;
@@ -603,6 +613,8 @@ namespace serial
                                 //updataConfig(recData[i]);
                                 updataAddr(recData[i]);
                                 updataDestAddr(recData[i]);
+                                updataACK(recData[i]);
+                                updataAddrEnable(recData[i]);
 
                             }
                             txtRecvChar.Text = RecvString;
@@ -715,6 +727,38 @@ namespace serial
                 tbDestAddr.Text = str;
             }
         }
+        void updataACK(byte ch)
+        {
+            if (ReadACKFlag == 0) return;
+            if (ch != '\r')
+            {
+                config[cmdByteCount++] = ch;
+            }
+            else
+            {
+                ReadACKFlag = 0;
+                cmdByteCount = 0;
+                string str = System.Text.Encoding.Default.GetString(config);
+                str = str.Substring(3, 1);
+                tbACK.Text = str;
+            }
+        }
+        void updataAddrEnable(byte ch)
+        {
+            if (ReadAddrEnableFlag == 0) return;
+            if (ch != '\r')
+            {
+                config[cmdByteCount++] = ch;
+            }
+            else
+            {
+                ReadAddrEnableFlag = 0;
+                cmdByteCount = 0;
+                string str = System.Text.Encoding.Default.GetString(config);
+                str = str.Substring(3, 1);
+                tbAddrEnable.Text = str;
+            }
+        }
         #endregion
         #region LoRa命令测试功能
         private void ParamentLoad()
@@ -722,7 +766,7 @@ namespace serial
             tbPFrq.Text = "433000000";
             tbPPower.Text = "20";
             tbPBW.Text = "6";
-            tbPSF.Text = "10";
+            tbPSF.Text = "7";
             tbPER.Text = "1";
             cbCRC.Items.Add("TRUE");
             cbCRC.Items.Add("FALSE");
@@ -955,6 +999,8 @@ namespace serial
 
         private void btnReadAddr_Click(object sender, EventArgs e)
         {
+
+
             byte[] buf = new byte[256];
             string str = "AT+ADDR?\r\n";
 
@@ -987,6 +1033,33 @@ namespace serial
             tsLoRaCMD.Text = str;
             
         }
+        private void btnReadACK_Click(object sender, EventArgs e)
+        {
+            byte[] buf = new byte[256];
+            string str = "AT+ACK?\r\n";
+
+            for (int i = 0; i < str.Length; i++)
+                buf[i] = Convert.ToByte(str[i]);
+            sp1.Write(buf, 0, str.Length);
+            tsLoRaCMD.Text = str;
+
+
+            ReadACKFlag = 1;
+        }
+        private void btnReadAddrEnable_Click(object sender, EventArgs e)
+        {
+            byte[] buf = new byte[256];
+            string str = "AT+ADDREN?\r\n";
+
+            for (int i = 0; i < str.Length; i++)
+                buf[i] = Convert.ToByte(str[i]);
+            sp1.Write(buf, 0, str.Length);
+            tsLoRaCMD.Text = str;
+
+
+            ReadAddrEnableFlag = 1;
+        }
+
         private void btnReadDestAddr_Click(object sender, EventArgs e)
         {
             byte[] buf = new byte[256];
@@ -1019,27 +1092,8 @@ namespace serial
             tsLoRaCMD.Text = str;
         }
 
-        private void btnPWM1_Click(object sender, EventArgs e)
-        {
-            byte[] buf = new byte[256];
-            string str = "AT+PWM1=" + tbPWM1Prescaler.Text + "," + tbPWM1Peroid.Text + "," + tbPWM1Pulse.Text + "\r\n";
 
-            for (int i = 0; i < str.Length; i++)
-                buf[i] = Convert.ToByte(str[i]);
-            sp1.Write(buf, 0, str.Length);
-            tsLoRaCMD.Text = str;
-        }
 
-        private void tbnPWM2_Click(object sender, EventArgs e)
-        {
-            byte[] buf = new byte[256];
-            string str = "AT+PWM2=" + tbPWM2Prescaler.Text + "," + tbPWM2Peroid.Text + "," + tbPWM2Pulse.Text + "\r\n";
-
-            for (int i = 0; i < str.Length; i++)
-                buf[i] = Convert.ToByte(str[i]);
-            sp1.Write(buf, 0, str.Length);
-            tsLoRaCMD.Text = str;
-        }
         private void btnACK_Click(object sender, EventArgs e)
         {
             byte[] buf = new byte[256];
@@ -1189,7 +1243,7 @@ namespace serial
         private void btnAddrEn_Click(object sender, EventArgs e)
         {
             byte[] buf = new byte[256];
-            string str = "AT+ADDREN=" + tbAddrEn.Text +  "\r\n";
+            string str = "AT+ADDREN=" + tbAddrEnable.Text +  "\r\n";
 
             for (int i = 0; i < str.Length; i++)
                 buf[i] = Convert.ToByte(str[i]);
@@ -1207,6 +1261,8 @@ namespace serial
             sp1.Write(buf, 0, str.Length);
             tsLoRaCMD.Text = str;
         }
+
+
 
 
 

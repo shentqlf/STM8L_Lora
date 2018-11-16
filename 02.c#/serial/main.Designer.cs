@@ -61,12 +61,6 @@
             this.btnReadVersion = new System.Windows.Forms.Button();
             this.btnTest = new System.Windows.Forms.Button();
             this.cbEnter = new System.Windows.Forms.CheckBox();
-            this.PB0_SET = new System.Windows.Forms.RadioButton();
-            this.PB0_CLR = new System.Windows.Forms.RadioButton();
-            this.gbPB0 = new System.Windows.Forms.GroupBox();
-            this.gbPD0 = new System.Windows.Forms.GroupBox();
-            this.PD0_SET = new System.Windows.Forms.RadioButton();
-            this.PD0_CLR = new System.Windows.Forms.RadioButton();
             this.tbFileSize = new System.Windows.Forms.TextBox();
             this.btnRestart = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -97,16 +91,14 @@
             this.cbRXSingle = new System.Windows.Forms.ComboBox();
             this.btnSettings = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnTransportIn = new System.Windows.Forms.Button();
+            this.btnSaveParament = new System.Windows.Forms.Button();
+            this.btnTransportOut = new System.Windows.Forms.Button();
             this.btnRX = new System.Windows.Forms.Button();
             this.btnIDLE = new System.Windows.Forms.Button();
             this.btnReadRSSI = new System.Windows.Forms.Button();
             this.btnReadConfig = new System.Windows.Forms.Button();
             this.btnSleep = new System.Windows.Forms.Button();
-            this.gbPC4 = new System.Windows.Forms.GroupBox();
-            this.PC4_SET = new System.Windows.Forms.RadioButton();
-            this.PC4_CLR = new System.Windows.Forms.RadioButton();
             this.tbSendGapTime = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.cbAutoSend = new System.Windows.Forms.CheckBox();
@@ -125,30 +117,20 @@
             this.label22 = new System.Windows.Forms.Label();
             this.btnStopDownload = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnPWM1 = new System.Windows.Forms.Button();
-            this.tbPWM1Prescaler = new System.Windows.Forms.TextBox();
-            this.tbPWM1Peroid = new System.Windows.Forms.TextBox();
-            this.tbPWM1Pulse = new System.Windows.Forms.TextBox();
-            this.tbPWM2Pulse = new System.Windows.Forms.TextBox();
-            this.tbPWM2Peroid = new System.Windows.Forms.TextBox();
-            this.tbPWM2Prescaler = new System.Windows.Forms.TextBox();
-            this.btnPWM2 = new System.Windows.Forms.Button();
             this.btnACK = new System.Windows.Forms.Button();
             this.tbACK = new System.Windows.Forms.TextBox();
             this.cbLiangChan = new System.Windows.Forms.CheckBox();
-            this.tbAddrEn = new System.Windows.Forms.TextBox();
+            this.tbAddrEnable = new System.Windows.Forms.TextBox();
             this.btnAddrEn = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnReadAddrEnable = new System.Windows.Forms.Button();
+            this.btnReadACK = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.gbPB0.SuspendLayout();
-            this.gbPD0.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.gbPC4.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbBaudRate
@@ -518,78 +500,6 @@
             this.cbEnter.Text = "加回车换行";
             this.cbEnter.UseVisualStyleBackColor = true;
             // 
-            // PB0_SET
-            // 
-            this.PB0_SET.AutoSize = true;
-            this.PB0_SET.Location = new System.Drawing.Point(6, 20);
-            this.PB0_SET.Name = "PB0_SET";
-            this.PB0_SET.Size = new System.Drawing.Size(41, 16);
-            this.PB0_SET.TabIndex = 48;
-            this.PB0_SET.TabStop = true;
-            this.PB0_SET.Text = "SET";
-            this.PB0_SET.UseVisualStyleBackColor = true;
-            this.PB0_SET.Click += new System.EventHandler(this.RadioBtnPB0_Click);
-            // 
-            // PB0_CLR
-            // 
-            this.PB0_CLR.AutoSize = true;
-            this.PB0_CLR.Checked = true;
-            this.PB0_CLR.Location = new System.Drawing.Point(53, 20);
-            this.PB0_CLR.Name = "PB0_CLR";
-            this.PB0_CLR.Size = new System.Drawing.Size(41, 16);
-            this.PB0_CLR.TabIndex = 49;
-            this.PB0_CLR.TabStop = true;
-            this.PB0_CLR.Text = "CLR";
-            this.PB0_CLR.UseVisualStyleBackColor = true;
-            this.PB0_CLR.Click += new System.EventHandler(this.RadioBtnPB0_Click);
-            // 
-            // gbPB0
-            // 
-            this.gbPB0.Controls.Add(this.PB0_SET);
-            this.gbPB0.Controls.Add(this.PB0_CLR);
-            this.gbPB0.Location = new System.Drawing.Point(213, 228);
-            this.gbPB0.Name = "gbPB0";
-            this.gbPB0.Size = new System.Drawing.Size(102, 44);
-            this.gbPB0.TabIndex = 50;
-            this.gbPB0.TabStop = false;
-            this.gbPB0.Text = "PB0";
-            // 
-            // gbPD0
-            // 
-            this.gbPD0.Controls.Add(this.PD0_SET);
-            this.gbPD0.Controls.Add(this.PD0_CLR);
-            this.gbPD0.Location = new System.Drawing.Point(213, 281);
-            this.gbPD0.Name = "gbPD0";
-            this.gbPD0.Size = new System.Drawing.Size(102, 44);
-            this.gbPD0.TabIndex = 51;
-            this.gbPD0.TabStop = false;
-            this.gbPD0.Text = "PD0";
-            // 
-            // PD0_SET
-            // 
-            this.PD0_SET.AutoSize = true;
-            this.PD0_SET.Location = new System.Drawing.Point(6, 20);
-            this.PD0_SET.Name = "PD0_SET";
-            this.PD0_SET.Size = new System.Drawing.Size(41, 16);
-            this.PD0_SET.TabIndex = 48;
-            this.PD0_SET.TabStop = true;
-            this.PD0_SET.Text = "SET";
-            this.PD0_SET.UseVisualStyleBackColor = true;
-            this.PD0_SET.Click += new System.EventHandler(this.RadioBtnPD0_Click);
-            // 
-            // PD0_CLR
-            // 
-            this.PD0_CLR.AutoSize = true;
-            this.PD0_CLR.Checked = true;
-            this.PD0_CLR.Location = new System.Drawing.Point(53, 20);
-            this.PD0_CLR.Name = "PD0_CLR";
-            this.PD0_CLR.Size = new System.Drawing.Size(41, 16);
-            this.PD0_CLR.TabIndex = 49;
-            this.PD0_CLR.TabStop = true;
-            this.PD0_CLR.Text = "CLR";
-            this.PD0_CLR.UseVisualStyleBackColor = true;
-            this.PD0_CLR.Click += new System.EventHandler(this.RadioBtnPD0_Click);
-            // 
             // tbFileSize
             // 
             this.tbFileSize.Location = new System.Drawing.Point(214, 189);
@@ -835,19 +745,17 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnTransportIn);
+            this.panel1.Controls.Add(this.btnSaveParament);
+            this.panel1.Controls.Add(this.btnTransportOut);
             this.panel1.Controls.Add(this.btnRX);
             this.panel1.Controls.Add(this.btnIDLE);
             this.panel1.Controls.Add(this.btnReadRSSI);
             this.panel1.Controls.Add(this.btnReadConfig);
             this.panel1.Controls.Add(this.btnSleep);
-            this.panel1.Controls.Add(this.gbPC4);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.btnSettings);
             this.panel1.Controls.Add(this.btnReadVersion);
-            this.panel1.Controls.Add(this.gbPB0);
-            this.panel1.Controls.Add(this.gbPD0);
             this.panel1.Controls.Add(this.cbHop);
             this.panel1.Controls.Add(this.btnTest);
             this.panel1.Controls.Add(this.cbRXSingle);
@@ -880,25 +788,35 @@
             this.panel1.Size = new System.Drawing.Size(321, 381);
             this.panel1.TabIndex = 86;
             // 
-            // button3
+            // btnTransportIn
             // 
-            this.button3.Location = new System.Drawing.Point(213, 204);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(86, 23);
-            this.button3.TabIndex = 105;
-            this.button3.Text = "TSP";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnTransportIn.Location = new System.Drawing.Point(213, 204);
+            this.btnTransportIn.Name = "btnTransportIn";
+            this.btnTransportIn.Size = new System.Drawing.Size(86, 23);
+            this.btnTransportIn.TabIndex = 105;
+            this.btnTransportIn.Text = "TSP";
+            this.btnTransportIn.UseVisualStyleBackColor = true;
+            this.btnTransportIn.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button1
+            // btnSaveParament
             // 
-            this.button1.Location = new System.Drawing.Point(14, 355);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 104;
-            this.button1.Text = "保存";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSaveParament.Location = new System.Drawing.Point(14, 355);
+            this.btnSaveParament.Name = "btnSaveParament";
+            this.btnSaveParament.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveParament.TabIndex = 104;
+            this.btnSaveParament.Text = "保存";
+            this.btnSaveParament.UseVisualStyleBackColor = true;
+            this.btnSaveParament.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnTransportOut
+            // 
+            this.btnTransportOut.Location = new System.Drawing.Point(213, 234);
+            this.btnTransportOut.Name = "btnTransportOut";
+            this.btnTransportOut.Size = new System.Drawing.Size(86, 23);
+            this.btnTransportOut.TabIndex = 117;
+            this.btnTransportOut.Text = "+++";
+            this.btnTransportOut.UseVisualStyleBackColor = true;
+            this.btnTransportOut.Click += new System.EventHandler(this.button4_Click);
             // 
             // btnRX
             // 
@@ -950,45 +868,9 @@
             this.btnSleep.UseVisualStyleBackColor = true;
             this.btnSleep.Click += new System.EventHandler(this.btnSleep_Click);
             // 
-            // gbPC4
-            // 
-            this.gbPC4.Controls.Add(this.PC4_SET);
-            this.gbPC4.Controls.Add(this.PC4_CLR);
-            this.gbPC4.Location = new System.Drawing.Point(213, 335);
-            this.gbPC4.Name = "gbPC4";
-            this.gbPC4.Size = new System.Drawing.Size(102, 44);
-            this.gbPC4.TabIndex = 87;
-            this.gbPC4.TabStop = false;
-            this.gbPC4.Text = "PC4";
-            // 
-            // PC4_SET
-            // 
-            this.PC4_SET.AutoSize = true;
-            this.PC4_SET.Location = new System.Drawing.Point(6, 20);
-            this.PC4_SET.Name = "PC4_SET";
-            this.PC4_SET.Size = new System.Drawing.Size(41, 16);
-            this.PC4_SET.TabIndex = 48;
-            this.PC4_SET.TabStop = true;
-            this.PC4_SET.Text = "SET";
-            this.PC4_SET.UseVisualStyleBackColor = true;
-            this.PC4_SET.Click += new System.EventHandler(this.RadioBtnPC4_Click);
-            // 
-            // PC4_CLR
-            // 
-            this.PC4_CLR.AutoSize = true;
-            this.PC4_CLR.Checked = true;
-            this.PC4_CLR.Location = new System.Drawing.Point(53, 18);
-            this.PC4_CLR.Name = "PC4_CLR";
-            this.PC4_CLR.Size = new System.Drawing.Size(41, 16);
-            this.PC4_CLR.TabIndex = 49;
-            this.PC4_CLR.TabStop = true;
-            this.PC4_CLR.Text = "CLR";
-            this.PC4_CLR.UseVisualStyleBackColor = true;
-            this.PC4_CLR.Click += new System.EventHandler(this.RadioBtnPC4_Click);
-            // 
             // tbSendGapTime
             // 
-            this.tbSendGapTime.Location = new System.Drawing.Point(88, 423);
+            this.tbSendGapTime.Location = new System.Drawing.Point(87, 447);
             this.tbSendGapTime.Name = "tbSendGapTime";
             this.tbSendGapTime.Size = new System.Drawing.Size(78, 21);
             this.tbSendGapTime.TabIndex = 103;
@@ -998,7 +880,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(17, 426);
+            this.label23.Location = new System.Drawing.Point(16, 450);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(65, 12);
             this.label23.TabIndex = 104;
@@ -1007,7 +889,7 @@
             // cbAutoSend
             // 
             this.cbAutoSend.AutoSize = true;
-            this.cbAutoSend.Location = new System.Drawing.Point(172, 427);
+            this.cbAutoSend.Location = new System.Drawing.Point(171, 451);
             this.cbAutoSend.Name = "cbAutoSend";
             this.cbAutoSend.Size = new System.Drawing.Size(72, 16);
             this.cbAutoSend.TabIndex = 100;
@@ -1017,7 +899,7 @@
             // 
             // tbLoRaSendLength
             // 
-            this.tbLoRaSendLength.Location = new System.Drawing.Point(89, 331);
+            this.tbLoRaSendLength.Location = new System.Drawing.Point(106, 356);
             this.tbLoRaSendLength.Name = "tbLoRaSendLength";
             this.tbLoRaSendLength.Size = new System.Drawing.Size(100, 21);
             this.tbLoRaSendLength.TabIndex = 99;
@@ -1025,7 +907,7 @@
             // 
             // btnLoRaSendLength
             // 
-            this.btnLoRaSendLength.Location = new System.Drawing.Point(8, 330);
+            this.btnLoRaSendLength.Location = new System.Drawing.Point(7, 354);
             this.btnLoRaSendLength.Name = "btnLoRaSendLength";
             this.btnLoRaSendLength.Size = new System.Drawing.Size(75, 23);
             this.btnLoRaSendLength.TabIndex = 98;
@@ -1035,7 +917,7 @@
             // 
             // tbLoRa
             // 
-            this.tbLoRa.Location = new System.Drawing.Point(88, 361);
+            this.tbLoRa.Location = new System.Drawing.Point(87, 385);
             this.tbLoRa.Multiline = true;
             this.tbLoRa.Name = "tbLoRa";
             this.tbLoRa.Size = new System.Drawing.Size(202, 56);
@@ -1044,7 +926,7 @@
             // 
             // btnLoRaSendData
             // 
-            this.btnLoRaSendData.Location = new System.Drawing.Point(7, 359);
+            this.btnLoRaSendData.Location = new System.Drawing.Point(6, 383);
             this.btnLoRaSendData.Name = "btnLoRaSendData";
             this.btnLoRaSendData.Size = new System.Drawing.Size(75, 23);
             this.btnLoRaSendData.TabIndex = 88;
@@ -1054,7 +936,7 @@
             // 
             // btnReadDestAddr
             // 
-            this.btnReadDestAddr.Location = new System.Drawing.Point(212, 302);
+            this.btnReadDestAddr.Location = new System.Drawing.Point(214, 329);
             this.btnReadDestAddr.Name = "btnReadDestAddr";
             this.btnReadDestAddr.Size = new System.Drawing.Size(57, 19);
             this.btnReadDestAddr.TabIndex = 97;
@@ -1064,7 +946,7 @@
             // 
             // tbDestAddr
             // 
-            this.tbDestAddr.Location = new System.Drawing.Point(106, 301);
+            this.tbDestAddr.Location = new System.Drawing.Point(106, 328);
             this.tbDestAddr.Name = "tbDestAddr";
             this.tbDestAddr.Size = new System.Drawing.Size(100, 21);
             this.tbDestAddr.TabIndex = 96;
@@ -1072,7 +954,7 @@
             // 
             // btnDestAddr
             // 
-            this.btnDestAddr.Location = new System.Drawing.Point(7, 301);
+            this.btnDestAddr.Location = new System.Drawing.Point(7, 328);
             this.btnDestAddr.Name = "btnDestAddr";
             this.btnDestAddr.Size = new System.Drawing.Size(75, 23);
             this.btnDestAddr.TabIndex = 95;
@@ -1082,7 +964,7 @@
             // 
             // btnReadAddr
             // 
-            this.btnReadAddr.Location = new System.Drawing.Point(212, 272);
+            this.btnReadAddr.Location = new System.Drawing.Point(214, 299);
             this.btnReadAddr.Name = "btnReadAddr";
             this.btnReadAddr.Size = new System.Drawing.Size(57, 20);
             this.btnReadAddr.TabIndex = 93;
@@ -1092,7 +974,7 @@
             // 
             // btnAddr
             // 
-            this.btnAddr.Location = new System.Drawing.Point(7, 270);
+            this.btnAddr.Location = new System.Drawing.Point(7, 297);
             this.btnAddr.Name = "btnAddr";
             this.btnAddr.Size = new System.Drawing.Size(75, 23);
             this.btnAddr.TabIndex = 90;
@@ -1102,7 +984,7 @@
             // 
             // tbAddr
             // 
-            this.tbAddr.Location = new System.Drawing.Point(106, 270);
+            this.tbAddr.Location = new System.Drawing.Point(106, 297);
             this.tbAddr.Name = "tbAddr";
             this.tbAddr.Size = new System.Drawing.Size(100, 21);
             this.tbAddr.TabIndex = 91;
@@ -1112,7 +994,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label20.Location = new System.Drawing.Point(83, 270);
+            this.label20.Location = new System.Drawing.Point(83, 297);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(24, 16);
             this.label20.TabIndex = 92;
@@ -1122,7 +1004,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label21.Location = new System.Drawing.Point(83, 300);
+            this.label21.Location = new System.Drawing.Point(83, 327);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(0, 16);
             this.label21.TabIndex = 95;
@@ -1131,7 +1013,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label22.Location = new System.Drawing.Point(83, 304);
+            this.label22.Location = new System.Drawing.Point(83, 331);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(24, 16);
             this.label22.TabIndex = 97;
@@ -1151,79 +1033,11 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btnPWM1
-            // 
-            this.btnPWM1.Location = new System.Drawing.Point(299, 425);
-            this.btnPWM1.Name = "btnPWM1";
-            this.btnPWM1.Size = new System.Drawing.Size(75, 23);
-            this.btnPWM1.TabIndex = 105;
-            this.btnPWM1.Text = "PWM1";
-            this.btnPWM1.UseVisualStyleBackColor = true;
-            this.btnPWM1.Click += new System.EventHandler(this.btnPWM1_Click);
-            // 
-            // tbPWM1Prescaler
-            // 
-            this.tbPWM1Prescaler.Location = new System.Drawing.Point(380, 426);
-            this.tbPWM1Prescaler.Name = "tbPWM1Prescaler";
-            this.tbPWM1Prescaler.Size = new System.Drawing.Size(40, 21);
-            this.tbPWM1Prescaler.TabIndex = 106;
-            this.tbPWM1Prescaler.Text = "1";
-            // 
-            // tbPWM1Peroid
-            // 
-            this.tbPWM1Peroid.Location = new System.Drawing.Point(426, 426);
-            this.tbPWM1Peroid.Name = "tbPWM1Peroid";
-            this.tbPWM1Peroid.Size = new System.Drawing.Size(52, 21);
-            this.tbPWM1Peroid.TabIndex = 107;
-            this.tbPWM1Peroid.Text = "1000";
-            // 
-            // tbPWM1Pulse
-            // 
-            this.tbPWM1Pulse.Location = new System.Drawing.Point(484, 426);
-            this.tbPWM1Pulse.Name = "tbPWM1Pulse";
-            this.tbPWM1Pulse.Size = new System.Drawing.Size(61, 21);
-            this.tbPWM1Pulse.TabIndex = 108;
-            this.tbPWM1Pulse.Text = "800";
-            // 
-            // tbPWM2Pulse
-            // 
-            this.tbPWM2Pulse.Location = new System.Drawing.Point(484, 452);
-            this.tbPWM2Pulse.Name = "tbPWM2Pulse";
-            this.tbPWM2Pulse.Size = new System.Drawing.Size(61, 21);
-            this.tbPWM2Pulse.TabIndex = 112;
-            this.tbPWM2Pulse.Text = "200";
-            // 
-            // tbPWM2Peroid
-            // 
-            this.tbPWM2Peroid.Location = new System.Drawing.Point(426, 452);
-            this.tbPWM2Peroid.Name = "tbPWM2Peroid";
-            this.tbPWM2Peroid.Size = new System.Drawing.Size(52, 21);
-            this.tbPWM2Peroid.TabIndex = 111;
-            this.tbPWM2Peroid.Text = "1000";
-            // 
-            // tbPWM2Prescaler
-            // 
-            this.tbPWM2Prescaler.Location = new System.Drawing.Point(380, 452);
-            this.tbPWM2Prescaler.Name = "tbPWM2Prescaler";
-            this.tbPWM2Prescaler.Size = new System.Drawing.Size(40, 21);
-            this.tbPWM2Prescaler.TabIndex = 110;
-            this.tbPWM2Prescaler.Text = "1";
-            // 
-            // btnPWM2
-            // 
-            this.btnPWM2.Location = new System.Drawing.Point(299, 451);
-            this.btnPWM2.Name = "btnPWM2";
-            this.btnPWM2.Size = new System.Drawing.Size(75, 23);
-            this.btnPWM2.TabIndex = 109;
-            this.btnPWM2.Text = "PWM2";
-            this.btnPWM2.UseVisualStyleBackColor = true;
-            this.btnPWM2.Click += new System.EventHandler(this.tbnPWM2_Click);
-            // 
             // btnACK
             // 
-            this.btnACK.Location = new System.Drawing.Point(555, 426);
+            this.btnACK.Location = new System.Drawing.Point(9, 240);
             this.btnACK.Name = "btnACK";
-            this.btnACK.Size = new System.Drawing.Size(86, 23);
+            this.btnACK.Size = new System.Drawing.Size(74, 23);
             this.btnACK.TabIndex = 105;
             this.btnACK.Text = "ACK";
             this.btnACK.UseVisualStyleBackColor = true;
@@ -1231,11 +1045,10 @@
             // 
             // tbACK
             // 
-            this.tbACK.Location = new System.Drawing.Point(647, 428);
+            this.tbACK.Location = new System.Drawing.Point(106, 242);
             this.tbACK.Name = "tbACK";
-            this.tbACK.Size = new System.Drawing.Size(40, 21);
+            this.tbACK.Size = new System.Drawing.Size(100, 21);
             this.tbACK.TabIndex = 113;
-            this.tbACK.Text = "1";
             // 
             // cbLiangChan
             // 
@@ -1248,53 +1061,55 @@
             this.cbLiangChan.UseVisualStyleBackColor = true;
             this.cbLiangChan.CheckedChanged += new System.EventHandler(this.cbLiangChan_CheckedChanged);
             // 
-            // tbAddrEn
+            // tbAddrEnable
             // 
-            this.tbAddrEn.Location = new System.Drawing.Point(647, 452);
-            this.tbAddrEn.Name = "tbAddrEn";
-            this.tbAddrEn.Size = new System.Drawing.Size(40, 21);
-            this.tbAddrEn.TabIndex = 116;
-            this.tbAddrEn.Text = "1";
+            this.tbAddrEnable.Location = new System.Drawing.Point(106, 268);
+            this.tbAddrEnable.Name = "tbAddrEnable";
+            this.tbAddrEnable.Size = new System.Drawing.Size(100, 21);
+            this.tbAddrEnable.TabIndex = 116;
             // 
             // btnAddrEn
             // 
-            this.btnAddrEn.Location = new System.Drawing.Point(555, 450);
+            this.btnAddrEn.Location = new System.Drawing.Point(7, 268);
             this.btnAddrEn.Name = "btnAddrEn";
-            this.btnAddrEn.Size = new System.Drawing.Size(86, 23);
+            this.btnAddrEn.Size = new System.Drawing.Size(75, 23);
             this.btnAddrEn.TabIndex = 115;
             this.btnAddrEn.Text = "ADDREN";
             this.btnAddrEn.UseVisualStyleBackColor = true;
             this.btnAddrEn.Click += new System.EventHandler(this.btnAddrEn_Click);
             // 
-            // button4
+            // btnReadAddrEnable
             // 
-            this.button4.Location = new System.Drawing.Point(723, 428);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(86, 23);
-            this.button4.TabIndex = 117;
-            this.button4.Text = "+++";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnReadAddrEnable.Location = new System.Drawing.Point(214, 272);
+            this.btnReadAddrEnable.Name = "btnReadAddrEnable";
+            this.btnReadAddrEnable.Size = new System.Drawing.Size(57, 19);
+            this.btnReadAddrEnable.TabIndex = 119;
+            this.btnReadAddrEnable.Text = "读取";
+            this.btnReadAddrEnable.UseVisualStyleBackColor = true;
+            this.btnReadAddrEnable.Click += new System.EventHandler(this.btnReadAddrEnable_Click);
+            // 
+            // btnReadACK
+            // 
+            this.btnReadACK.Location = new System.Drawing.Point(214, 242);
+            this.btnReadACK.Name = "btnReadACK";
+            this.btnReadACK.Size = new System.Drawing.Size(57, 20);
+            this.btnReadACK.TabIndex = 118;
+            this.btnReadACK.Text = "读取";
+            this.btnReadACK.UseVisualStyleBackColor = true;
+            this.btnReadACK.Click += new System.EventHandler(this.btnReadACK_Click);
             // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 499);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.tbAddrEn);
+            this.Controls.Add(this.btnReadAddrEnable);
+            this.Controls.Add(this.btnReadACK);
+            this.Controls.Add(this.tbAddrEnable);
             this.Controls.Add(this.btnAddrEn);
             this.Controls.Add(this.cbLiangChan);
             this.Controls.Add(this.tbACK);
             this.Controls.Add(this.btnACK);
-            this.Controls.Add(this.tbPWM2Pulse);
-            this.Controls.Add(this.tbPWM2Peroid);
-            this.Controls.Add(this.tbPWM2Prescaler);
-            this.Controls.Add(this.btnPWM2);
-            this.Controls.Add(this.tbPWM1Pulse);
-            this.Controls.Add(this.tbPWM1Peroid);
-            this.Controls.Add(this.tbPWM1Prescaler);
-            this.Controls.Add(this.btnPWM1);
             this.Controls.Add(this.tbSendGapTime);
             this.Controls.Add(this.btnStopDownload);
             this.Controls.Add(this.label23);
@@ -1332,7 +1147,7 @@
             this.Controls.Add(this.label20);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "main";
-            this.Text = "Ting-01M模块测试程序";
+            this.Text = "Ting-01M模块测试程序(v0.6)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.Load += new System.EventHandler(this.main_Load);
             this.groupBox1.ResumeLayout(false);
@@ -1344,14 +1159,8 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.gbPB0.ResumeLayout(false);
-            this.gbPB0.PerformLayout();
-            this.gbPD0.ResumeLayout(false);
-            this.gbPD0.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.gbPC4.ResumeLayout(false);
-            this.gbPC4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1393,12 +1202,6 @@
         private System.Windows.Forms.Button btnReadVersion;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.CheckBox cbEnter;
-        private System.Windows.Forms.RadioButton PB0_SET;
-        private System.Windows.Forms.RadioButton PB0_CLR;
-        private System.Windows.Forms.GroupBox gbPB0;
-        private System.Windows.Forms.GroupBox gbPD0;
-        private System.Windows.Forms.RadioButton PD0_SET;
-        private System.Windows.Forms.RadioButton PD0_CLR;
         private System.Windows.Forms.TextBox tbFileSize;
         private System.Windows.Forms.Button btnRestart;
         private System.Windows.Forms.Label label7;
@@ -1432,9 +1235,6 @@
         private System.Windows.Forms.ToolStripMenuItem 版本ToolStripMenuItem;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.GroupBox gbPC4;
-        private System.Windows.Forms.RadioButton PC4_SET;
-        private System.Windows.Forms.RadioButton PC4_CLR;
         private System.Windows.Forms.ToolStripStatusLabel tsLoRaCMD;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TextBox tbLoRa;
@@ -1460,22 +1260,16 @@
         private System.Windows.Forms.TextBox tbSendGapTime;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Button btnRX;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnPWM1;
-        private System.Windows.Forms.TextBox tbPWM1Prescaler;
-        private System.Windows.Forms.TextBox tbPWM1Peroid;
-        private System.Windows.Forms.TextBox tbPWM1Pulse;
-        private System.Windows.Forms.TextBox tbPWM2Pulse;
-        private System.Windows.Forms.TextBox tbPWM2Peroid;
-        private System.Windows.Forms.TextBox tbPWM2Prescaler;
-        private System.Windows.Forms.Button btnPWM2;
+        private System.Windows.Forms.Button btnSaveParament;
         private System.Windows.Forms.Button btnACK;
         private System.Windows.Forms.TextBox tbACK;
         private System.Windows.Forms.CheckBox cbLiangChan;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox tbAddrEn;
+        private System.Windows.Forms.Button btnTransportIn;
+        private System.Windows.Forms.TextBox tbAddrEnable;
         private System.Windows.Forms.Button btnAddrEn;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnTransportOut;
+        private System.Windows.Forms.Button btnReadAddrEnable;
+        private System.Windows.Forms.Button btnReadACK;
     }
 }
 

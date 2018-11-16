@@ -394,7 +394,7 @@ void at_CmdGetRssi(char *pPara)
 extern uint8_t ack_on;
 void at_CmdAck(char *pPara)
 {
-
+    uint8_t buf[6];
     if(*pPara == '=')
     {
         pPara++;
@@ -408,6 +408,12 @@ void at_CmdAck(char *pPara)
             ack_on = 1;
         }
         at_back(AT_ERR_OK_ID);
+    }
+    else if(*pPara == '?')
+    {
+        buf[0] = ack_on +0X30;
+        buf[1] = '\0';
+        at_back_para_ok(buf);
     }
     else
     {
