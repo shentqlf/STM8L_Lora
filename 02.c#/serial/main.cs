@@ -116,7 +116,6 @@ namespace serial
             btnSend.Enabled = true;
             btnDestAddr.Enabled = true;
             btnLoRaSendData.Enabled = true;
-            btnReadConfig.Enabled = true;
             btnReadDestAddr.Enabled = true;
             btnLoRaSendLength.Enabled = true;
             btnReadRSSI.Enabled = true;
@@ -154,8 +153,6 @@ namespace serial
             btnSend.Enabled = false;
             btnDestAddr.Enabled = false;
             btnLoRaSendData.Enabled = false;
-            btnReadConfig.Enabled = false;
-            btnReadDestAddr.Enabled = false;
             btnLoRaSendLength.Enabled = false;
             btnStopDownload.Enabled = false;
             btnReadRSSI.Enabled = false;
@@ -288,12 +285,12 @@ namespace serial
 
         }
 
-        private void txtRecvHex_TextChanged(object sender, EventArgs e)
-        {
-            //txtRecvHex.Focus();
-            this.txtRecvHex.Select(this.txtRecvHex.TextLength, 0);
-            this.txtRecvHex.ScrollToCaret();
-        }
+        //private void txtRecvHex_TextChanged(object sender, EventArgs e)
+        //{
+        //    //txtRecvHex.Focus();
+        //    this.txtRecvHex.Select(this.txtRecvHex.TextLength, 0);
+        //    this.txtRecvHex.ScrollToCaret();
+        //}
 
 
         #region  打开文件以及加载
@@ -350,7 +347,7 @@ namespace serial
                 str += "0X";
                 str += binFileArray[i].ToString("X02") + " ";
             }
-            txtRecvHex.Text = str;
+            //txtRecvHex.Text = str;
             return true;
         }
         private void 打开binToolStripMenuItem_Click(object sender, EventArgs e)
@@ -843,16 +840,19 @@ namespace serial
             ReadConfig = 1;
         }
 
-        private void btnReadConfig_Click(object sender, EventArgs e)
-        {
-            byte[] buf = new byte[256];
-            string str = "AT+CFG?\r\n";
-            for (int i = 0; i < str.Length; i++)
-                buf[i] = Convert.ToByte(str[i]);
-            sp1.Write(buf, 0, str.Length);
-            tsLoRaCMD.Text = str;
-            ReadConfig = 1;
-        }
+        
+
+
+        //private void btnReadConfig_Click(object sender, EventArgs e)
+        //{
+        //    byte[] buf = new byte[256];
+        //    string str = "AT+CFG?\r\n";
+        //    for (int i = 0; i < str.Length; i++)
+        //        buf[i] = Convert.ToByte(str[i]);
+        //    sp1.Write(buf, 0, str.Length);
+        //    tsLoRaCMD.Text = str;
+        //    ReadConfig = 1;
+        //}
         private void btnTest_Click(object sender, EventArgs e)
         {
             byte[] buf = new byte[256];

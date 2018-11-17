@@ -50,7 +50,6 @@ void at_recv_event(char temp)
     case at_statProcess: //process data
       if(temp == '\n')
       {
-//      system_os_post(at_busyTaskPrio, 0, 1);
         at_back(AT_ERR_CPU_BUSY_ID);
       }
       break;
@@ -136,7 +135,7 @@ void at_process_loop()
             Transport_exit_flag_pre = 0;
 
             at_state = at_statIdle;
-            uart1_write_string("EXIT\r\n");
+            uart1_write_string("AT,OK\r\n");
             return ;
         }
         

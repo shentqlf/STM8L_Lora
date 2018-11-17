@@ -75,7 +75,7 @@ void ForwardPacket()
         uart1_write((RFBuffer),len);
       }
 
-        ;
+        /*
         buf[0] = '-';
         buf[1] = RxPacketSize/100 + 0x30;
         buf[2] = RxPacketSize/10%10 + 0x30;
@@ -83,7 +83,7 @@ void ForwardPacket()
         buf[4] = '\r';
         buf[5] = '\n';
         uart1_write(buf,6);
-        
+        */
 
     RxPacketSize = 0;
 }
@@ -132,7 +132,7 @@ void main(void)
             {
 
                   at_state = at_statTransportIdle;
-                  uart1_write_string("SENDED\r\n");
+                //  uart1_write_string("SENDED\r\n");
                   break;
            }
             //RFLRState = RFLR_STATE_RX_INIT;

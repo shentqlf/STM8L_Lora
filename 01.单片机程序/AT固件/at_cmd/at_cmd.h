@@ -2,7 +2,7 @@
 #define __AT_CMD_H
 #include "ebox.h"
 #include "at.h"
-#define VERSION "V0.4"
+#define VERSION "V0.5"
 
 
 

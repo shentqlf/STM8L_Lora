@@ -36,11 +36,6 @@
             this.cbSerial = new System.Windows.Forms.ComboBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.txtRecvHex = new System.Windows.Forms.RichTextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.txtRecvChar = new System.Windows.Forms.RichTextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.菜单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开binToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,7 +92,6 @@
             this.btnRX = new System.Windows.Forms.Button();
             this.btnIDLE = new System.Windows.Forms.Button();
             this.btnReadRSSI = new System.Windows.Forms.Button();
-            this.btnReadConfig = new System.Windows.Forms.Button();
             this.btnSleep = new System.Windows.Forms.Button();
             this.tbSendGapTime = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -124,13 +118,15 @@
             this.btnAddrEn = new System.Windows.Forms.Button();
             this.btnReadAddrEnable = new System.Windows.Forms.Button();
             this.btnReadACK = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtRecvChar = new System.Windows.Forms.RichTextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.groupBox1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbBaudRate
@@ -256,7 +252,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(1036, 426);
+            this.btnExit.Location = new System.Drawing.Point(224, 398);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 19;
@@ -266,67 +262,13 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(625, 327);
+            this.btnClear.Location = new System.Drawing.Point(625, 371);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(62, 23);
             this.btnClear.TabIndex = 20;
             this.btnClear.Text = "清空";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.txtRecvHex);
-            this.tabPage2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(478, 261);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Hex显示";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // txtRecvHex
-            // 
-            this.txtRecvHex.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRecvHex.Location = new System.Drawing.Point(3, 3);
-            this.txtRecvHex.Name = "txtRecvHex";
-            this.txtRecvHex.Size = new System.Drawing.Size(472, 255);
-            this.txtRecvHex.TabIndex = 0;
-            this.txtRecvHex.Text = "";
-            this.txtRecvHex.TextChanged += new System.EventHandler(this.txtRecvHex_TextChanged);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.txtRecvChar);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(478, 261);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "字符显示";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // txtRecvChar
-            // 
-            this.txtRecvChar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRecvChar.HideSelection = false;
-            this.txtRecvChar.Location = new System.Drawing.Point(3, 3);
-            this.txtRecvChar.Name = "txtRecvChar";
-            this.txtRecvChar.Size = new System.Drawing.Size(472, 255);
-            this.txtRecvChar.TabIndex = 17;
-            this.txtRecvChar.Text = "";
-            this.txtRecvChar.TextChanged += new System.EventHandler(this.txtRecv_TextChanged);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(625, 33);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(486, 287);
-            this.tabControl1.TabIndex = 22;
             // 
             // menuStrip1
             // 
@@ -454,7 +396,7 @@
             // 
             // tbSend
             // 
-            this.tbSend.Location = new System.Drawing.Point(696, 356);
+            this.tbSend.Location = new System.Drawing.Point(692, 411);
             this.tbSend.Name = "tbSend";
             this.tbSend.Size = new System.Drawing.Size(415, 51);
             this.tbSend.TabIndex = 42;
@@ -462,7 +404,7 @@
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(625, 356);
+            this.btnSend.Location = new System.Drawing.Point(621, 411);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(62, 49);
             this.btnSend.TabIndex = 43;
@@ -493,7 +435,7 @@
             // cbEnter
             // 
             this.cbEnter.AutoSize = true;
-            this.cbEnter.Location = new System.Drawing.Point(1027, 337);
+            this.cbEnter.Location = new System.Drawing.Point(1027, 387);
             this.cbEnter.Name = "cbEnter";
             this.cbEnter.Size = new System.Drawing.Size(84, 16);
             this.cbEnter.TabIndex = 47;
@@ -535,7 +477,7 @@
             // 
             // tbPPower
             // 
-            this.tbPPower.Location = new System.Drawing.Point(107, 30);
+            this.tbPPower.Location = new System.Drawing.Point(107, 34);
             this.tbPPower.Name = "tbPPower";
             this.tbPPower.Size = new System.Drawing.Size(100, 21);
             this.tbPPower.TabIndex = 57;
@@ -543,7 +485,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(60, 34);
+            this.label8.Location = new System.Drawing.Point(60, 37);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(41, 12);
             this.label8.TabIndex = 56;
@@ -551,7 +493,7 @@
             // 
             // tbPSF
             // 
-            this.tbPSF.Location = new System.Drawing.Point(107, 80);
+            this.tbPSF.Location = new System.Drawing.Point(107, 92);
             this.tbPSF.Name = "tbPSF";
             this.tbPSF.Size = new System.Drawing.Size(100, 21);
             this.tbPSF.TabIndex = 61;
@@ -559,7 +501,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(36, 84);
+            this.label9.Location = new System.Drawing.Point(36, 93);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 12);
             this.label9.TabIndex = 60;
@@ -567,7 +509,7 @@
             // 
             // tbPBW
             // 
-            this.tbPBW.Location = new System.Drawing.Point(107, 55);
+            this.tbPBW.Location = new System.Drawing.Point(107, 63);
             this.tbPBW.Name = "tbPBW";
             this.tbPBW.Size = new System.Drawing.Size(100, 21);
             this.tbPBW.TabIndex = 59;
@@ -575,7 +517,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(60, 59);
+            this.label10.Location = new System.Drawing.Point(60, 65);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(41, 12);
             this.label10.TabIndex = 58;
@@ -584,7 +526,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(66, 134);
+            this.label11.Location = new System.Drawing.Point(66, 149);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 12);
             this.label11.TabIndex = 64;
@@ -592,7 +534,7 @@
             // 
             // tbPER
             // 
-            this.tbPER.Location = new System.Drawing.Point(107, 105);
+            this.tbPER.Location = new System.Drawing.Point(107, 121);
             this.tbPER.Name = "tbPER";
             this.tbPER.Size = new System.Drawing.Size(100, 21);
             this.tbPER.TabIndex = 63;
@@ -600,7 +542,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(48, 109);
+            this.label12.Location = new System.Drawing.Point(48, 121);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(53, 12);
             this.label12.TabIndex = 62;
@@ -608,7 +550,7 @@
             // 
             // tbPPayloadLen
             // 
-            this.tbPPayloadLen.Location = new System.Drawing.Point(107, 276);
+            this.tbPPayloadLen.Location = new System.Drawing.Point(107, 320);
             this.tbPPayloadLen.Name = "tbPPayloadLen";
             this.tbPPayloadLen.Size = new System.Drawing.Size(100, 21);
             this.tbPPayloadLen.TabIndex = 78;
@@ -616,7 +558,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(12, 284);
+            this.label13.Location = new System.Drawing.Point(12, 317);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(89, 12);
             this.label13.TabIndex = 77;
@@ -624,7 +566,7 @@
             // 
             // tbPRXTimeout
             // 
-            this.tbPRXTimeout.Location = new System.Drawing.Point(107, 251);
+            this.tbPRXTimeout.Location = new System.Drawing.Point(107, 291);
             this.tbPRXTimeout.Name = "tbPRXTimeout";
             this.tbPRXTimeout.Size = new System.Drawing.Size(100, 21);
             this.tbPRXTimeout.TabIndex = 76;
@@ -632,7 +574,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 259);
+            this.label14.Location = new System.Drawing.Point(12, 289);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(89, 12);
             this.label14.TabIndex = 75;
@@ -640,7 +582,7 @@
             // 
             // tbPHopTime
             // 
-            this.tbPHopTime.Location = new System.Drawing.Point(107, 226);
+            this.tbPHopTime.Location = new System.Drawing.Point(107, 262);
             this.tbPHopTime.Name = "tbPHopTime";
             this.tbPHopTime.Size = new System.Drawing.Size(100, 21);
             this.tbPHopTime.TabIndex = 74;
@@ -648,7 +590,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(36, 234);
+            this.label15.Location = new System.Drawing.Point(36, 261);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(65, 12);
             this.label15.TabIndex = 73;
@@ -657,7 +599,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(60, 209);
+            this.label16.Location = new System.Drawing.Point(60, 233);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(41, 12);
             this.label16.TabIndex = 71;
@@ -666,7 +608,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(36, 184);
+            this.label17.Location = new System.Drawing.Point(36, 205);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(65, 12);
             this.label17.TabIndex = 69;
@@ -675,7 +617,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(36, 159);
+            this.label18.Location = new System.Drawing.Point(36, 177);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(65, 12);
             this.label18.TabIndex = 67;
@@ -683,7 +625,7 @@
             // 
             // tbPPreambleLen
             // 
-            this.tbPPreambleLen.Location = new System.Drawing.Point(107, 301);
+            this.tbPPreambleLen.Location = new System.Drawing.Point(107, 349);
             this.tbPPreambleLen.Name = "tbPPreambleLen";
             this.tbPPreambleLen.Size = new System.Drawing.Size(100, 21);
             this.tbPPreambleLen.TabIndex = 80;
@@ -691,7 +633,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(24, 309);
+            this.label19.Location = new System.Drawing.Point(24, 345);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(77, 12);
             this.label19.TabIndex = 79;
@@ -701,7 +643,7 @@
             // 
             this.cbCRC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCRC.FormattingEnabled = true;
-            this.cbCRC.Location = new System.Drawing.Point(107, 130);
+            this.cbCRC.Location = new System.Drawing.Point(107, 150);
             this.cbCRC.Name = "cbCRC";
             this.cbCRC.Size = new System.Drawing.Size(100, 20);
             this.cbCRC.TabIndex = 81;
@@ -710,7 +652,7 @@
             // 
             this.cbHeader.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbHeader.FormattingEnabled = true;
-            this.cbHeader.Location = new System.Drawing.Point(107, 154);
+            this.cbHeader.Location = new System.Drawing.Point(107, 178);
             this.cbHeader.Name = "cbHeader";
             this.cbHeader.Size = new System.Drawing.Size(100, 20);
             this.cbHeader.TabIndex = 82;
@@ -719,7 +661,7 @@
             // 
             this.cbHop.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbHop.FormattingEnabled = true;
-            this.cbHop.Location = new System.Drawing.Point(107, 202);
+            this.cbHop.Location = new System.Drawing.Point(107, 234);
             this.cbHop.Name = "cbHop";
             this.cbHop.Size = new System.Drawing.Size(100, 20);
             this.cbHop.TabIndex = 84;
@@ -728,14 +670,14 @@
             // 
             this.cbRXSingle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRXSingle.FormattingEnabled = true;
-            this.cbRXSingle.Location = new System.Drawing.Point(107, 178);
+            this.cbRXSingle.Location = new System.Drawing.Point(107, 206);
             this.cbRXSingle.Name = "cbRXSingle";
             this.cbRXSingle.Size = new System.Drawing.Size(100, 20);
             this.cbRXSingle.TabIndex = 83;
             // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(14, 328);
+            this.btnSettings.Location = new System.Drawing.Point(3, 398);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(75, 23);
             this.btnSettings.TabIndex = 85;
@@ -751,7 +693,6 @@
             this.panel1.Controls.Add(this.btnRX);
             this.panel1.Controls.Add(this.btnIDLE);
             this.panel1.Controls.Add(this.btnReadRSSI);
-            this.panel1.Controls.Add(this.btnReadConfig);
             this.panel1.Controls.Add(this.btnSleep);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.btnSettings);
@@ -781,11 +722,12 @@
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.btnExit);
             this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.label17);
             this.panel1.Location = new System.Drawing.Point(298, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(321, 381);
+            this.panel1.Size = new System.Drawing.Size(321, 434);
             this.panel1.TabIndex = 86;
             // 
             // btnTransportIn
@@ -800,7 +742,7 @@
             // 
             // btnSaveParament
             // 
-            this.btnSaveParament.Location = new System.Drawing.Point(14, 355);
+            this.btnSaveParament.Location = new System.Drawing.Point(84, 398);
             this.btnSaveParament.Name = "btnSaveParament";
             this.btnSaveParament.Size = new System.Drawing.Size(75, 23);
             this.btnSaveParament.TabIndex = 104;
@@ -847,16 +789,6 @@
             this.btnReadRSSI.Text = "RSSI";
             this.btnReadRSSI.UseVisualStyleBackColor = true;
             this.btnReadRSSI.Click += new System.EventHandler(this.btnReadRSSI_Click);
-            // 
-            // btnReadConfig
-            // 
-            this.btnReadConfig.Location = new System.Drawing.Point(95, 328);
-            this.btnReadConfig.Name = "btnReadConfig";
-            this.btnReadConfig.Size = new System.Drawing.Size(75, 23);
-            this.btnReadConfig.TabIndex = 94;
-            this.btnReadConfig.Text = "读取配置";
-            this.btnReadConfig.UseVisualStyleBackColor = true;
-            this.btnReadConfig.Click += new System.EventHandler(this.btnReadConfig_Click);
             // 
             // btnSleep
             // 
@@ -1098,6 +1030,37 @@
             this.btnReadACK.UseVisualStyleBackColor = true;
             this.btnReadACK.Click += new System.EventHandler(this.btnReadACK_Click);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.txtRecvChar);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(478, 306);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "字符显示";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtRecvChar
+            // 
+            this.txtRecvChar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRecvChar.HideSelection = false;
+            this.txtRecvChar.Location = new System.Drawing.Point(3, 3);
+            this.txtRecvChar.Name = "txtRecvChar";
+            this.txtRecvChar.Size = new System.Drawing.Size(472, 300);
+            this.txtRecvChar.TabIndex = 17;
+            this.txtRecvChar.Text = "";
+            this.txtRecvChar.TextChanged += new System.EventHandler(this.txtRecv_TextChanged);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Location = new System.Drawing.Point(625, 33);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(486, 332);
+            this.tabControl1.TabIndex = 22;
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1138,7 +1101,6 @@
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.cbSerial);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSwitch);
@@ -1152,15 +1114,14 @@
             this.Load += new System.EventHandler(this.main_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1182,11 +1143,6 @@
         private System.Windows.Forms.ComboBox cbSerial;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.RichTextBox txtRecvChar;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.RichTextBox txtRecvHex;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 菜单ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开binToolStripMenuItem;
@@ -1245,7 +1201,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button btnReadAddr;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Button btnReadConfig;
         private System.Windows.Forms.TextBox tbDestAddr;
         private System.Windows.Forms.Button btnDestAddr;
         private System.Windows.Forms.Button btnReadDestAddr;
@@ -1270,6 +1225,9 @@
         private System.Windows.Forms.Button btnTransportOut;
         private System.Windows.Forms.Button btnReadAddrEnable;
         private System.Windows.Forms.Button btnReadACK;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.RichTextBox txtRecvChar;
+        private System.Windows.Forms.TabControl tabControl1;
     }
 }
 

@@ -33,17 +33,17 @@ Packet_t LoRaPacket;
 // Default settings
 tLoRaSettings LoRaSettings =
 {
-    453000000,        // RFFrequency
+    433000000,        // RFFrequency
     20,               // Power
-    6,                // SignalBw [0: 7.8kHz, 1: 10.4 kHz, 2: 15.6 kHz, 3: 20.8 kHz, 4: 31.2 kHz,
+    9,                // SignalBw [0: 7.8kHz, 1: 10.4 kHz, 2: 15.6 kHz, 3: 20.8 kHz, 4: 31.2 kHz,
                       // 5: 41.6 kHz, 6: 62.5 kHz, 7: 125 kHz, 8: 250 kHz, 9: 500 kHz, other: Reserved]
-    8,                // SpreadingFactor [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096  chips]
+    10,                // SpreadingFactor [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096  chips]
     1,                // ErrorCoding [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8]
     TRUE,             // CrcOn [0: OFF, 1: ON]
     FALSE,            // ImplicitHeaderOn [0: OFF, 1: ON]
     FALSE,                // RxSingleOn [0: Continuous, 1 Single]
     FALSE,                // FreqHopOn [0: OFF, 1: ON]
-    4,                // HopPeriod Hops every frequency hopping period symbols
+    0,                // HopPeriod Hops every frequency hopping period symbols
     //100,              // TxPacketTimeout
     3000,              // RxPacketTimeout
     8,              // PayloadLength (used for implicit header mode)
