@@ -84,9 +84,11 @@ void at_recv_event(char temp)
         Transport_sending_note_flag = 0;
         at_state = at_statTransportRecv;
     case at_statTransportRecv:
-    
-            *pCmdLine++ = temp;
-            Transport_counter++;
+            if(Transport_counter <= 250) 
+            {
+               *pCmdLine++ = temp;
+               Transport_counter++;
+            }
             if( Transport_counter < 4)
             {
 
@@ -100,11 +102,11 @@ void at_recv_event(char temp)
                   atHead[2] = 0x00;
                  }        
               }
-    
+                            Transport_last_time = milli_second;
+
               break;
 
     case at_statTransportSending: 
-            Transport_counter++;
             if(Transport_sending_note_flag == 0)
             {
               Transport_sending_note_flag = 1;
@@ -119,14 +121,15 @@ void at_recv_event(char temp)
 void at_process_loop()
 {
   
-  
+  uint8_t temp;
     if(at_state == at_statProcess)
     {
         at_cmdProcess(at_cmdLine);
     }
     else if(at_state == at_statTransportRecv)
     {
-      if(millis() - Transport_last_time > 5)
+        temp = milli_second - Transport_last_time;
+      if(temp > 5)
       {
         if( Transport_exit_flag_pre == 1 )
         {

@@ -426,7 +426,7 @@ void at_CmdAck(char *pPara)
 void at_CmdTransport(char *pPara)
 {
     at_state = at_statTransportIdle;
-    at_back_para_ok("+++");
+    at_back(AT_ERR_OK_ID);
 }
 #if USE_IO
 

@@ -763,10 +763,10 @@ namespace serial
         #region LoRa命令测试功能
         private void ParamentLoad()
         {
-            tbPFrq.Text = "433000000";
+            tbPFrq.Text = "453000000";
             tbPPower.Text = "20";
-            tbPBW.Text = "6";
-            tbPSF.Text = "7";
+            tbPBW.Text = "9";
+            tbPSF.Text = "10";
             tbPER.Text = "1";
             cbCRC.Items.Add("TRUE");
             cbCRC.Items.Add("FALSE");
@@ -975,7 +975,7 @@ namespace serial
  
         private void btnLoRa_Click(object sender, EventArgs e)
         {
-            byte[] buf = new byte[256];
+            byte[] buf = new byte[1024];
             string str =  tbLoRa.Text ;
             for (int i = 0; i < str.Length; i++)
                 buf[i] = Convert.ToByte(str[i]);
@@ -1115,7 +1115,7 @@ namespace serial
 
         private void btnSend_Click_1(object sender, EventArgs e)
         {
-            byte[] buf = new byte[64];
+            byte[] buf = new byte[1024];
             string str = tbSend.Text.ToString();
             if (cbEnter.Checked == true)
                 str += "\r\n";
@@ -1216,7 +1216,7 @@ namespace serial
 
             for (int i = 0; i < str.Length; i++)
                 buf[i] = Convert.ToByte(str[i]);
-            sp1.Write(buf, 0, str.Length);
+           // sp1.Write(buf, 0, str.Length);
             tsLoRaCMD.Text = str;
 
             Thread.Sleep(200);

@@ -16,5 +16,6 @@ char C2D(uint8_t c);
 char D2C(uint8_t val);
 uint32_t getPara(char **pPara,uint8_t base);
 uint8_t digital2HexString(uint32_t val,uint8_t *buf);
+void print_time();
 
 #endif

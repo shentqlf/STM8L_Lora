@@ -1,6 +1,8 @@
 #include "gpio.h"
 
 
+#if 0
+
 void gpio_pb0_init()
 {
       GPIO_Init(GPIOB,GPIO_Pin_0,GPIO_Mode_Out_PP_Low_Fast);
@@ -79,3 +81,4 @@ void gpio_pd0_toggle()
     GPIOD->ODR ^= GPIO_Pin_0;
     //GPIO_ToggleBits(GPIOD,GPIO_Pin_0);
 }
+#endif

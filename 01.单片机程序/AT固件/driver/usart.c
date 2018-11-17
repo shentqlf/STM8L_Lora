@@ -101,10 +101,10 @@ void uart1_write_string(uint8_t *buf)
 
     while(*buf != '\0')
     {
-    disableInterrupts();
+    //disableInterrupts();
         USART1->DR = *buf++;
         while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);
-    enableInterrupts();
+    //enableInterrupts();
     }
 
 }
