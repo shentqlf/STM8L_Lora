@@ -10,7 +10,7 @@ extern at_stateType  at_state;
 
 bool CheckPara(char *pPara)
 {
-    uint8_t dot=0,err = 0;
+    uint8_t dot = 0, err = 0;
     while(*pPara != '\r')
     {
         if(*pPara == ',' )
@@ -22,7 +22,7 @@ bool CheckPara(char *pPara)
             err = 1;
         }
         pPara++;
-          
+
     }
     if(dot == 12 && err == 0)
         return TRUE;
@@ -54,51 +54,51 @@ void at_CmdVersion(char *pPara)
     at_state = at_statIdle;
 }
 
-   /*
+/*
 void at_CmdState(char *pPara)
 {
 
-    RFLR_STATE_RX_TIMEOUT,
-    RFLR_STATE_TX_INIT,
-    RFLR_STATE_TX_RUNNING,
-    ,
-    RFLR_STATE_TX_TIMEOUT,
-    RFLR_STATE_CAD_INIT,
-    RFLR_STATE_CAD_RUNNING,
+ RFLR_STATE_RX_TIMEOUT,
+ RFLR_STATE_TX_INIT,
+ RFLR_STATE_TX_RUNNING,
+ ,
+ RFLR_STATE_TX_TIMEOUT,
+ RFLR_STATE_CAD_INIT,
+ RFLR_STATE_CAD_RUNNING,
 
-    
-    uint8_t state;
-    if(*pPara == '?')
-    {
-        state = SX1278GetRFState();
-        switch(state)
-        {
-        case RFLR_STATE_IDLE:
-            uart1_write_string("IDLE\r\n");
-            break;
-        case RFLR_STATE_RX_INIT:
-            uart1_write_string("RX_INIT\r\n");
-            break;
-        case RFLR_STATE_RX_RUNNING:
-            uart1_write_string("RX_RUNNING\r\n");
-            break;
-        case RFLR_STATE_RX_DONE:
-            uart1_write_string("RX_DONE\r\n");
-            break;
-        case RFLR_STATE_TX_DONE:
-            uart1_write_string("TX_DONE\r\n");
-            break;
-        default:
-            uart1_write_string("XXX");
-            break;
-        }
-        at_back(AT_ERR_OK_ID);
-    }
-    else
-    {
-        at_back(AT_ERR_SYMBLE_ID);
-    }
-    at_state = at_statIdle;
+
+ uint8_t state;
+ if(*pPara == '?')
+ {
+     state = SX1278GetRFState();
+     switch(state)
+     {
+     case RFLR_STATE_IDLE:
+         uart1_write_string("IDLE\r\n");
+         break;
+     case RFLR_STATE_RX_INIT:
+         uart1_write_string("RX_INIT\r\n");
+         break;
+     case RFLR_STATE_RX_RUNNING:
+         uart1_write_string("RX_RUNNING\r\n");
+         break;
+     case RFLR_STATE_RX_DONE:
+         uart1_write_string("RX_DONE\r\n");
+         break;
+     case RFLR_STATE_TX_DONE:
+         uart1_write_string("TX_DONE\r\n");
+         break;
+     default:
+         uart1_write_string("XXX");
+         break;
+     }
+     at_back(AT_ERR_OK_ID);
+ }
+ else
+ {
+     at_back(AT_ERR_SYMBLE_ID);
+ }
+ at_state = at_statIdle;
 
 }
 */
@@ -128,7 +128,7 @@ void at_CmdSleep(char *pPara)
     }
     else
     {
-            at_back(AT_ERR_SYMBLE_ID);
+        at_back(AT_ERR_SYMBLE_ID);
     }
     at_state = at_statIdle;
 }
@@ -154,25 +154,25 @@ void at_CmdConfig(char *pPara)
     if(*pPara == '=')
     {
         pPara++;
-        if(CheckPara(pPara) == FALSE) 
+        if(CheckPara(pPara) == FALSE)
         {
             at_back(AT_ERR_PARA_ID);
             at_state = at_statIdle;
             return ;
         }
-        LoRaSettings.RFFrequency = getPara(&pPara,10);
-        LoRaSettings.Power = getPara(&pPara,10);
-        LoRaSettings.SignalBw = getPara(&pPara,10);
-        LoRaSettings.SpreadingFactor = getPara(&pPara,10);
-        LoRaSettings.ErrorCoding = getPara(&pPara,10);
-        LoRaSettings.CrcOn = (bool)getPara(&pPara,10);
-        LoRaSettings.ImplicitHeaderOn = (bool)getPara(&pPara,10);
-        LoRaSettings.RxSingleOn = (bool)getPara(&pPara,10);
-        LoRaSettings.FreqHopOn = (bool)getPara(&pPara,10);
-        LoRaSettings.HopPeriod = getPara(&pPara,10);
-        LoRaSettings.RxPacketTimeout = getPara(&pPara,10);
-        LoRaSettings.PayloadLength = getPara(&pPara,10);
-        LoRaSettings.PreambleLength = getPara(&pPara,10);
+        LoRaSettings.RFFrequency = getPara(&pPara, 10);
+        LoRaSettings.Power = getPara(&pPara, 10);
+        LoRaSettings.SignalBw = getPara(&pPara, 10);
+        LoRaSettings.SpreadingFactor = getPara(&pPara, 10);
+        LoRaSettings.ErrorCoding = getPara(&pPara, 10);
+        LoRaSettings.CrcOn = (bool)getPara(&pPara, 10);
+        LoRaSettings.ImplicitHeaderOn = (bool)getPara(&pPara, 10);
+        LoRaSettings.RxSingleOn = (bool)getPara(&pPara, 10);
+        LoRaSettings.FreqHopOn = (bool)getPara(&pPara, 10);
+        LoRaSettings.HopPeriod = getPara(&pPara, 10);
+        LoRaSettings.RxPacketTimeout = getPara(&pPara, 10);
+        LoRaSettings.PayloadLength = getPara(&pPara, 10);
+        LoRaSettings.PreambleLength = getPara(&pPara, 10);
         SX1278Init();
         at_state = at_statIdle;
         at_back(AT_ERR_OK_ID);
@@ -181,58 +181,58 @@ void at_CmdConfig(char *pPara)
     else if(*pPara == '?')
     {
 #if USE_READ_STATE
-        len = digital2HexString(LoRaSettings.RFFrequency,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.RFFrequency, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.Power,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.Power, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.SignalBw,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.SignalBw, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.SpreadingFactor,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.SpreadingFactor, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.ErrorCoding,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.ErrorCoding, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.CrcOn,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.CrcOn, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.ImplicitHeaderOn,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.ImplicitHeaderOn, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.RxSingleOn,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.RxSingleOn, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.FreqHopOn,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.FreqHopOn, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.HopPeriod,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.HopPeriod, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string(",");
-        len = digital2HexString(LoRaSettings.RxPacketTimeout,buf);
-        uart1_write((uint8_t*)buf,len);
-        uart1_write_string(",");        
-        len = digital2HexString(LoRaSettings.PayloadLength,buf);
-        uart1_write((uint8_t*)buf,len);
-        uart1_write_string(",");        
-        len = digital2HexString(LoRaSettings.PreambleLength,buf);
-        uart1_write((uint8_t*)buf,len);
+        len = digital2HexString(LoRaSettings.RxPacketTimeout, buf);
+        uart1_write((uint8_t *)buf, len);
+        uart1_write_string(",");
+        len = digital2HexString(LoRaSettings.PayloadLength, buf);
+        uart1_write((uint8_t *)buf, len);
+        uart1_write_string(",");
+        len = digital2HexString(LoRaSettings.PreambleLength, buf);
+        uart1_write((uint8_t *)buf, len);
         uart1_write_string("\r\n");
         at_back(AT_ERR_OK_ID);
 #else
         at_back(AT_ERR_CMD_ID);
 #endif
-        
-        
+
+
     }
     else
     {
-            at_back(AT_ERR_SYMBLE_ID);
+        at_back(AT_ERR_SYMBLE_ID);
     }
     at_state = at_statIdle;
-    
+
 }
 void at_CmdAddr(char *pPara)
 {
@@ -243,24 +243,24 @@ void at_CmdAddr(char *pPara)
         LoRaAddr = 0;
         /*
         *pPara++;
-        
+
         LoRaAddr |= (C2D(*pPara++) ) << 12;
         LoRaAddr |= (C2D(*pPara++) ) << 8;
         LoRaAddr |= (C2D(*pPara++) ) << 4;
         LoRaAddr |= (C2D(*pPara++) ) << 0;
-        */  
-        LoRaAddr = getPara(&pPara,16);
+        */
+        LoRaAddr = getPara(&pPara, 16);
         at_back(AT_ERR_OK_ID);
     }
     else if(*pPara == '?')
     {
-        
-        buf[0] = D2C((LoRaAddr&0xF000) >> 12);
-        buf[1] = D2C((LoRaAddr&0x0F00) >> 8);
-        buf[2] = D2C((LoRaAddr&0x00F0) >> 4);
-        buf[3] = D2C((LoRaAddr&0x000F) >> 0);
+
+        buf[0] = D2C((LoRaAddr & 0xF000) >> 12);
+        buf[1] = D2C((LoRaAddr & 0x0F00) >> 8);
+        buf[2] = D2C((LoRaAddr & 0x00F0) >> 4);
+        buf[3] = D2C((LoRaAddr & 0x000F) >> 0);
         buf[4] = 0;
-        
+
         //len = digital2HexString(LoRaAddr,buf);
         at_back_para_ok(buf);
     }
@@ -276,18 +276,18 @@ void at_CmdDestAddr(char *pPara)
 
     if(*pPara == '=')
     {
-        DestAddr = getPara(&pPara,16);
+        DestAddr = getPara(&pPara, 16);
         at_back(AT_ERR_OK_ID);
     }
     else if(*pPara == '?')
     {
-        
-        buf[0] = D2C((DestAddr&0xF000) >> 12);
-        buf[1] = D2C((DestAddr&0x0F00) >> 8);
-        buf[2] = D2C((DestAddr&0x00F0) >> 4);
-        buf[3] = D2C((DestAddr&0x000F) >> 0);
+
+        buf[0] = D2C((DestAddr & 0xF000) >> 12);
+        buf[1] = D2C((DestAddr & 0x0F00) >> 8);
+        buf[2] = D2C((DestAddr & 0x00F0) >> 4);
+        buf[3] = D2C((DestAddr & 0x000F) >> 0);
         buf[4] = 0;
-        
+
         //len = digital2HexString(LoRaAddr,buf);
         at_back_para_ok(buf);
     }
@@ -305,7 +305,7 @@ void at_CmdAddrEnable(char *pPara)
 
     if(*pPara == '=')
     {
-        AddrEnable = getPara(&pPara,10);
+        AddrEnable = getPara(&pPara, 10);
         if(AddrEnable != 0 && AddrEnable != 1)
             at_back(AT_ERR_PARA_ID);
         else
@@ -313,10 +313,10 @@ void at_CmdAddrEnable(char *pPara)
     }
     else if(*pPara == '?')
     {
-        
+
         buf[0] = D2C(AddrEnable);
         buf[1] = 0;
-        
+
         //len = digital2HexString(LoRaAddr,buf);
         at_back_para_ok(buf);
     }
@@ -344,7 +344,7 @@ void at_CmdSend(char *pPara)
     {
         if(SX1278GetRFState() != RFLR_STATE_TX_RUNNING)
         {
-            LoRaPacket.len = getPara(&pPara,10)+4;
+            LoRaPacket.len = getPara(&pPara, 10) + 4;
             if(LoRaPacket.len > 4 && LoRaPacket.len < 255)
             {
                 at_back(AT_ERR_OK_ID);
@@ -371,16 +371,16 @@ void at_CmdSend(char *pPara)
 }
 void at_CmdGetRssi(char *pPara)
 {
-  
+
     uint8_t buf[6];
     int temp;
     if(*pPara == '?')
     {
         temp = -RxPacketRssiValue;
         buf[0] = '-';
-        buf[1] = temp/100 + 0x30;
-        buf[2] = temp/10%10 + 0x30;
-        buf[3] = temp%10 + 0x30;
+        buf[1] = temp / 100 + 0x30;
+        buf[2] = temp / 10 % 10 + 0x30;
+        buf[3] = temp % 10 + 0x30;
         buf[4] = ',';
         buf[5] = '\0';
         at_back_para_ok(buf);
@@ -411,7 +411,7 @@ void at_CmdAck(char *pPara)
     }
     else if(*pPara == '?')
     {
-        buf[0] = ack_on +0X30;
+        buf[0] = ack_on + 0X30;
         buf[1] = '\0';
         at_back_para_ok(buf);
     }
@@ -421,7 +421,7 @@ void at_CmdAck(char *pPara)
     }
     at_state = at_statIdle;
 
-}      
+}
 
 void at_CmdTransport(char *pPara)
 {
@@ -464,7 +464,7 @@ void at_CmdPB0(char *pPara)
     {
         at_back(AT_ERR_SYMBLE_ID);
     }
-        at_state = at_statIdle;
+    at_state = at_statIdle;
 
 }
 void at_CmdPC4(char *pPara)
@@ -542,13 +542,13 @@ void at_CmdPWM1(char *pPara)
 {
     uint8_t prescaler;
     uint16_t period;
-    uint16_t pulse; 
+    uint16_t pulse;
     if(*pPara++ == '=')
     {
-        prescaler = getPara(&pPara,10);
-        period = getPara(&pPara,10);
-        pulse = getPara(&pPara,10);
-        pwm1_config(prescaler,period,pulse);
+        prescaler = getPara(&pPara, 10);
+        period = getPara(&pPara, 10);
+        pulse = getPara(&pPara, 10);
+        pwm1_config(prescaler, period, pulse);
         at_back(AT_ERR_OK_ID);
     }
     else
@@ -562,13 +562,13 @@ void at_CmdPWM2(char *pPara)
     ack_on = 0;//¹Ø±ÕAckÏìÓ¦
     uint8_t prescaler;
     uint16_t period;
-    uint16_t pulse; 
+    uint16_t pulse;
     if(*pPara++ == '=')
     {
-        prescaler = getPara(&pPara,10);
-        period = getPara(&pPara,10);
-        pulse = getPara(&pPara,10);
-        pwm2_config(prescaler,period,pulse);
+        prescaler = getPara(&pPara, 10);
+        period = getPara(&pPara, 10);
+        pulse = getPara(&pPara, 10);
+        pwm2_config(prescaler, period, pulse);
         at_back(AT_ERR_OK_ID);
     }
     else
@@ -577,22 +577,22 @@ void at_CmdPWM2(char *pPara)
     }
     at_state = at_statIdle;
 }
-#endif 
+#endif
 
 
 #if USE_REG
 void at_CmdReg(char *pPara)
 {
     static uint8_t rawValue;
-    uint8_t buf[6]={0};
+    uint8_t buf[6] = {0};
     static uint8_t reg;
     if(*pPara++ == ':')
-    reg = getPara(&pPara);
+        reg = getPara(&pPara);
 
     if(*pPara == '=')
     {
-        rawValue=getPara(&pPara);
-        SX1278Write(reg,rawValue);
+        rawValue = getPara(&pPara);
+        SX1278Write(reg, rawValue);
         uart1_write_string(AT_ERR_OK_STR);
     }
     else if(*pPara++ == '?')
@@ -604,9 +604,9 @@ void at_CmdReg(char *pPara)
         buf[4] = '0';
         buf[5] = ')';
         rawValue = SX1278Read(reg);
-        ultoa(rawValue,&buf[3],16);
-        buf[5]=')';
-        uart1_write(buf,6);
+        ultoa(rawValue, &buf[3], 16);
+        buf[5] = ')';
+        uart1_write(buf, 6);
         at_backOk;
     }
     else
@@ -614,6 +614,6 @@ void at_CmdReg(char *pPara)
         at_backErrorCode(AT_ERR_SYMBLE);
     }
     at_state = at_statIdle;
-    
+
 }
 #endif

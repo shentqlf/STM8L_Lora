@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -54,72 +54,72 @@ static void COMP_Config(void);
   */
 void main(void)
 {
-   /* CLK configuration -------------------------------------------*/
-  CLK_Config(); 
-  
-  /* Init TIM2 to generate 1 ms time base update interrupt */
-  TimingDelay_Init();
+    /* CLK configuration -------------------------------------------*/
+    CLK_Config();
 
-  /* Key button configuration */
-  STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_EXTI);
+    /* Init TIM2 to generate 1 ms time base update interrupt */
+    TimingDelay_Init();
 
-  /* Initialize Leds mounted on STM8L152X-EVAL board */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED2);
-  STM_EVAL_LEDInit(LED3);
-  STM_EVAL_LEDInit(LED4);
+    /* Key button configuration */
+    STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_EXTI);
 
-   /* COMP configuration -------------------------------------------*/
-  COMP_Config(); 
+    /* Initialize Leds mounted on STM8L152X-EVAL board */
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED2);
+    STM_EVAL_LEDInit(LED3);
+    STM_EVAL_LEDInit(LED4);
 
-  /* Enable Interrupts */
-  enableInterrupts();
+    /* COMP configuration -------------------------------------------*/
+    COMP_Config();
 
-  /* Infinite loop */
-  while (1)
-  {
-    /* Toggle LDE1..4 */
-    STM_EVAL_LEDToggle(LED1);
-    STM_EVAL_LEDToggle(LED2);
-    STM_EVAL_LEDToggle(LED3);
-    STM_EVAL_LEDToggle(LED4);
+    /* Enable Interrupts */
+    enableInterrupts();
 
-    /* Insert delay */
-    Delay(50);
-  }
+    /* Infinite loop */
+    while (1)
+    {
+        /* Toggle LDE1..4 */
+        STM_EVAL_LEDToggle(LED1);
+        STM_EVAL_LEDToggle(LED2);
+        STM_EVAL_LEDToggle(LED3);
+        STM_EVAL_LEDToggle(LED4);
+
+        /* Insert delay */
+        Delay(50);
+    }
 }
 
 /**
-  * @brief  Configure peripheral clock 
+  * @brief  Configure peripheral clock
   * @param  None
   * @retval None
   */
 static void CLK_Config(void)
 {
-  /* Enable COMP clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_COMP, ENABLE);
+    /* Enable COMP clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_COMP, ENABLE);
 }
 
 /**
-  * @brief  Configure Comparator peripheral 
+  * @brief  Configure Comparator peripheral
   * @param  None
   * @retval None
   */
 static void COMP_Config(void)
 {
-  /* Connect internal reference voltage to COMP1 inverting input */
-  COMP_VrefintToCOMP1Connect(ENABLE);
-  /* close the analog switch number 14 */
-  SYSCFG_RIAnalogSwitchConfig(RI_AnalogSwitch_14, ENABLE);
-  /* close the analog switch number 1 */
-  SYSCFG_RIAnalogSwitchConfig(RI_AnalogSwitch_1, ENABLE);
-  /* close the I/O switch number 4 */
-  SYSCFG_RIIOSwitchConfig(RI_IOSwitch_4, ENABLE);
+    /* Connect internal reference voltage to COMP1 inverting input */
+    COMP_VrefintToCOMP1Connect(ENABLE);
+    /* close the analog switch number 14 */
+    SYSCFG_RIAnalogSwitchConfig(RI_AnalogSwitch_14, ENABLE);
+    /* close the analog switch number 1 */
+    SYSCFG_RIAnalogSwitchConfig(RI_AnalogSwitch_1, ENABLE);
+    /* close the I/O switch number 4 */
+    SYSCFG_RIIOSwitchConfig(RI_IOSwitch_4, ENABLE);
 
-  /* Enable COMP1 Interrupt */
-  COMP_ITConfig(COMP_Selection_COMP1, ENABLE);
-  /* Configure the event detection */
-  COMP_EdgeConfig(COMP_Selection_COMP1, COMP_Edge_Rising);
+    /* Enable COMP1 Interrupt */
+    COMP_ITConfig(COMP_Selection_COMP1, ENABLE);
+    /* Configure the event detection */
+    COMP_EdgeConfig(COMP_Selection_COMP1, COMP_Edge_Rising);
 }
 #ifdef  USE_FULL_ASSERT
 
@@ -130,14 +130,14 @@ static void COMP_Config(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

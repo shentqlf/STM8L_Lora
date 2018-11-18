@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8_eval_i2c_ee.h"
@@ -72,7 +72,7 @@ CONST uint8_t Message3[] = "\n\rI2C operations Failed";
 
 __IO uint16_t NumDataRead = 0;
 /* Private functions ---------------------------------------------------------*/
-TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
+TestStatus Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength);
 
 /**
   * @brief  Main program
@@ -81,150 +81,150 @@ TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength
   */
 void main(void)
 {
-  uint8_t index = 0;
-  /* Select HSE as system clock source */
-  CLK_SYSCLKSourceSwitchCmd(ENABLE);
-  CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSE);
-  /* High speed external clock prescaler: 1*/
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    uint8_t index = 0;
+    /* Select HSE as system clock source */
+    CLK_SYSCLKSourceSwitchCmd(ENABLE);
+    CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSE);
+    /* High speed external clock prescaler: 1*/
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  while (CLK_GetSYSCLKSource() != CLK_SYSCLKSource_HSE)
-  {}
+    while (CLK_GetSYSCLKSource() != CLK_SYSCLKSource_HSE)
+    {}
 
-  /* Enable I2C1 clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, ENABLE);
+    /* Enable I2C1 clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, ENABLE);
 
-  /* EVAL COM (USARTx) configuration -----------------------------------------*/
-  /* USART configured as follow:
-          - BaudRate = 115200 baud  
-          - Word Length = 8 Bits
-          - One Stop Bit
-          - Odd parity
-          - Receive and transmit enabled
-          - USART Clock disabled
-  */
-  STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
-                   USART_Parity_Odd, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
+    /* EVAL COM (USARTx) configuration -----------------------------------------*/
+    /* USART configured as follow:
+            - BaudRate = 115200 baud
+            - Word Length = 8 Bits
+            - One Stop Bit
+            - Odd parity
+            - Receive and transmit enabled
+            - USART Clock disabled
+    */
+    STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
+                     USART_Parity_Odd, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
 
-  /* Enable general interrupts */
-  enableInterrupts();
+    /* Enable general interrupts */
+    enableInterrupts();
 
-  /* Enable the USART Receive interrupt: this interrupt is generated when the USART
-      receive data register is not empty */
-  USART_ITConfig(EVAL_COM1, USART_IT_RXNE, ENABLE);
+    /* Enable the USART Receive interrupt: this interrupt is generated when the USART
+        receive data register is not empty */
+    USART_ITConfig(EVAL_COM1, USART_IT_RXNE, ENABLE);
 
-  /* Enable the USART Transmit complete interrupt: this interrupt is generated when
-     the USART transmit Shift Register is empty */
-  USART_ITConfig(EVAL_COM1, USART_IT_TC, ENABLE);
+    /* Enable the USART Transmit complete interrupt: this interrupt is generated when
+       the USART transmit Shift Register is empty */
+    USART_ITConfig(EVAL_COM1, USART_IT_TC, ENABLE);
 
-  while (UsartTransferStatus == RESET);
+    while (UsartTransferStatus == RESET);
 
-  for (index = 0; index < MESSAGE1_SIZE; index++)
-  {
-    /* Wait while USART TC = 0 */
-    while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
-    /* Send on byte from stm8l15x USART to HyperTherminal */
-    USART_SendData8(EVAL_COM1, Message1[index]);
-  }
-
-  /* Initialize the I2C EEPROM driver ---------------------------------------*/
-  sEE_Init();
-
-  /* First write in the memory followed by a read of the written data --------*/
-  /* Write on I2C EEPROM from EEPROM_WRITE_ADDRESS1 */
-  sEE_WriteBuffer(RxBuffer1, EEPROM_WRITE_ADDRESS1, RX_BUFFER1_SIZE);
-
-  /* Set the Number of data to be read */
-  NumDataRead = RX_BUFFER1_SIZE;
-
-  /* Read from I2C EEPROM from EEPROM_READ_ADDRESS1 */
-  sEE_ReadBuffer(RxBuffer3, EEPROM_READ_ADDRESS1, (uint16_t*)&NumDataRead);
-
-  /* Starting from this point, if the requested number of data is higher than 1,
-     then only the DMA is managing the data transfer. Meanwhile, CPU is free to 
-     perform other tasks:
-    
-    // Add your code here: 
-    //...
-    //...
-
-     For simplicity reasons, this example is just waiting till the end of the 
-     transfer. */
-
-
-  /* Wait till DMA transfer is complete (Transfer complete interrupt handler
-    resets the variable holding the number of data to be read) */
-  while (NumDataRead > 0)
-  {}
-
-  /* Check if the data written to the memory is read correctly */
-  TransferStatus1 = Buffercmp(RxBuffer1, RxBuffer3, RX_BUFFER1_SIZE);
-  /* TransferStatus1 = PASSED, if the transmitted and received data
-     to/from the EEPROM are the same */
-  /* TransferStatus1 = FAILED, if the transmitted and received data
-     to/from the EEPROM are different */
-
-  /* Wait for EEPROM standby state */
-  sEE_WaitEepromStandbyState();
-
-  /* Second write in the memory followed by a read of the written data -------*/
-  /* Write on I2C EEPROM from EEPROM_WRITE_ADDRESS2 */
-  sEE_WriteBuffer((uint8_t*)TxBuffer2, EEPROM_WRITE_ADDRESS2, TX_BUFFER2_SIZE);
-
-  /* Set the Number of data to be read */
-  NumDataRead = TX_BUFFER2_SIZE;
-
-  /* Read from I2C EEPROM from EEPROM_READ_ADDRESS2 */
-  sEE_ReadBuffer(RxBuffer2, EEPROM_READ_ADDRESS2, (uint16_t*)&NumDataRead);
-
-  /* Starting from this point, if the requested number of data is higher than 1,
-     then only the DMA is managing the data transfer. Meanwhile, CPU is free to 
-     perform other tasks:
-    
-    // Add your code here: 
-    //...
-    //...
-
-     For simplicity reasons, this example is just waiting till the end of the 
-     transfer. */
-
-
-  /* Wait till DMA transfer is complete (Transfer complete interrupt handler
-    resets the variable holding the number of data to be read) */
-  while (NumDataRead > 0)
-  {}
-
-  /* Check if the data written to the memory is read correctly */
-  TransferStatus2 = Buffercmp((uint8_t*)TxBuffer2, RxBuffer2, TX_BUFFER2_SIZE);
-  /* TransferStatus2 = PASSED, if the transmitted and received data
-     to/from the EEPROM are the same */
-  /* TransferStatus2 = FAILED, if the transmitted and received data
-     to/from the EEPROM are different */
-  if ((TransferStatus1 != FAILED) && (TransferStatus2 != FAILED))
-  {
-    for (index = 0; index < MESSAGE2_SIZE; index++)
+    for (index = 0; index < MESSAGE1_SIZE; index++)
     {
-      /* Wait while USART TC = 0 */
-      while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
-      /* Send on byte from stm8l15x USART to HyperTherminal */
-      USART_SendData8(EVAL_COM1, Message2[index]);
+        /* Wait while USART TC = 0 */
+        while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
+        /* Send on byte from stm8l15x USART to HyperTherminal */
+        USART_SendData8(EVAL_COM1, Message1[index]);
     }
-  }
-  else
-  {
-    for (index = 0; index < MESSAGE3_SIZE; index++)
+
+    /* Initialize the I2C EEPROM driver ---------------------------------------*/
+    sEE_Init();
+
+    /* First write in the memory followed by a read of the written data --------*/
+    /* Write on I2C EEPROM from EEPROM_WRITE_ADDRESS1 */
+    sEE_WriteBuffer(RxBuffer1, EEPROM_WRITE_ADDRESS1, RX_BUFFER1_SIZE);
+
+    /* Set the Number of data to be read */
+    NumDataRead = RX_BUFFER1_SIZE;
+
+    /* Read from I2C EEPROM from EEPROM_READ_ADDRESS1 */
+    sEE_ReadBuffer(RxBuffer3, EEPROM_READ_ADDRESS1, (uint16_t *)&NumDataRead);
+
+    /* Starting from this point, if the requested number of data is higher than 1,
+       then only the DMA is managing the data transfer. Meanwhile, CPU is free to
+       perform other tasks:
+
+      // Add your code here:
+      //...
+      //...
+
+       For simplicity reasons, this example is just waiting till the end of the
+       transfer. */
+
+
+    /* Wait till DMA transfer is complete (Transfer complete interrupt handler
+      resets the variable holding the number of data to be read) */
+    while (NumDataRead > 0)
+    {}
+
+    /* Check if the data written to the memory is read correctly */
+    TransferStatus1 = Buffercmp(RxBuffer1, RxBuffer3, RX_BUFFER1_SIZE);
+    /* TransferStatus1 = PASSED, if the transmitted and received data
+       to/from the EEPROM are the same */
+    /* TransferStatus1 = FAILED, if the transmitted and received data
+       to/from the EEPROM are different */
+
+    /* Wait for EEPROM standby state */
+    sEE_WaitEepromStandbyState();
+
+    /* Second write in the memory followed by a read of the written data -------*/
+    /* Write on I2C EEPROM from EEPROM_WRITE_ADDRESS2 */
+    sEE_WriteBuffer((uint8_t *)TxBuffer2, EEPROM_WRITE_ADDRESS2, TX_BUFFER2_SIZE);
+
+    /* Set the Number of data to be read */
+    NumDataRead = TX_BUFFER2_SIZE;
+
+    /* Read from I2C EEPROM from EEPROM_READ_ADDRESS2 */
+    sEE_ReadBuffer(RxBuffer2, EEPROM_READ_ADDRESS2, (uint16_t *)&NumDataRead);
+
+    /* Starting from this point, if the requested number of data is higher than 1,
+       then only the DMA is managing the data transfer. Meanwhile, CPU is free to
+       perform other tasks:
+
+      // Add your code here:
+      //...
+      //...
+
+       For simplicity reasons, this example is just waiting till the end of the
+       transfer. */
+
+
+    /* Wait till DMA transfer is complete (Transfer complete interrupt handler
+      resets the variable holding the number of data to be read) */
+    while (NumDataRead > 0)
+    {}
+
+    /* Check if the data written to the memory is read correctly */
+    TransferStatus2 = Buffercmp((uint8_t *)TxBuffer2, RxBuffer2, TX_BUFFER2_SIZE);
+    /* TransferStatus2 = PASSED, if the transmitted and received data
+       to/from the EEPROM are the same */
+    /* TransferStatus2 = FAILED, if the transmitted and received data
+       to/from the EEPROM are different */
+    if ((TransferStatus1 != FAILED) && (TransferStatus2 != FAILED))
     {
-      /* Wait while USART TC = 0 */
-      while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
-      /* Send on byte from stm8l15x USART to HyperTherminal */
-      USART_SendData8(EVAL_COM1, Message3[index]);
+        for (index = 0; index < MESSAGE2_SIZE; index++)
+        {
+            /* Wait while USART TC = 0 */
+            while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
+            /* Send on byte from stm8l15x USART to HyperTherminal */
+            USART_SendData8(EVAL_COM1, Message2[index]);
+        }
     }
-  }
+    else
+    {
+        for (index = 0; index < MESSAGE3_SIZE; index++)
+        {
+            /* Wait while USART TC = 0 */
+            while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
+            /* Send on byte from stm8l15x USART to HyperTherminal */
+            USART_SendData8(EVAL_COM1, Message3[index]);
+        }
+    }
 
-  /* Free all used resources */
-  sEE_DeInit();
+    /* Free all used resources */
+    sEE_DeInit();
 
-  while (1);
+    while (1);
 }
 
 /**
@@ -234,20 +234,20 @@ void main(void)
   * @retval PASSED: pBuffer1 identical to pBuffer2
   *   FAILED: pBuffer1 differs from pBuffer2
   */
-TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength)
+TestStatus Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength)
 {
-  while (BufferLength--)
-  {
-    if (*pBuffer1 != *pBuffer2)
+    while (BufferLength--)
     {
-      return FAILED;
+        if (*pBuffer1 != *pBuffer2)
+        {
+            return FAILED;
+        }
+
+        pBuffer1++;
+        pBuffer2++;
     }
 
-    pBuffer1++;
-    pBuffer2++;
-  }
-
-  return PASSED;
+    return PASSED;
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -258,14 +258,14 @@ TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

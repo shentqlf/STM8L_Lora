@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -56,36 +56,36 @@ void Delay(__IO uint32_t nCount);
   */
 void main(void)
 {
-  /* Initialize LEDs mounted on STM8L152X-EVAL board */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED2);
-  STM_EVAL_LEDInit(LED3);
-  STM_EVAL_LEDInit(LED4);
+    /* Initialize LEDs mounted on STM8L152X-EVAL board */
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED2);
+    STM_EVAL_LEDInit(LED3);
+    STM_EVAL_LEDInit(LED4);
 
-  /* Initialize Key-button mounted on STM8L152X-EVAL board */
-  STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_EXTI);
+    /* Initialize Key-button mounted on STM8L152X-EVAL board */
+    STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_EXTI);
 
-   /* RTC configuration -------------------------------------------*/
-  RTC_Config(); 
+    /* RTC configuration -------------------------------------------*/
+    RTC_Config();
 
-  /* Infinite loop */
-  while (1)
-  {
-    STM_EVAL_LEDOn(LED1);
-    STM_EVAL_LEDOff(LED2);
-    Delay(0xFFFF);
-    STM_EVAL_LEDOn(LED2);
-    STM_EVAL_LEDOff(LED1);
+    /* Infinite loop */
+    while (1)
+    {
+        STM_EVAL_LEDOn(LED1);
+        STM_EVAL_LEDOff(LED2);
+        Delay(0xFFFF);
+        STM_EVAL_LEDOn(LED2);
+        STM_EVAL_LEDOff(LED1);
 
-    /* RTC will wake-up from halt every 5second */
-    RTC_SetWakeUpCounter(5);
-    RTC_WakeUpCmd(ENABLE);
+        /* RTC will wake-up from halt every 5second */
+        RTC_SetWakeUpCounter(5);
+        RTC_WakeUpCmd(ENABLE);
 
-    /* Enter Wait for interrupt mode*/
-    wfi();
+        /* Enter Wait for interrupt mode*/
+        wfi();
 
-    RTC_WakeUpCmd(DISABLE);
-  }
+        RTC_WakeUpCmd(DISABLE);
+    }
 }
 
 /**
@@ -95,15 +95,15 @@ void main(void)
   */
 static void RTC_Config(void)
 {
-  /* Configures the RTC */
-  CLK_RTCClockConfig(CLK_RTCCLKSource_LSE, CLK_RTCCLKDiv_1);
-  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);
-  
-  RTC_WakeUpClockConfig(RTC_WakeUpClock_CK_SPRE_16bits);
-  RTC_ITConfig(RTC_IT_WUT, ENABLE);
+    /* Configures the RTC */
+    CLK_RTCClockConfig(CLK_RTCCLKSource_LSE, CLK_RTCCLKDiv_1);
+    CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);
 
-  /* Enable Interrupts*/
-  enableInterrupts();
+    RTC_WakeUpClockConfig(RTC_WakeUpClock_CK_SPRE_16bits);
+    RTC_ITConfig(RTC_IT_WUT, ENABLE);
+
+    /* Enable Interrupts*/
+    enableInterrupts();
 }
 /**
   * @brief  Inserts a delay time.
@@ -112,7 +112,7 @@ static void RTC_Config(void)
   */
 void Delay(__IO uint32_t nCount)
 {
-  for (; nCount != 0; nCount--);
+    for (; nCount != 0; nCount--);
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -123,14 +123,14 @@ void Delay(__IO uint32_t nCount)
   * @param line: assert_param error line source number
   * @retval : None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

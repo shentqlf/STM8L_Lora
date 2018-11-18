@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */  
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
@@ -43,7 +43,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* Data to be encrypted: data length must be multiple of 16 bytes and lower than 112 bytes */
-NEAR uint8_t PlainText[] = "Four 8-bit product lines combine architecture with ST’s EnergyLite™ technology to do more work with less energy.";
+NEAR uint8_t PlainText[] = "Four 8-bit product lines combine architecture with ST’s EnergyLite?technology to do more work with less energy.";
 NEAR uint8_t  CypherText[PLAINTEXT_SIZE + 1] = {0};
 NEAR uint8_t  ComputedPlainText[PLAINTEXT_SIZE + 1] = {0};
 NEAR uint8_t  SrcBuffer[PLAINTEXT_SIZE * 2 + 2] = {0};
@@ -51,7 +51,7 @@ NEAR uint8_t  SrcBuffer[PLAINTEXT_SIZE * 2 + 2] = {0};
 uint8_t EncryptionKey[16] = "ultra low-power";
 
 /* Private function prototypes -----------------------------------------------*/
-ErrorStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
+ErrorStatus Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength);
 
 #endif /* __MAIN_H */
 

@@ -8,24 +8,24 @@ void spi_config()
 
     //PB5->SCK,PB6->MOSI,PB7->MISO
     /* Set the MOSI,MISO and SCK at high level */
-    GPIO_ExternalPullUpConfig(GPIOB, GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7, ENABLE);    
+    GPIO_ExternalPullUpConfig(GPIOB, GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7, ENABLE);
 
-    /* SPI configuration 
-    SPI_Init(   SPI1, 
-                SPI_FirstBit_MSB, 
+    /* SPI configuration
+    SPI_Init(   SPI1,
+                SPI_FirstBit_MSB,
                 SPI_BaudRatePrescaler_2,
                 SPI_Mode_Master,
-                SPI_CPOL_Low, 
-                SPI_CPHA_1Edge, 
+                SPI_CPOL_Low,
+                SPI_CPHA_1Edge,
                 SPI_Direction_2Lines_FullDuplex,
-                SPI_NSS_Soft, 
+                SPI_NSS_Soft,
                 0x07);
-*/
+    */
 
     SPI1->CR1 = (uint8_t)((uint8_t)((uint8_t)SPI_FirstBit_MSB |
-                (uint8_t)SPI_BaudRatePrescaler_2) |
-                (uint8_t)((uint8_t)SPI_CPOL_Low |
-                SPI_CPHA_1Edge));
+                                    (uint8_t)SPI_BaudRatePrescaler_2) |
+                          (uint8_t)((uint8_t)SPI_CPOL_Low |
+                                    SPI_CPHA_1Edge));
     SPI1->CR2 = (uint8_t)((uint8_t)(SPI_Direction_2Lines_FullDuplex) | (uint8_t)(SPI_NSS_Soft));
     SPI1->CR1 |= (uint8_t)(SPI_Mode_Master);
     SPI1->CR2 |= (uint8_t)SPI_CR2_SSI;

@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -54,7 +54,7 @@ uint8_t RAMBuffer[RAM_BUFFER_SIZE] = {0, 0, 0, 0};
 /* Private function prototypes -----------------------------------------------*/
 static void DMA_Config(void);
 void LedControl(void);
-bool Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
+bool Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength);
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -66,62 +66,62 @@ bool Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
 void main(void)
 {
 
-  /* Enable DMA1 clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
+    /* Enable DMA1 clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
 
-  /* Leds Init*/
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED2);
-  STM_EVAL_LEDInit(LED3);
-  STM_EVAL_LEDInit(LED4);
+    /* Leds Init*/
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED2);
+    STM_EVAL_LEDInit(LED3);
+    STM_EVAL_LEDInit(LED4);
 
-  /* EVAL COM (USARTx) configuration -----------------------------------------*/
-  /* USART configured as follow:
-          - BaudRate = 9600 baud  
-          - Word Length = 8 Bits
-          - One Stop Bit
-          - Odd parity
-          - Receive and transmit enabled
-          - USART Clock disabled
-  */
-  STM_EVAL_COMInit(COM1, (uint32_t)9600/*BAUDRATE */, USART_WordLength_8b,
-                   USART_StopBits_1, USART_Parity_No, USART_Mode_Rx);
+    /* EVAL COM (USARTx) configuration -----------------------------------------*/
+    /* USART configured as follow:
+            - BaudRate = 9600 baud
+            - Word Length = 8 Bits
+            - One Stop Bit
+            - Odd parity
+            - Receive and transmit enabled
+            - USART Clock disabled
+    */
+    STM_EVAL_COMInit(COM1, (uint32_t)9600/*BAUDRATE */, USART_WordLength_8b,
+                     USART_StopBits_1, USART_Parity_No, USART_Mode_Rx);
 
-  /* DMA configuration -------------------------------------------*/
-  DMA_Config();
-  
-  while (1)
-  {
-    /* Enter Wait for Interrupt mode */
-    wfi();
-  }
+    /* DMA configuration -------------------------------------------*/
+    DMA_Config();
+
+    while (1)
+    {
+        /* Enter Wait for Interrupt mode */
+        wfi();
+    }
 }
 
 /**
-  * @brief  Configure DMA peripheral 
+  * @brief  Configure DMA peripheral
   * @param  None
   * @retval None
   */
 static void DMA_Config(void)
 {
-  /* DMA channel Rx of USART Configuration */
-  DMA_Init(USART_DMA_CHANNEL_RX,
-           (uint16_t)RAM_BUFFER_ADDRESS,
-           (uint16_t)USART_DR_ADDRESS,
-           RAM_BUFFER_SIZE, DMA_DIR_PeripheralToMemory, DMA_Mode_Circular,
-           DMA_MemoryIncMode_Inc, DMA_Priority_Low, DMA_MemoryDataSize_Byte);
+    /* DMA channel Rx of USART Configuration */
+    DMA_Init(USART_DMA_CHANNEL_RX,
+             (uint16_t)RAM_BUFFER_ADDRESS,
+             (uint16_t)USART_DR_ADDRESS,
+             RAM_BUFFER_SIZE, DMA_DIR_PeripheralToMemory, DMA_Mode_Circular,
+             DMA_MemoryIncMode_Inc, DMA_Priority_Low, DMA_MemoryDataSize_Byte);
 
-  /* Enable the USART Rx DMA request */
-  USART_DMACmd(EVAL_COM1, USART_DMAReq_RX, ENABLE);
+    /* Enable the USART Rx DMA request */
+    USART_DMACmd(EVAL_COM1, USART_DMAReq_RX, ENABLE);
 
-  /* Enable TC interrupt to wake up from wfi mode*/
-  DMA_ITConfig(USART_DMA_CHANNEL_RX, DMA_ITx_TC, ENABLE);
+    /* Enable TC interrupt to wake up from wfi mode*/
+    DMA_ITConfig(USART_DMA_CHANNEL_RX, DMA_ITx_TC, ENABLE);
 
-  /* Global DMA Enable */
-  DMA_GlobalCmd(ENABLE);
+    /* Global DMA Enable */
+    DMA_GlobalCmd(ENABLE);
 
-  /* Enable the USART Rx DMA channel */
-  DMA_Cmd(USART_DMA_CHANNEL_RX, ENABLE);
+    /* Enable the USART Rx DMA channel */
+    DMA_Cmd(USART_DMA_CHANNEL_RX, ENABLE);
 }
 
 /**
@@ -131,40 +131,40 @@ static void DMA_Config(void)
   */
 void LedControl(void)
 {
-  /* All leds off*/
-  STM_EVAL_LEDOff(LED1);
-  STM_EVAL_LEDOff(LED3);
-  STM_EVAL_LEDOff(LED2);
-  STM_EVAL_LEDOff(LED4);
+    /* All leds off*/
+    STM_EVAL_LEDOff(LED1);
+    STM_EVAL_LEDOff(LED3);
+    STM_EVAL_LEDOff(LED2);
+    STM_EVAL_LEDOff(LED4);
 
-  if (Buffercmp(RAMBuffer, "led1", RAM_BUFFER_SIZE) != FALSE)
-  {
-    /* Action 1*/
-    STM_EVAL_LEDOn(LED1);
-  }
-  else if (Buffercmp(RAMBuffer, "led2", RAM_BUFFER_SIZE) != FALSE)
-  {
-    /* Action 2*/
-    STM_EVAL_LEDOn(LED2);
-  }
-  else if (Buffercmp(RAMBuffer, "led3", RAM_BUFFER_SIZE) != FALSE)
-  {
-    /* Action 3*/
-    STM_EVAL_LEDOn(LED3);
-  }
-  else if (Buffercmp(RAMBuffer, "led4", RAM_BUFFER_SIZE) != FALSE)
-  {
-    /* Action 4*/
-    STM_EVAL_LEDOn(LED4);
-  }
-  else
-  {
-    /* Error : all leds on*/
-    STM_EVAL_LEDOn(LED1);
-    STM_EVAL_LEDOn(LED3);
-    STM_EVAL_LEDOn(LED2);
-    STM_EVAL_LEDOn(LED4);
-  }
+    if (Buffercmp(RAMBuffer, "led1", RAM_BUFFER_SIZE) != FALSE)
+    {
+        /* Action 1*/
+        STM_EVAL_LEDOn(LED1);
+    }
+    else if (Buffercmp(RAMBuffer, "led2", RAM_BUFFER_SIZE) != FALSE)
+    {
+        /* Action 2*/
+        STM_EVAL_LEDOn(LED2);
+    }
+    else if (Buffercmp(RAMBuffer, "led3", RAM_BUFFER_SIZE) != FALSE)
+    {
+        /* Action 3*/
+        STM_EVAL_LEDOn(LED3);
+    }
+    else if (Buffercmp(RAMBuffer, "led4", RAM_BUFFER_SIZE) != FALSE)
+    {
+        /* Action 4*/
+        STM_EVAL_LEDOn(LED4);
+    }
+    else
+    {
+        /* Error : all leds on*/
+        STM_EVAL_LEDOn(LED1);
+        STM_EVAL_LEDOn(LED3);
+        STM_EVAL_LEDOn(LED2);
+        STM_EVAL_LEDOn(LED4);
+    }
 
 }
 
@@ -175,20 +175,20 @@ void LedControl(void)
   * @retval TRUE: pBuffer1 identical to pBuffer2
   *         FALSE: pBuffer1 differs from pBuffer2
   */
-bool Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength)
+bool Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength)
 {
-  while (BufferLength--)
-  {
-    if (*pBuffer1 != *pBuffer2)
+    while (BufferLength--)
     {
-      return FALSE;
+        if (*pBuffer1 != *pBuffer2)
+        {
+            return FALSE;
+        }
+
+        pBuffer1++;
+        pBuffer2++;
     }
 
-    pBuffer1++;
-    pBuffer2++;
-  }
-
-  return TRUE;
+    return TRUE;
 }
 #ifdef  USE_FULL_ASSERT
 /**
@@ -198,14 +198,14 @@ bool Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength)
   * @param line: assert_param error line source number
   * @retval : None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 /**

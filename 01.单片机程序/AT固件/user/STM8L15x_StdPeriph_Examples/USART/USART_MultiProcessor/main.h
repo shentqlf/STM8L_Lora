@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
@@ -31,7 +31,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 
-/* Uncomment the line below according to the target Master/Slave used in 
+/* Uncomment the line below according to the target Master/Slave used in
    the multiprocesor communication example.*/
 #define USART_MASTER /*Master running */
 //#define USART_SLAVE    /*Slave running */
@@ -43,4 +43,4 @@
 
 #endif /* __MAIN_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/		
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

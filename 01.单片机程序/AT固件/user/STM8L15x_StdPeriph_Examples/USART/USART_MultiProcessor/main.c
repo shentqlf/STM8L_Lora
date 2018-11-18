@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -55,63 +55,63 @@ void Delay(uint16_t nCount);
   */
 void main(void)
 {
-  /*High speed external clock prescaler: 1*/
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    /*High speed external clock prescaler: 1*/
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /* Initialize I/O in Input Mode with Interrupt for Key button */
-  STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_EXTI);
+    /* Initialize I/O in Input Mode with Interrupt for Key button */
+    STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_EXTI);
 
-  enableInterrupts();
+    enableInterrupts();
 
-  USART_DeInit(EVAL_COM1);
-  /* EVAL COM (USARTx) configuration -----------------------------------------*/
-  /* USART configured as follow:
-        - BaudRate = 9600 baud  
-        - Word Length = 9 Bits
-        - One Stop Bit
-        - No parity
-        - Receive  enabled (USART_Slave)
-        - Transmit enabled (USART_Master)
-  */
+    USART_DeInit(EVAL_COM1);
+    /* EVAL COM (USARTx) configuration -----------------------------------------*/
+    /* USART configured as follow:
+          - BaudRate = 9600 baud
+          - Word Length = 9 Bits
+          - One Stop Bit
+          - No parity
+          - Receive  enabled (USART_Slave)
+          - Transmit enabled (USART_Master)
+    */
 #ifdef USART_SLAVE
 
-  /* Initialize I/Os in Output Mode for LEDs */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED2);
-  STM_EVAL_LEDInit(LED3);
-  STM_EVAL_LEDInit(LED4);
+    /* Initialize I/Os in Output Mode for LEDs */
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED2);
+    STM_EVAL_LEDInit(LED3);
+    STM_EVAL_LEDInit(LED4);
 
-  STM_EVAL_COMInit(COM1, (uint32_t)9600, USART_WordLength_9b,
-                   USART_StopBits_1, USART_Parity_No, USART_Mode_Rx);
+    STM_EVAL_COMInit(COM1, (uint32_t)9600, USART_WordLength_9b,
+                     USART_StopBits_1, USART_Parity_No, USART_Mode_Rx);
 
-  /* Enable the USART Receive interrupt: this interrupt is generated when the
-    USART receive data register is not empty */
-  USART_ITConfig(EVAL_COM1, USART_IT_RXNE, ENABLE);
+    /* Enable the USART Receive interrupt: this interrupt is generated when the
+      USART receive data register is not empty */
+    USART_ITConfig(EVAL_COM1, USART_IT_RXNE, ENABLE);
 
-  /* Set the USART Address */
-  USART_SetAddress(EVAL_COM1, 0x2);
+    /* Set the USART Address */
+    USART_SetAddress(EVAL_COM1, 0x2);
 
-  /* Select the USART WakeUp Method */
-  USART_WakeUpConfig(EVAL_COM1, USART_WakeUp_AddressMark);
+    /* Select the USART WakeUp Method */
+    USART_WakeUpConfig(EVAL_COM1, USART_WakeUp_AddressMark);
 
-  STM_EVAL_LEDOn(LED1);
-  STM_EVAL_LEDOn(LED2);
-  STM_EVAL_LEDOn(LED3);
-  STM_EVAL_LEDOn(LED4);
+    STM_EVAL_LEDOn(LED1);
+    STM_EVAL_LEDOn(LED2);
+    STM_EVAL_LEDOn(LED3);
+    STM_EVAL_LEDOn(LED4);
 #else /* USART_MASTER */
 
-  STM_EVAL_COMInit(COM1, (uint32_t)9600, USART_WordLength_9b, USART_StopBits_1,
-                   USART_Parity_No, USART_Mode_Tx);
-  /* Enable the USART Transmit interrupt: this interrupt is generated when the USART transmit
-  data register is empty */
-  USART_ITConfig(EVAL_COM1, USART_IT_TXE, ENABLE);
+    STM_EVAL_COMInit(COM1, (uint32_t)9600, USART_WordLength_9b, USART_StopBits_1,
+                     USART_Parity_No, USART_Mode_Tx);
+    /* Enable the USART Transmit interrupt: this interrupt is generated when the USART transmit
+    data register is empty */
+    USART_ITConfig(EVAL_COM1, USART_IT_TXE, ENABLE);
 
-  /* Set the USART Address */
-  USART_SetAddress(EVAL_COM1, 0x1);
+    /* Set the USART Address */
+    USART_SetAddress(EVAL_COM1, 0x1);
 #endif /* USART_SLAVE */
 
-  while (1)
-  {}
+    while (1)
+    {}
 }
 
 /**
@@ -121,11 +121,11 @@ void main(void)
   */
 void Delay(uint16_t nCount)
 {
-  /* Decrement nCount value */
-  while (nCount != 0)
-  {
-    nCount--;
-  }
+    /* Decrement nCount value */
+    while (nCount != 0)
+    {
+        nCount--;
+    }
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -136,14 +136,14 @@ void Delay(uint16_t nCount)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 /**

@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -68,74 +68,74 @@ static void DMA_Config(void);
   */
 void main(void)
 {
-  /* CLK configuration -------------------------------------------*/
-  CLK_Config();
-  
-  /* Init the Eval board LCD */
-  STM8_EVAL_LCD_Init();
+    /* CLK configuration -------------------------------------------*/
+    CLK_Config();
 
-  /* Clear LCD */
-  LCD_Clear();
+    /* Init the Eval board LCD */
+    STM8_EVAL_LCD_Init();
+
+    /* Clear LCD */
+    LCD_Clear();
 
 
-  /* EVAL COM (USARTx) configuration -----------------------------------------*/
-  /* USART configured as follow:
-          - BaudRate = 115200 baud  
-          - Word Length = 8 Bits
-          - One Stop Bit
-          - Odd parity
-          - Receive and transmit enabled
-          - USART Clock disabled
-  */
-  STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
-                   USART_Parity_No, USART_Mode_Rx);
+    /* EVAL COM (USARTx) configuration -----------------------------------------*/
+    /* USART configured as follow:
+            - BaudRate = 115200 baud
+            - Word Length = 8 Bits
+            - One Stop Bit
+            - Odd parity
+            - Receive and transmit enabled
+            - USART Clock disabled
+    */
+    STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
+                     USART_Parity_No, USART_Mode_Rx);
 
-  /* DMA configuration -------------------------------------------*/
-  DMA_Config();
-  
-  /* Enable the USART RX DMA request */
-  USART_DMACmd(EVAL_COM1, USART_DMAReq_RX, ENABLE);
+    /* DMA configuration -------------------------------------------*/
+    DMA_Config();
 
-  while (1)
-  {
-    LCD_SetCursorPos(LCD_LINE1, 0);
-    LCD_Print((uint8_t *)DisplayBuffer);
+    /* Enable the USART RX DMA request */
+    USART_DMACmd(EVAL_COM1, USART_DMAReq_RX, ENABLE);
 
-    LCD_SetCursorPos(LCD_LINE2, 0);
-    LCD_Print((uint8_t *)&DisplayBuffer[15]);
-  }
+    while (1)
+    {
+        LCD_SetCursorPos(LCD_LINE1, 0);
+        LCD_Print((uint8_t *)DisplayBuffer);
+
+        LCD_SetCursorPos(LCD_LINE2, 0);
+        LCD_Print((uint8_t *)&DisplayBuffer[15]);
+    }
 }
 
 /**
-  * @brief  Configure peripherals clock 
+  * @brief  Configure peripherals clock
   * @param  None
   * @retval None
   */
 static void CLK_Config(void)
 {
-  /* High speed internal clock prescaler: 1*/
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    /* High speed internal clock prescaler: 1*/
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /* Enable DMA1 clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
+    /* Enable DMA1 clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
 }
 
 /**
-  * @brief  Configure DMA peripheral 
+  * @brief  Configure DMA peripheral
   * @param  None
   * @retval None
   */
 static void DMA_Config(void)
 {
-  /* DMA1 configuration*/
-  DMA_GlobalDeInit();
-  DMA_DeInit(USART_DMA_CHANNEL_RX);
+    /* DMA1 configuration*/
+    DMA_GlobalDeInit();
+    DMA_DeInit(USART_DMA_CHANNEL_RX);
 
-  DMA_Init(USART_DMA_CHANNEL_RX, BUFFER_ADDRESS, USART_DR_ADDRESS, 30, /* DMA_BufferSize */
-           DMA_DIR_PeripheralToMemory, DMA_Mode_Circular, DMA_MemoryIncMode_Inc,
-           DMA_Priority_Low, DMA_MemoryDataSize_Byte );
-  DMA_Cmd(USART_DMA_CHANNEL_RX, ENABLE);
-  DMA_GlobalCmd(ENABLE);
+    DMA_Init(USART_DMA_CHANNEL_RX, BUFFER_ADDRESS, USART_DR_ADDRESS, 30, /* DMA_BufferSize */
+             DMA_DIR_PeripheralToMemory, DMA_Mode_Circular, DMA_MemoryIncMode_Inc,
+             DMA_Priority_Low, DMA_MemoryDataSize_Byte );
+    DMA_Cmd(USART_DMA_CHANNEL_RX, ENABLE);
+    DMA_GlobalCmd(ENABLE);
 }
 #ifdef  USE_FULL_ASSERT
 /**
@@ -145,14 +145,14 @@ static void DMA_Config(void)
   * @param line: assert_param error line source number
   * @retval : None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 /**

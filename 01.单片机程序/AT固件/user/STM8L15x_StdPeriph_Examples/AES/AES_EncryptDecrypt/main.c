@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -51,7 +51,7 @@ uint8_t  CypherText[16] = {0};
 uint8_t  ComputedPlainText[16] = {0};
 
 /* Private function prototypes -----------------------------------------------*/
-ErrorStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
+ErrorStatus Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength);
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -62,108 +62,108 @@ ErrorStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLengt
   */
 void main(void)
 {
-  uint8_t arrayindex = 0;
-  ErrorStatus cryptostatus = ERROR;
+    uint8_t arrayindex = 0;
+    ErrorStatus cryptostatus = ERROR;
 
-  /* Enable AES clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_AES, ENABLE);
+    /* Enable AES clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_AES, ENABLE);
 
-  /* Initialize LEDs mounted on STM8L1528-EVAL board */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED3);
+    /* Initialize LEDs mounted on STM8L1528-EVAL board */
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED3);
 
-  /* Select the encryption mode */
-  AES_OperationModeConfig(AES_Operation_Encryp);
+    /* Select the encryption mode */
+    AES_OperationModeConfig(AES_Operation_Encryp);
 
-  /* Enable the AES peripheral */
-  AES_Cmd(ENABLE);
+    /* Enable the AES peripheral */
+    AES_Cmd(ENABLE);
 
-  /* write 32 times in the DINR register with encryption key and plain text */
-  while (arrayindex < 16)
-  {
-    /* writing MSB first */
-    AES_WriteSubKey(EncryptionKey[arrayindex]);
-    AES_WriteSubData(PlainText[arrayindex]);
-    /* Increment arrayindex */
-    arrayindex++;
-  }
+    /* write 32 times in the DINR register with encryption key and plain text */
+    while (arrayindex < 16)
+    {
+        /* writing MSB first */
+        AES_WriteSubKey(EncryptionKey[arrayindex]);
+        AES_WriteSubData(PlainText[arrayindex]);
+        /* Increment arrayindex */
+        arrayindex++;
+    }
 
-  /* Wait for CCF flag to be set */
-  while (AES_GetFlagStatus(AES_FLAG_CCF) == RESET)
-  {}
+    /* Wait for CCF flag to be set */
+    while (AES_GetFlagStatus(AES_FLAG_CCF) == RESET)
+    {}
 
-  /* Clear CCF flag */
-  AES_ClearFlag(AES_FLAG_CCF);
+    /* Clear CCF flag */
+    AES_ClearFlag(AES_FLAG_CCF);
 
-  /* Init arrayindex */
-  arrayindex = 0;
+    /* Init arrayindex */
+    arrayindex = 0;
 
-  /* read 16 times the DOUTR register to get the cipher text */
-  while (arrayindex < 16)
-  {
-    /* Reading MSB first */
-    CypherText[arrayindex] = AES_ReadSubData();
-    /* Increment arrayindex */
-    arrayindex++;
-  }
+    /* read 16 times the DOUTR register to get the cipher text */
+    while (arrayindex < 16)
+    {
+        /* Reading MSB first */
+        CypherText[arrayindex] = AES_ReadSubData();
+        /* Increment arrayindex */
+        arrayindex++;
+    }
 
-  /* Disable the AES peripheral to change the operation mode */
-  AES_Cmd(DISABLE);
+    /* Disable the AES peripheral to change the operation mode */
+    AES_Cmd(DISABLE);
 
-  /* Select the key derivation and decryption mode */
-  AES_OperationModeConfig(AES_Operation_KeyDerivAndDecryp);
+    /* Select the key derivation and decryption mode */
+    AES_OperationModeConfig(AES_Operation_KeyDerivAndDecryp);
 
-  /* Re-enable the AES peripheral */
-  AES_Cmd(ENABLE);
+    /* Re-enable the AES peripheral */
+    AES_Cmd(ENABLE);
 
-  /* Init arrayindex */
-  arrayindex = 0;
+    /* Init arrayindex */
+    arrayindex = 0;
 
-  /* write 32 times in the DINR register with encryption key and cypher text */
-  while (arrayindex < 16)
-  {
-    /* writing MSB first */
-    AES_WriteSubKey(EncryptionKey[arrayindex]);
-    AES_WriteSubData(CypherText[arrayindex]);
-    /* Increment arrayindex */
-    arrayindex++;
-  }
+    /* write 32 times in the DINR register with encryption key and cypher text */
+    while (arrayindex < 16)
+    {
+        /* writing MSB first */
+        AES_WriteSubKey(EncryptionKey[arrayindex]);
+        AES_WriteSubData(CypherText[arrayindex]);
+        /* Increment arrayindex */
+        arrayindex++;
+    }
 
-  /* Wait for CCF flag to be set */
-  while (AES_GetFlagStatus(AES_FLAG_CCF) == RESET)
-  {}
+    /* Wait for CCF flag to be set */
+    while (AES_GetFlagStatus(AES_FLAG_CCF) == RESET)
+    {}
 
-  /* Clear CCF flag */
-  AES_ClearFlag(AES_FLAG_CCF);
+    /* Clear CCF flag */
+    AES_ClearFlag(AES_FLAG_CCF);
 
-  /* Init arrayindex */
-  arrayindex = 0;
+    /* Init arrayindex */
+    arrayindex = 0;
 
-  /* read 16 times the DOUTR register to get the computed plain text */
-  while (arrayindex < 16)
-  {
-    /* Reading MSB first */
-    ComputedPlainText[arrayindex] = AES_ReadSubData();
-    /* Increment arrayindex */
-    arrayindex++;
-  }
+    /* read 16 times the DOUTR register to get the computed plain text */
+    while (arrayindex < 16)
+    {
+        /* Reading MSB first */
+        ComputedPlainText[arrayindex] = AES_ReadSubData();
+        /* Increment arrayindex */
+        arrayindex++;
+    }
 
-  /* Check if decrypted cypher text match the original plain text */
-  cryptostatus = Buffercmp(PlainText, ComputedPlainText, 16);
+    /* Check if decrypted cypher text match the original plain text */
+    cryptostatus = Buffercmp(PlainText, ComputedPlainText, 16);
 
-  if (cryptostatus == SUCCESS)
-  {
-    /* Turn on LD1 */
-    STM_EVAL_LEDOn(LED1);
-  }
-  else
-  {
-    /* Turn on LD3 */
-    STM_EVAL_LEDOn(LED3);
-  }
-  /* Infinite loop */
-  while (1)
-  {}
+    if (cryptostatus == SUCCESS)
+    {
+        /* Turn on LD1 */
+        STM_EVAL_LEDOn(LED1);
+    }
+    else
+    {
+        /* Turn on LD3 */
+        STM_EVAL_LEDOn(LED3);
+    }
+    /* Infinite loop */
+    while (1)
+    {}
 }
 
 /**
@@ -174,19 +174,19 @@ void main(void)
  * - SUCCESS: pBuffer1 identical to pBuffer2
  * - ERROR: pBuffer1 differs from pBuffer2
   */
-ErrorStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength)
+ErrorStatus Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength)
 {
-  while (BufferLength--)
-  {
-    if (*pBuffer1 != *pBuffer2)
+    while (BufferLength--)
     {
-      return ERROR;
+        if (*pBuffer1 != *pBuffer2)
+        {
+            return ERROR;
+        }
+        pBuffer1++;
+        pBuffer2++;
     }
-    pBuffer1++;
-    pBuffer2++;
-  }
 
-  return SUCCESS;
+    return SUCCESS;
 }
 #ifdef  USE_FULL_ASSERT
 
@@ -197,14 +197,14 @@ ErrorStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLengt
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -82,109 +82,109 @@ void Delay (uint32_t nCount);
   */
 void main(void)
 {
-   /* CLK configuration -------------------------------------------*/
-  CLK_Config();
-  
-  /* Initialize LEDs mounted on STM8L152X-EVAL board */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED2);
-  STM_EVAL_LEDInit(LED3);
-  STM_EVAL_LEDInit(LED4);
+    /* CLK configuration -------------------------------------------*/
+    CLK_Config();
 
-   /* USART configuration -------------------------------------------*/
-  USART_Config();
-  
-   /* DMA configuration -------------------------------------------*/
-  DMA_Config();
+    /* Initialize LEDs mounted on STM8L152X-EVAL board */
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED2);
+    STM_EVAL_LEDInit(LED3);
+    STM_EVAL_LEDInit(LED4);
 
-  /* USART Enable */
-  USART_Cmd(EVAL_COM1, ENABLE);
+    /* USART configuration -------------------------------------------*/
+    USART_Config();
 
-  /* Wait the USART DMA Tx\Rx transfer complete */
-  while (DMA_GetFlagStatus((DMA_FLAG_TypeDef)USART_DMA_FLAG_TCTX) == RESET);
-  while (DMA_GetFlagStatus((DMA_FLAG_TypeDef)USART_DMA_FLAG_TCRX) == RESET);
+    /* DMA configuration -------------------------------------------*/
+    DMA_Config();
 
-  while (1)
-  {
-    STM_EVAL_LEDToggle(LED1);
-    STM_EVAL_LEDToggle(LED2);
-    STM_EVAL_LEDToggle(LED3);
-    STM_EVAL_LEDToggle(LED4);
-    Delay((uint32_t)0xFFFFFF);
-  }
+    /* USART Enable */
+    USART_Cmd(EVAL_COM1, ENABLE);
+
+    /* Wait the USART DMA Tx\Rx transfer complete */
+    while (DMA_GetFlagStatus((DMA_FLAG_TypeDef)USART_DMA_FLAG_TCTX) == RESET);
+    while (DMA_GetFlagStatus((DMA_FLAG_TypeDef)USART_DMA_FLAG_TCRX) == RESET);
+
+    while (1)
+    {
+        STM_EVAL_LEDToggle(LED1);
+        STM_EVAL_LEDToggle(LED2);
+        STM_EVAL_LEDToggle(LED3);
+        STM_EVAL_LEDToggle(LED4);
+        Delay((uint32_t)0xFFFFFF);
+    }
 }
 
 /**
-  * @brief  Configure peripherals Clock   
+  * @brief  Configure peripherals Clock
   * @param  None
   * @retval None
   */
 static void CLK_Config(void)
 {
-  /*High speed external clock prescaler: 1*/
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    /*High speed external clock prescaler: 1*/
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /*Enable DMA clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
+    /*Enable DMA clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
 }
 
 /**
-  * @brief  Configure DMA peripheral  
+  * @brief  Configure DMA peripheral
   * @param  None
   * @retval None
   */
 static void DMA_Config(void)
 {
-  /* Deinitialize DMA channels */
-  DMA_GlobalDeInit();
+    /* Deinitialize DMA channels */
+    DMA_GlobalDeInit();
 
-  DMA_DeInit(DMA1_Channel1);
-  DMA_DeInit(DMA1_Channel2);
+    DMA_DeInit(DMA1_Channel1);
+    DMA_DeInit(DMA1_Channel2);
 
-  /* DMA channel Rx of USART Configuration */
-  DMA_Init(USART_DMA_CHANNEL_RX, (uint16_t)RxBuffer, (uint16_t)USART_DR_ADDRESS,
-           DATA_TO_RECEIVE, DMA_DIR_PeripheralToMemory, DMA_Mode_Normal,
-           DMA_MemoryIncMode_Inc, DMA_Priority_Low, DMA_MemoryDataSize_Byte);
+    /* DMA channel Rx of USART Configuration */
+    DMA_Init(USART_DMA_CHANNEL_RX, (uint16_t)RxBuffer, (uint16_t)USART_DR_ADDRESS,
+             DATA_TO_RECEIVE, DMA_DIR_PeripheralToMemory, DMA_Mode_Normal,
+             DMA_MemoryIncMode_Inc, DMA_Priority_Low, DMA_MemoryDataSize_Byte);
 
-  /* DMA channel Tx of USART Configuration */
-  DMA_Init(USART_DMA_CHANNEL_TX, (uint16_t)TxBuffer, (uint16_t)USART_DR_ADDRESS,
-           DATA_TO_TRANSFER, DMA_DIR_MemoryToPeripheral, DMA_Mode_Normal,
-           DMA_MemoryIncMode_Inc, DMA_Priority_High, DMA_MemoryDataSize_Byte);
+    /* DMA channel Tx of USART Configuration */
+    DMA_Init(USART_DMA_CHANNEL_TX, (uint16_t)TxBuffer, (uint16_t)USART_DR_ADDRESS,
+             DATA_TO_TRANSFER, DMA_DIR_MemoryToPeripheral, DMA_Mode_Normal,
+             DMA_MemoryIncMode_Inc, DMA_Priority_High, DMA_MemoryDataSize_Byte);
 
-  /* Enable the USART Tx/Rx DMA requests */
-  USART_DMACmd(EVAL_COM1, USART_DMAReq_TX, ENABLE);
-  USART_DMACmd(EVAL_COM1, USART_DMAReq_RX, ENABLE);
+    /* Enable the USART Tx/Rx DMA requests */
+    USART_DMACmd(EVAL_COM1, USART_DMAReq_TX, ENABLE);
+    USART_DMACmd(EVAL_COM1, USART_DMAReq_RX, ENABLE);
 
-  /* Global DMA Enable */
-  DMA_GlobalCmd(ENABLE);
+    /* Global DMA Enable */
+    DMA_GlobalCmd(ENABLE);
 
-  /* Enable the USART Tx DMA channel */
-  DMA_Cmd(USART_DMA_CHANNEL_TX, ENABLE);
-  /* Enable the USART Rx DMA channel */
-  DMA_Cmd(USART_DMA_CHANNEL_RX, ENABLE);         
+    /* Enable the USART Tx DMA channel */
+    DMA_Cmd(USART_DMA_CHANNEL_TX, ENABLE);
+    /* Enable the USART Rx DMA channel */
+    DMA_Cmd(USART_DMA_CHANNEL_RX, ENABLE);
 }
 
 /**
-  * @brief  Configure USART peripheral  
+  * @brief  Configure USART peripheral
   * @param  None
   * @retval None
   */
 static void USART_Config(void)
 {
-  /* EVAL COM (USARTx) configuration -----------------------------------------*/
-  /* USART configured as follow:
-        - BaudRate = USART_BAUDRATE baud  
-        - Word Length = 8 Bits
-        - One Stop Bit
-        - No parity
-        - Receive and transmit enabled
-        - USART Clock disabled
-  */
-  STM_EVAL_COMInit(COM1, (uint32_t)USART_BAUDRATE, USART_WordLength_8b, USART_StopBits_1,
-                   USART_Parity_No, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
+    /* EVAL COM (USARTx) configuration -----------------------------------------*/
+    /* USART configured as follow:
+          - BaudRate = USART_BAUDRATE baud
+          - Word Length = 8 Bits
+          - One Stop Bit
+          - No parity
+          - Receive and transmit enabled
+          - USART Clock disabled
+    */
+    STM_EVAL_COMInit(COM1, (uint32_t)USART_BAUDRATE, USART_WordLength_8b, USART_StopBits_1,
+                     USART_Parity_No, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
 
-  /* USART Disable */
-  USART_Cmd(EVAL_COM1, DISABLE);
+    /* USART Disable */
+    USART_Cmd(EVAL_COM1, DISABLE);
 }
 
 /**
@@ -194,11 +194,11 @@ static void USART_Config(void)
   */
 void Delay(uint32_t nCount)
 {
-  /* Decrement nCount value */
-  while (nCount != 0)
-  {
-    nCount--;
-  }
+    /* Decrement nCount value */
+    while (nCount != 0)
+    {
+        nCount--;
+    }
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -209,14 +209,14 @@ void Delay(uint32_t nCount)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 /**

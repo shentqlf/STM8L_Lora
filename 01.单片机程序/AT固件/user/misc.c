@@ -1,41 +1,41 @@
 #include "misc.h"
 #include <stdlib.h>
-extern char* ultoa( unsigned long value, char *string, int radix )
+extern char *ultoa( unsigned long value, char *string, int radix )
 {
-  char tmp[33];
-  char *tp = tmp;
-  long i;
-  unsigned long v = value;
-  char *sp;
+    char tmp[33];
+    char *tp = tmp;
+    long i;
+    unsigned long v = value;
+    char *sp;
 
-  if ( string == NULL )
-  {
-    return 0;
-  }
+    if ( string == NULL )
+    {
+        return 0;
+    }
 
-  if (radix > 36 || radix <= 1)
-  {
-    return 0;
-  }
- 
-  while (v || tp == tmp)
-  {
-    i = v % radix;
-    v = v / radix;
-    if (i < 10)
-      *tp++ = i+'0';
-    else
-      *tp++ = i + 'a' - 10;
-  }
+    if (radix > 36 || radix <= 1)
+    {
+        return 0;
+    }
 
-  sp = string;
+    while (v || tp == tmp)
+    {
+        i = v % radix;
+        v = v / radix;
+        if (i < 10)
+            *tp++ = i + '0';
+        else
+            *tp++ = i + 'a' - 10;
+    }
 
- 
-  while (tp > tmp)
-    *sp++ = *--tp;
-  *sp = 0;
+    sp = string;
 
-  return string;
+
+    while (tp > tmp)
+        *sp++ = *--tp;
+    *sp = 0;
+
+    return string;
 }
 
 char C2D(
@@ -52,7 +52,7 @@ char C2D(
     return (char)c;
 }
 char D2C(
-    uint8_t val	
+    uint8_t val
 )
 {
     if (val <= 9)
@@ -73,22 +73,22 @@ uint32_t ATOI32(
     return num;
 }
 
-uint32_t getPara(char **pPara,uint8_t base)
+uint32_t getPara(char **pPara, uint8_t base)
 {
     char buf[15];
     int i = 0;
     if(**pPara == ',' || **pPara == '=' )(*pPara)++;//跳过前面非数字区域
     while(
-          (**pPara >= '0' && **pPara <= '9') ||
-          (**pPara >= 'a' && **pPara <= 'f') || 
-          (**pPara >= 'A' && **pPara <= 'F')
-            )
+        (**pPara >= '0' && **pPara <= '9') ||
+        (**pPara >= 'a' && **pPara <= 'f') ||
+        (**pPara >= 'A' && **pPara <= 'F')
+    )
     {
         buf[i++] = **pPara;
         (*pPara)++;
     }
     buf[i++] = '\0';
-    return  ATOI32((char *)buf,base);
+    return  ATOI32((char *)buf, base);
 }
 /*
 uint8_t digital2HexString(uint32_t val,uint8_t *buf)
@@ -108,9 +108,13 @@ uint8_t digital2HexString(uint32_t val,uint8_t *buf)
     return (i);
 }
 */
-void print_time()
+void print_u32(uint32_t value)
 {
-        char buf[20];
-        ultoa(milli_second,buf,10);
-        uart1_write_string("\r\n");
+    char buf[10];
+    buf[0] = value / 100 + 0x30;
+    buf[1] = value / 10 % 10 + 0x30;
+    buf[2] = value % 10 + 0x30;
+    buf[3] = '\r';
+    buf[4] = '\n';
+    uart1_write(buf, 5);
 }

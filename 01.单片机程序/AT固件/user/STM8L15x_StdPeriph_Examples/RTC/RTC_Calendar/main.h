@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */  
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
@@ -47,9 +47,9 @@ void Alarm_Regulate(void);
 uint16_t DayOfWeek(uint16_t nYear, uint16_t nMonth, uint16_t nDay);
 uint16_t CountOfFeb29(uint16_t nYear);
 bool IsLeapYear(uint16_t nYear);
-uint8_t ReadDigit(uint8_t* ptr, uint8_t ColBegin, uint8_t ValueMax, uint8_t ValueMin) ;
-void SetCursorPosition(uint8_t* ptr, uint8_t Line, uint8_t Offset);
-void ToggleCursorPosition(uint8_t* ptr, uint8_t Line, uint8_t Offset);
+uint8_t ReadDigit(uint8_t *ptr, uint8_t ColBegin, uint8_t ValueMax, uint8_t ValueMin) ;
+void SetCursorPosition(uint8_t *ptr, uint8_t Line, uint8_t Offset);
+void ToggleCursorPosition(uint8_t *ptr, uint8_t Line, uint8_t Offset);
 JOYState_TypeDef ReadJoystick(void);
 void LSE_StabTime(void);
 void Delay(__IO uint32_t nCount);

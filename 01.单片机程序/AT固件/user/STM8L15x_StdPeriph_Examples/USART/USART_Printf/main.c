@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -64,31 +64,31 @@
   */
 void main(void)
 {
-  char ans;
-  /*High speed internal clock prescaler: 1*/
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    char ans;
+    /*High speed internal clock prescaler: 1*/
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /* EVAL COM (USARTx) configuration -----------------------------------------*/
-  /* USART configured as follow:
-        - BaudRate = 115200 baud  
-        - Word Length = 8 Bits
-        - One Stop Bit
-        - No parity
-        - Receive and transmit enabled
-        - USART Clock disabled
-  */
-  STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
-                   USART_Parity_No, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
+    /* EVAL COM (USARTx) configuration -----------------------------------------*/
+    /* USART configured as follow:
+          - BaudRate = 115200 baud
+          - Word Length = 8 Bits
+          - One Stop Bit
+          - No parity
+          - Receive and transmit enabled
+          - USART Clock disabled
+    */
+    STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
+                     USART_Parity_No, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
 
-  /* Output a message on Hyperterminal using printf function */
-  printf("\n\rUSART Example: retarget the C library printf()\getchar() functions to the USART\n\r");
-  printf("\n\rEnter Text\n\r");
+    /* Output a message on Hyperterminal using printf function */
+    printf("\n\rUSART Example: retarget the C library printf()\getchar() functions to the USART\n\r");
+    printf("\n\rEnter Text\n\r");
 
-  while (1)
-  {
-    ans = getchar();
-    printf("%c", ans);
-  }
+    while (1)
+    {
+        ans = getchar();
+        printf("%c", ans);
+    }
 }
 /**
   * @brief Retargets the C library printf function to the USART.
@@ -99,12 +99,12 @@ void main(void)
   */
 PUTCHAR_PROTOTYPE
 {
-  /* Write a character to the USART */
-  USART_SendData8(EVAL_COM1, c);
-  /* Loop until the end of transmission */
-  while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
+    /* Write a character to the USART */
+    USART_SendData8(EVAL_COM1, c);
+    /* Loop until the end of transmission */
+    while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
 
-  return (c);
+    return (c);
 }
 /**
   * @brief Retargets the C library scanf function to the USART.
@@ -115,30 +115,30 @@ PUTCHAR_PROTOTYPE
   */
 GETCHAR_PROTOTYPE
 {
-  int c = 0;
-  /* Loop until the Read data register flag is SET */
-  while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_RXNE) == RESET);
+    int c = 0;
+    /* Loop until the Read data register flag is SET */
+    while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_RXNE) == RESET);
     c = USART_ReceiveData8(EVAL_COM1);
     return (c);
-  }
+}
 
 #ifdef  USE_FULL_ASSERT
-  /**
-    * @brief  Reports the name of the source file and the source line number
-    *   where the assert_param error has occurred.
-    * @param  file: pointer to the source file name
-    * @param  line: assert_param error line source number
-    * @retval None
-    */
-  void assert_failed(uint8_t* file, uint32_t line)
-  {
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *   where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
+void assert_failed(uint8_t *file, uint32_t line)
+{
     /* User can add his own implementation to report the file name and line number,
        ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
     /* Infinite loop */
     while (1)
     {}
-  }
+}
 #endif
 /**
   * @}

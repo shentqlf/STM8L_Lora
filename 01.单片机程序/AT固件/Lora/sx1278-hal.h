@@ -1,18 +1,18 @@
 /*
- * THE FOLLOWING FIRMWARE IS PROVIDED: (1) "AS IS" WITH NO WARRANTY; AND 
+ * THE FOLLOWING FIRMWARE IS PROVIDED: (1) "AS IS" WITH NO WARRANTY; AND
  * (2)TO ENABLE ACCESS TO CODING INFORMATION TO GUIDE AND FACILITATE CUSTOMER.
  * CONSEQUENTLY, SEMTECH SHALL NOT BE HELD LIABLE FOR ANY DIRECT, INDIRECT OR
  * CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE CONTENT
  * OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING INFORMATION
  * CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
- * 
+ *
  * Copyright (C) SEMTECH S.A.
  */
-/*! 
+/*!
  * \file       sx1276-Hal.h
  * \brief      SX1276 Hardware Abstraction Layer
  *
- * \version    2.0.B2 
+ * \version    2.0.B2
  * \date       May 6 2013
  * \author     Gregory Cristian
  *
@@ -21,23 +21,23 @@
 #ifndef __SX1278_HAL_H__
 #define __SX1278_HAL_H__
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 //#include "ioe.h"
 
 #include "ebox_core.h"
 #include "binary.h"
 
-   
-   
+
+
 #define LORA_DEBUG 0
 
 #if LORA_DEBUG
 #define LORA_DBG(...) printf("[LoRa-DBG]:"),printf(__VA_ARGS__),printf("\n")
 #else
-    #define  LORA_DBG(...)
+#define  LORA_DBG(...)
 #endif
-   
+
 //SX1278 register map
 #define SX1278_REG_FIFO                               0x00
 #define SX1278_REG_OP_MODE                            0x01
@@ -232,7 +232,7 @@
 //SX1278_REG_FIFO_RX_BASE_ADDR
 #define SX1278_FIFO_RX_BASE_ADDR_MAX                  B00000000  //  7     0     allocate the entire FIFO buffer for RX only
 
-   
+
 /*!
  * DIO state read functions mapping
  */
@@ -253,7 +253,7 @@
 #define DIO3_PIN_SET    (GPIOB->ODR |= GPIO_Pin_3)
 #define DIO4_PIN_SET    (GPIOC->ODR |= GPIO_Pin_0)
 #define DIO5_PIN_SET    (GPIOC->ODR |= GPIO_Pin_1)
-     
+
 #define DIO0_PIN_READ   ((GPIOA->IDR & GPIO_Pin_3)?1:0)
 #define DIO1_PIN_READ   ((GPIOB->IDR & GPIO_Pin_1)?1:0)
 #define DIO2_PIN_READ   ((GPIOB->IDR & GPIO_Pin_2)?1:0)

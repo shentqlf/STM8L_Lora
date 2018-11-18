@@ -14,14 +14,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM8L1526_EVAL_GLASS_LCD_H
@@ -33,15 +33,15 @@
 /* Private define ------------------------------------------------------------*/
 typedef enum
 {
-  POINT_OFF = 0,
-  POINT_ON = 1
-}Point_Typedef;
+    POINT_OFF = 0,
+    POINT_ON = 1
+} Point_Typedef;
 
 typedef enum
 {
-  APOSTROPHE_OFF = 0,
-  APOSTROPHE_ON = 1
-}Apostrophe_Typedef;
+    APOSTROPHE_OFF = 0,
+    APOSTROPHE_ON = 1
+} Apostrophe_Typedef;
 
 
 #define LCD_CLEAR_BYTE (uint8_t)0x00
@@ -54,11 +54,11 @@ typedef enum
 /* Exported functions ------------------------------------------------------- */
 
 void LCD_GLASS_Init(void);
-void LCD_GLASS_WriteChar(uint8_t* ch, Point_Typedef point, Apostrophe_Typedef apostrophe, uint8_t position);
-void LCD_GLASS_DisplayString(uint8_t* ptr);
+void LCD_GLASS_WriteChar(uint8_t *ch, Point_Typedef point, Apostrophe_Typedef apostrophe, uint8_t position);
+void LCD_GLASS_DisplayString(uint8_t *ptr);
 void LCD_GLASS_ClearChar(uint8_t position);
 void LCD_GLASS_Clear(void);
-void LCD_GLASS_ScrollString(uint8_t* ptr, uint16_t nScroll, uint16_t ScrollSpeed);
+void LCD_GLASS_ScrollString(uint8_t *ptr, uint16_t nScroll, uint16_t ScrollSpeed);
 
 #endif /* __STM8L1526_EVAL_GLASS_LCD_H*/
 

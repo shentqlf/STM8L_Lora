@@ -17,13 +17,13 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
-  ******************************************************************************  
+  ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -40,8 +40,8 @@
 
 /** @defgroup TIM3
   * @{
-  */ 
-  
+  */
+
 /* Exported types ------------------------------------------------------------*/
 
 /** @defgroup TIM3_Exported_Types
@@ -53,8 +53,8 @@
   */
 typedef enum
 {
-  TIM3_ForcedAction_Active    = ((uint8_t)0x50), /*!< Output Reference is forced low */
-  TIM3_ForcedAction_Inactive  = ((uint8_t)0x40)  /*!< Output Reference is forced high */
+    TIM3_ForcedAction_Active    = ((uint8_t)0x50), /*!< Output Reference is forced low */
+    TIM3_ForcedAction_Inactive  = ((uint8_t)0x40)  /*!< Output Reference is forced high */
 }
 TIM3_ForcedAction_TypeDef;
 
@@ -67,15 +67,15 @@ TIM3_ForcedAction_TypeDef;
   */
 typedef enum
 {
-  TIM3_Prescaler_1     = ((uint8_t)0x00), /*!< Time base Prescaler = 1 (No effect)*/
-  TIM3_Prescaler_2     = ((uint8_t)0x01), /*!< Time base Prescaler = 2 */
-  TIM3_Prescaler_4     = ((uint8_t)0x02), /*!< Time base Prescaler = 4 */
-  TIM3_Prescaler_8     = ((uint8_t)0x03), /*!< Time base Prescaler = 8 */
-  TIM3_Prescaler_16    = ((uint8_t)0x04), /*!< Time base Prescaler = 16 */
-  TIM3_Prescaler_32    = ((uint8_t)0x05), /*!< Time base Prescaler = 32 */
-  TIM3_Prescaler_64    = ((uint8_t)0x06), /*!< Time base Prescaler = 64 */
-  TIM3_Prescaler_128   = ((uint8_t)0x07)  /*!< Time base Prescaler = 128 */
-}TIM3_Prescaler_TypeDef;
+    TIM3_Prescaler_1     = ((uint8_t)0x00), /*!< Time base Prescaler = 1 (No effect)*/
+    TIM3_Prescaler_2     = ((uint8_t)0x01), /*!< Time base Prescaler = 2 */
+    TIM3_Prescaler_4     = ((uint8_t)0x02), /*!< Time base Prescaler = 4 */
+    TIM3_Prescaler_8     = ((uint8_t)0x03), /*!< Time base Prescaler = 8 */
+    TIM3_Prescaler_16    = ((uint8_t)0x04), /*!< Time base Prescaler = 16 */
+    TIM3_Prescaler_32    = ((uint8_t)0x05), /*!< Time base Prescaler = 32 */
+    TIM3_Prescaler_64    = ((uint8_t)0x06), /*!< Time base Prescaler = 64 */
+    TIM3_Prescaler_128   = ((uint8_t)0x07)  /*!< Time base Prescaler = 128 */
+} TIM3_Prescaler_TypeDef;
 
 /**
   * @}
@@ -86,13 +86,13 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_OCMode_Timing    = ((uint8_t)0x00), /*!< Timing (Frozen) Mode*/
-  TIM3_OCMode_Active    = ((uint8_t)0x10), /*!< Active Mode*/
-  TIM3_OCMode_Inactive  = ((uint8_t)0x20), /*!< Inactive Mode*/
-  TIM3_OCMode_Toggle    = ((uint8_t)0x30), /*!< Toggle Mode*/
-  TIM3_OCMode_PWM1      = ((uint8_t)0x60), /*!< PWM Mode 1*/
-  TIM3_OCMode_PWM2      = ((uint8_t)0x70)  /*!< PWM Mode 2*/
-}TIM3_OCMode_TypeDef;
+    TIM3_OCMode_Timing    = ((uint8_t)0x00), /*!< Timing (Frozen) Mode*/
+    TIM3_OCMode_Active    = ((uint8_t)0x10), /*!< Active Mode*/
+    TIM3_OCMode_Inactive  = ((uint8_t)0x20), /*!< Inactive Mode*/
+    TIM3_OCMode_Toggle    = ((uint8_t)0x30), /*!< Toggle Mode*/
+    TIM3_OCMode_PWM1      = ((uint8_t)0x60), /*!< PWM Mode 1*/
+    TIM3_OCMode_PWM2      = ((uint8_t)0x70)  /*!< PWM Mode 2*/
+} TIM3_OCMode_TypeDef;
 
 /**
   * @}
@@ -103,9 +103,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_OPMode_Single      = ((uint8_t)0x01), /*!< Single one Pulse mode (OPM Active) */
-  TIM3_OPMode_Repetitive  = ((uint8_t)0x00)  /*!< Repetitive Pulse mode (OPM inactive) */
-}TIM3_OPMode_TypeDef;
+    TIM3_OPMode_Single      = ((uint8_t)0x01), /*!< Single one Pulse mode (OPM Active) */
+    TIM3_OPMode_Repetitive  = ((uint8_t)0x00)  /*!< Repetitive Pulse mode (OPM inactive) */
+} TIM3_OPMode_TypeDef;
 
 /**
   * @}
@@ -116,9 +116,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_Channel_1     = ((uint8_t)0x00),  /*!< Channel 1*/
-  TIM3_Channel_2     = ((uint8_t)0x01)   /*!< Channel 2*/
-}TIM3_Channel_TypeDef;
+    TIM3_Channel_1     = ((uint8_t)0x00),  /*!< Channel 1*/
+    TIM3_Channel_2     = ((uint8_t)0x01)   /*!< Channel 2*/
+} TIM3_Channel_TypeDef;
 
 /**
   * @}
@@ -129,12 +129,12 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_CounterMode_Up              = ((uint8_t)0x00), /*!< Counter Up Mode */
-  TIM3_CounterMode_Down            = ((uint8_t)0x10), /*!< Counter Down Mode */
-  TIM3_CounterMode_CenterAligned1  = ((uint8_t)0x20), /*!< Counter Central aligned Mode 1 */
-  TIM3_CounterMode_CenterAligned2  = ((uint8_t)0x40), /*!< Counter Central aligned Mode 2 */
-  TIM3_CounterMode_CenterAligned3  = ((uint8_t)0x60)  /*!< Counter Central aligned Mode 3 */
-}TIM3_CounterMode_TypeDef;
+    TIM3_CounterMode_Up              = ((uint8_t)0x00), /*!< Counter Up Mode */
+    TIM3_CounterMode_Down            = ((uint8_t)0x10), /*!< Counter Down Mode */
+    TIM3_CounterMode_CenterAligned1  = ((uint8_t)0x20), /*!< Counter Central aligned Mode 1 */
+    TIM3_CounterMode_CenterAligned2  = ((uint8_t)0x40), /*!< Counter Central aligned Mode 2 */
+    TIM3_CounterMode_CenterAligned3  = ((uint8_t)0x60)  /*!< Counter Central aligned Mode 3 */
+} TIM3_CounterMode_TypeDef;
 
 /**
   * @}
@@ -145,9 +145,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_OCPolarity_High   = ((uint8_t)0x00), /*!< Output compare polarity  = High */
-  TIM3_OCPolarity_Low    = ((uint8_t)0x01)  /*!< Output compare polarity  = Low */
-}TIM3_OCPolarity_TypeDef;
+    TIM3_OCPolarity_High   = ((uint8_t)0x00), /*!< Output compare polarity  = High */
+    TIM3_OCPolarity_Low    = ((uint8_t)0x01)  /*!< Output compare polarity  = Low */
+} TIM3_OCPolarity_TypeDef;
 
 /**
   * @}
@@ -158,11 +158,11 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_OutputState_Disable  = ((uint8_t)0x00), /*!< Output compare State disabled
+    TIM3_OutputState_Disable  = ((uint8_t)0x00), /*!< Output compare State disabled
                                                           (channel output disabled) */
-  TIM3_OutputState_Enable   = ((uint8_t)0x01)  /*!< Output compare State enabled
+    TIM3_OutputState_Enable   = ((uint8_t)0x01)  /*!< Output compare State enabled
                                                    (channel output enabled) */
-}TIM3_OutputState_TypeDef;
+} TIM3_OutputState_TypeDef;
 
 /**
   * @}
@@ -173,9 +173,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_BreakState_Disable   = ((uint8_t)0x00), /*!< Break State disabled (break option disabled) */
-  TIM3_BreakState_Enable    = ((uint8_t)0x10)  /*!< Break State enabled (break option enabled) */
-}TIM3_BreakState_TypeDef;
+    TIM3_BreakState_Disable   = ((uint8_t)0x00), /*!< Break State disabled (break option disabled) */
+    TIM3_BreakState_Enable    = ((uint8_t)0x10)  /*!< Break State enabled (break option enabled) */
+} TIM3_BreakState_TypeDef;
 
 /**
   * @}
@@ -186,9 +186,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_BreakPolarity_High   = ((uint8_t)0x20),  /*!< if Break, channel polarity = High */
-  TIM3_BreakPolarity_Low    = ((uint8_t)0x00)   /*!< if Break, channel polarity = Low */
-}TIM3_BreakPolarity_TypeDef;
+    TIM3_BreakPolarity_High   = ((uint8_t)0x20),  /*!< if Break, channel polarity = High */
+    TIM3_BreakPolarity_Low    = ((uint8_t)0x00)   /*!< if Break, channel polarity = Low */
+} TIM3_BreakPolarity_TypeDef;
 
 /**
   * @}
@@ -199,9 +199,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_AutomaticOutput_Enable   = ((uint8_t)0x40), /*!< Automatic Output option enabled */
-  TIM3_AutomaticOutput_Disable  = ((uint8_t)0x00)  /*!< Automatic Output option disabled */
-}TIM3_AutomaticOutput_TypeDef;
+    TIM3_AutomaticOutput_Enable   = ((uint8_t)0x40), /*!< Automatic Output option enabled */
+    TIM3_AutomaticOutput_Disable  = ((uint8_t)0x00)  /*!< Automatic Output option disabled */
+} TIM3_AutomaticOutput_TypeDef;
 
 /**
   * @}
@@ -212,11 +212,11 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_LockLevel_Off        = ((uint8_t)0x00), /*!< Lock option disabled */
-  TIM3_LockLevel_1          = ((uint8_t)0x01), /*!< Select Lock Level 1  */
-  TIM3_LockLevel_2          = ((uint8_t)0x02), /*!< Select Lock Level 2  */
-  TIM3_LockLevel_3          = ((uint8_t)0x03)  /*!< Select Lock Level 3  */
-}TIM3_LockLevel_TypeDef;
+    TIM3_LockLevel_Off        = ((uint8_t)0x00), /*!< Lock option disabled */
+    TIM3_LockLevel_1          = ((uint8_t)0x01), /*!< Select Lock Level 1  */
+    TIM3_LockLevel_2          = ((uint8_t)0x02), /*!< Select Lock Level 2  */
+    TIM3_LockLevel_3          = ((uint8_t)0x03)  /*!< Select Lock Level 3  */
+} TIM3_LockLevel_TypeDef;
 
 /**
   * @}
@@ -227,9 +227,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_OSSIState_Enable   = ((uint8_t)0x04), /*!< Off-State Selection for Idle mode enabled  */
-  TIM3_OSSIState_Disable  = ((uint8_t)0x00)  /*!< Off-State Selection for Idle mode disabled  */
-}TIM3_OSSIState_TypeDef;
+    TIM3_OSSIState_Enable   = ((uint8_t)0x04), /*!< Off-State Selection for Idle mode enabled  */
+    TIM3_OSSIState_Disable  = ((uint8_t)0x00)  /*!< Off-State Selection for Idle mode disabled  */
+} TIM3_OSSIState_TypeDef;
 
 /**
   * @}
@@ -240,9 +240,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_OCIdleState_Reset  = ((uint8_t)0x00), /*!< Output Compare Idle state  = Reset */
-  TIM3_OCIdleState_Set    = ((uint8_t)0x01)  /*!< Output Compare Idle state  = Set */
-}TIM3_OCIdleState_TypeDef;
+    TIM3_OCIdleState_Reset  = ((uint8_t)0x00), /*!< Output Compare Idle state  = Reset */
+    TIM3_OCIdleState_Set    = ((uint8_t)0x01)  /*!< Output Compare Idle state  = Set */
+} TIM3_OCIdleState_TypeDef;
 
 /**
   * @}
@@ -253,9 +253,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_ICPolarity_Rising  = ((uint8_t)0x00), /*!< Input Capture on Rising Edge*/
-  TIM3_ICPolarity_Falling  = ((uint8_t)0x01)  /*!< Input Capture on Falling Edge*/
-}TIM3_ICPolarity_TypeDef;
+    TIM3_ICPolarity_Rising  = ((uint8_t)0x00), /*!< Input Capture on Rising Edge*/
+    TIM3_ICPolarity_Falling  = ((uint8_t)0x01)  /*!< Input Capture on Falling Edge*/
+} TIM3_ICPolarity_TypeDef;
 
 /**
   * @}
@@ -266,10 +266,10 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_ICSelection_DirectTI    = ((uint8_t)0x01), /*!< Input Capture mapped on the direct input*/
-  TIM3_ICSelection_IndirectTI  = ((uint8_t)0x02), /*!< Input Capture mapped on the indirect input*/
-  TIM3_ICSelection_TRGI        = ((uint8_t)0x03)  /*!< Input Capture mapped on the Trigger Input*/
-}TIM3_ICSelection_TypeDef;
+    TIM3_ICSelection_DirectTI    = ((uint8_t)0x01), /*!< Input Capture mapped on the direct input*/
+    TIM3_ICSelection_IndirectTI  = ((uint8_t)0x02), /*!< Input Capture mapped on the indirect input*/
+    TIM3_ICSelection_TRGI        = ((uint8_t)0x03)  /*!< Input Capture mapped on the Trigger Input*/
+} TIM3_ICSelection_TypeDef;
 
 /**
   * @}
@@ -280,11 +280,11 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_ICPSC_DIV1  = ((uint8_t)0x00),  /*!< Input Capture Prescaler = 1 (one capture every 1 event) */
-  TIM3_ICPSC_DIV2  = ((uint8_t)0x04),  /*!< Input Capture Prescaler = 2 (one capture every 2 events) */
-  TIM3_ICPSC_DIV4  = ((uint8_t)0x08),  /*!< Input Capture Prescaler = 4 (one capture every 4 events) */
-  TIM3_ICPSC_DIV8  = ((uint8_t)0x0C)   /*!< Input Capture Prescaler = 8 (one capture every 8 events) */
-}TIM3_ICPSC_TypeDef;
+    TIM3_ICPSC_DIV1  = ((uint8_t)0x00),  /*!< Input Capture Prescaler = 1 (one capture every 1 event) */
+    TIM3_ICPSC_DIV2  = ((uint8_t)0x04),  /*!< Input Capture Prescaler = 2 (one capture every 2 events) */
+    TIM3_ICPSC_DIV4  = ((uint8_t)0x08),  /*!< Input Capture Prescaler = 4 (one capture every 4 events) */
+    TIM3_ICPSC_DIV8  = ((uint8_t)0x0C)   /*!< Input Capture Prescaler = 8 (one capture every 8 events) */
+} TIM3_ICPSC_TypeDef;
 
 /**
   * @}
@@ -295,12 +295,12 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_IT_Update   = ((uint8_t)0x01), /*!< Update Interrupt*/
-  TIM3_IT_CC1      = ((uint8_t)0x02), /*!< Capture Compare Channel1 Interrupt*/
-  TIM3_IT_CC2      = ((uint8_t)0x04), /*!< Capture Compare Channel2 Interrupt*/
-  TIM3_IT_Trigger  = ((uint8_t)0x40), /*!< Trigger  Interrupt*/
-  TIM3_IT_Break    = ((uint8_t)0x80)  /*!< Break Interrupt*/
-}TIM3_IT_TypeDef;
+    TIM3_IT_Update   = ((uint8_t)0x01), /*!< Update Interrupt*/
+    TIM3_IT_CC1      = ((uint8_t)0x02), /*!< Capture Compare Channel1 Interrupt*/
+    TIM3_IT_CC2      = ((uint8_t)0x04), /*!< Capture Compare Channel2 Interrupt*/
+    TIM3_IT_Trigger  = ((uint8_t)0x40), /*!< Trigger  Interrupt*/
+    TIM3_IT_Break    = ((uint8_t)0x80)  /*!< Break Interrupt*/
+} TIM3_IT_TypeDef;
 
 /**
   * @}
@@ -311,11 +311,11 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_ExtTRGPSC_OFF   = ((uint8_t)0x00), /*!< No External Trigger prescaler  */
-  TIM3_ExtTRGPSC_DIV2  = ((uint8_t)0x10), /*!< External Trigger prescaler = 2 (ETRP frequency divided by 2) */
-  TIM3_ExtTRGPSC_DIV4  = ((uint8_t)0x20), /*!< External Trigger prescaler = 4 (ETRP frequency divided by 4) */
-  TIM3_ExtTRGPSC_DIV8  = ((uint8_t)0x30)  /*!< External Trigger prescaler = 8 (ETRP frequency divided by 8) */
-}TIM3_ExtTRGPSC_TypeDef;
+    TIM3_ExtTRGPSC_OFF   = ((uint8_t)0x00), /*!< No External Trigger prescaler  */
+    TIM3_ExtTRGPSC_DIV2  = ((uint8_t)0x10), /*!< External Trigger prescaler = 2 (ETRP frequency divided by 2) */
+    TIM3_ExtTRGPSC_DIV4  = ((uint8_t)0x20), /*!< External Trigger prescaler = 4 (ETRP frequency divided by 4) */
+    TIM3_ExtTRGPSC_DIV8  = ((uint8_t)0x30)  /*!< External Trigger prescaler = 8 (ETRP frequency divided by 8) */
+} TIM3_ExtTRGPSC_TypeDef;
 
 /**
   * @}
@@ -326,15 +326,15 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_TRGSelection_TIM4     = ((uint8_t)0x00), /*!< TRIG Input source =  TIM TRIG Output  */
-  TIM3_TRGSelection_TIM1     = ((uint8_t)0x10), /*!< TRIG Input source =  TIM TRIG Output  */
-  TIM3_TRGSelection_TIM5     = ((uint8_t)0x20), /*!< TRIG Input source =  TIM TRIG Output  */
-  TIM3_TRGSelection_TIM2     = ((uint8_t)0x30), /*!< TRIG Input source =  TIM TRIG Output  */
-  TIM3_TRGSelection_TI1F_ED  = ((uint8_t)0x40), /*!< TRIG Input source = TI1F_ED (TI1 Edge Detector)  */
-  TIM3_TRGSelection_TI1FP1   = ((uint8_t)0x50), /*!< TRIG Input source = TI1FP1  (Filtered Timer Input 1) */
-  TIM3_TRGSelection_TI2FP2   = ((uint8_t)0x60), /*!< TRIG Input source = TI2FP2 (Filtered Timer Input 2)  */
-  TIM3_TRGSelection_ETRF     = ((uint8_t)0x70)  /*!< TRIG Input source =  ETRF (External Trigger Input ) */
-}TIM3_TRGSelection_TypeDef;
+    TIM3_TRGSelection_TIM4     = ((uint8_t)0x00), /*!< TRIG Input source =  TIM TRIG Output  */
+    TIM3_TRGSelection_TIM1     = ((uint8_t)0x10), /*!< TRIG Input source =  TIM TRIG Output  */
+    TIM3_TRGSelection_TIM5     = ((uint8_t)0x20), /*!< TRIG Input source =  TIM TRIG Output  */
+    TIM3_TRGSelection_TIM2     = ((uint8_t)0x30), /*!< TRIG Input source =  TIM TRIG Output  */
+    TIM3_TRGSelection_TI1F_ED  = ((uint8_t)0x40), /*!< TRIG Input source = TI1F_ED (TI1 Edge Detector)  */
+    TIM3_TRGSelection_TI1FP1   = ((uint8_t)0x50), /*!< TRIG Input source = TI1FP1  (Filtered Timer Input 1) */
+    TIM3_TRGSelection_TI2FP2   = ((uint8_t)0x60), /*!< TRIG Input source = TI2FP2 (Filtered Timer Input 2)  */
+    TIM3_TRGSelection_ETRF     = ((uint8_t)0x70)  /*!< TRIG Input source =  ETRF (External Trigger Input ) */
+} TIM3_TRGSelection_TypeDef;
 
 /**
   * @}
@@ -345,10 +345,10 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_TIxExternalCLK1Source_TI1ED  = ((uint8_t)0x40),  /*!< External Clock mode 1 source = TI1ED */
-  TIM3_TIxExternalCLK1Source_TI1    = ((uint8_t)0x50),  /*!< External Clock mode 1 source = TI1 */
-  TIM3_TIxExternalCLK1Source_TI2    = ((uint8_t)0x60)   /*!< External Clock mode 1 source = TI2 */
-}TIM3_TIxExternalCLK1Source_TypeDef;
+    TIM3_TIxExternalCLK1Source_TI1ED  = ((uint8_t)0x40),  /*!< External Clock mode 1 source = TI1ED */
+    TIM3_TIxExternalCLK1Source_TI1    = ((uint8_t)0x50),  /*!< External Clock mode 1 source = TI1 */
+    TIM3_TIxExternalCLK1Source_TI2    = ((uint8_t)0x60)   /*!< External Clock mode 1 source = TI2 */
+} TIM3_TIxExternalCLK1Source_TypeDef;
 
 /**
   * @}
@@ -359,9 +359,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_ExtTRGPolarity_Inverted     = ((uint8_t)0x80), /*!< External Trigger Polarity = inverted */
-  TIM3_ExtTRGPolarity_NonInverted  = ((uint8_t)0x00)  /*!< External Trigger Polarity = non inverted */
-}TIM3_ExtTRGPolarity_TypeDef;
+    TIM3_ExtTRGPolarity_Inverted     = ((uint8_t)0x80), /*!< External Trigger Polarity = inverted */
+    TIM3_ExtTRGPolarity_NonInverted  = ((uint8_t)0x00)  /*!< External Trigger Polarity = non inverted */
+} TIM3_ExtTRGPolarity_TypeDef;
 
 /**
   * @}
@@ -372,9 +372,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_PSCReloadMode_Update     = ((uint8_t)0x00), /*!< Prescaler value is reloaded at every update*/
-  TIM3_PSCReloadMode_Immediate  = ((uint8_t)0x01)  /*!< Prescaler value is reloaded immediatly*/
-}TIM3_PSCReloadMode_TypeDef;
+    TIM3_PSCReloadMode_Update     = ((uint8_t)0x00), /*!< Prescaler value is reloaded at every update*/
+    TIM3_PSCReloadMode_Immediate  = ((uint8_t)0x01)  /*!< Prescaler value is reloaded immediatly*/
+} TIM3_PSCReloadMode_TypeDef;
 
 /**
   * @}
@@ -385,10 +385,10 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_EncoderMode_TI1    = ((uint8_t)0x01), /*!< Encoder mode 1*/
-  TIM3_EncoderMode_TI2    = ((uint8_t)0x02), /*!< Encoder mode 2*/
-  TIM3_EncoderMode_TI12   = ((uint8_t)0x03)  /*!< Encoder mode 3*/
-}TIM3_EncoderMode_TypeDef;
+    TIM3_EncoderMode_TI1    = ((uint8_t)0x01), /*!< Encoder mode 1*/
+    TIM3_EncoderMode_TI2    = ((uint8_t)0x02), /*!< Encoder mode 2*/
+    TIM3_EncoderMode_TI12   = ((uint8_t)0x03)  /*!< Encoder mode 3*/
+} TIM3_EncoderMode_TypeDef;
 
 /**
   * @}
@@ -399,12 +399,12 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_EventSource_Update   = ((uint8_t)0x01), /*!< Update Event*/
-  TIM3_EventSource_CC1      = ((uint8_t)0x02), /*!< Capture Compare Channel1  Event*/
-  TIM3_EventSource_CC2      = ((uint8_t)0x04), /*!< Capture Compare Channel2 Event*/
-  TIM3_EventSource_Trigger  = ((uint8_t)0x40), /*!< Trigger Event*/
-  TIM3_EventSource_Break    = ((uint8_t)0x80)  /*!< Break Event*/
-}TIM3_EventSource_TypeDef;
+    TIM3_EventSource_Update   = ((uint8_t)0x01), /*!< Update Event*/
+    TIM3_EventSource_CC1      = ((uint8_t)0x02), /*!< Capture Compare Channel1  Event*/
+    TIM3_EventSource_CC2      = ((uint8_t)0x04), /*!< Capture Compare Channel2 Event*/
+    TIM3_EventSource_Trigger  = ((uint8_t)0x40), /*!< Trigger Event*/
+    TIM3_EventSource_Break    = ((uint8_t)0x80)  /*!< Break Event*/
+} TIM3_EventSource_TypeDef;
 
 /**
   * @}
@@ -415,9 +415,9 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_UpdateSource_Global  = ((uint8_t)0x00), /*!< Global Update request source */
-  TIM3_UpdateSource_Regular = ((uint8_t)0x01)  /*!< Regular Update request source */
-}TIM3_UpdateSource_TypeDef;
+    TIM3_UpdateSource_Global  = ((uint8_t)0x00), /*!< Global Update request source */
+    TIM3_UpdateSource_Regular = ((uint8_t)0x01)  /*!< Regular Update request source */
+} TIM3_UpdateSource_TypeDef;
 
 /**
   * @}
@@ -428,13 +428,13 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_TRGOSource_Reset   = ((uint8_t)0x00), /*!< Trigger Output source = Reset*/
-  TIM3_TRGOSource_Enable  = ((uint8_t)0x10), /*!< Trigger Output source = TIM3 is enabled*/
-  TIM3_TRGOSource_Update  = ((uint8_t)0x20), /*!< Trigger Output source = Update event*/
-  TIM3_TRGOSource_OC1     = ((uint8_t)0x30), /*!< Trigger Output source = output compare channel1  */
-  TIM3_TRGOSource_OC1REF  = ((uint8_t)0x40), /*!< Trigger Output source = output compare channel 1 reference */
-  TIM3_TRGOSource_OC2REF  = ((uint8_t)0x50)  /*!< Trigger Output source = output compare channel 2 reference */
-}TIM3_TRGOSource_TypeDef;
+    TIM3_TRGOSource_Reset   = ((uint8_t)0x00), /*!< Trigger Output source = Reset*/
+    TIM3_TRGOSource_Enable  = ((uint8_t)0x10), /*!< Trigger Output source = TIM3 is enabled*/
+    TIM3_TRGOSource_Update  = ((uint8_t)0x20), /*!< Trigger Output source = Update event*/
+    TIM3_TRGOSource_OC1     = ((uint8_t)0x30), /*!< Trigger Output source = output compare channel1  */
+    TIM3_TRGOSource_OC1REF  = ((uint8_t)0x40), /*!< Trigger Output source = output compare channel 1 reference */
+    TIM3_TRGOSource_OC2REF  = ((uint8_t)0x50)  /*!< Trigger Output source = output compare channel 2 reference */
+} TIM3_TRGOSource_TypeDef;
 
 /**
   * @}
@@ -445,11 +445,11 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_SlaveMode_Reset      = ((uint8_t)0x04), /*!< Slave Mode Selection  = Reset*/
-  TIM3_SlaveMode_Gated      = ((uint8_t)0x05), /*!< Slave Mode Selection  = Gated*/
-  TIM3_SlaveMode_Trigger    = ((uint8_t)0x06), /*!< Slave Mode Selection  = Trigger*/
-  TIM3_SlaveMode_External1  = ((uint8_t)0x07)  /*!< Slave Mode Selection  = External 1*/
-}TIM3_SlaveMode_TypeDef;
+    TIM3_SlaveMode_Reset      = ((uint8_t)0x04), /*!< Slave Mode Selection  = Reset*/
+    TIM3_SlaveMode_Gated      = ((uint8_t)0x05), /*!< Slave Mode Selection  = Gated*/
+    TIM3_SlaveMode_Trigger    = ((uint8_t)0x06), /*!< Slave Mode Selection  = Trigger*/
+    TIM3_SlaveMode_External1  = ((uint8_t)0x07)  /*!< Slave Mode Selection  = External 1*/
+} TIM3_SlaveMode_TypeDef;
 
 /**
   * @}
@@ -460,14 +460,14 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_FLAG_Update   = ((uint16_t)0x0001), /*!< Update Flag */
-  TIM3_FLAG_CC1      = ((uint16_t)0x0002), /*!< Capture compare 1 Flag */
-  TIM3_FLAG_CC2      = ((uint16_t)0x0004), /*!< Capture compare 2 Flag */
-  TIM3_FLAG_Trigger  = ((uint16_t)0x0040), /*!< Trigger Flag */
-  TIM3_FLAG_Break    = ((uint16_t)0x0080), /*!< Break Flag */
-  TIM3_FLAG_CC1OF    = ((uint16_t)0x0200), /*!< Capture compare 1 over capture Flag */
-  TIM3_FLAG_CC2OF    = ((uint16_t)0x0400)  /*!< Capture compare 2 over capture Flag */
-}TIM3_FLAG_TypeDef;
+    TIM3_FLAG_Update   = ((uint16_t)0x0001), /*!< Update Flag */
+    TIM3_FLAG_CC1      = ((uint16_t)0x0002), /*!< Capture compare 1 Flag */
+    TIM3_FLAG_CC2      = ((uint16_t)0x0004), /*!< Capture compare 2 Flag */
+    TIM3_FLAG_Trigger  = ((uint16_t)0x0040), /*!< Trigger Flag */
+    TIM3_FLAG_Break    = ((uint16_t)0x0080), /*!< Break Flag */
+    TIM3_FLAG_CC1OF    = ((uint16_t)0x0200), /*!< Capture compare 1 over capture Flag */
+    TIM3_FLAG_CC2OF    = ((uint16_t)0x0400)  /*!< Capture compare 2 over capture Flag */
+} TIM3_FLAG_TypeDef;
 
 /**
   * @}
@@ -478,10 +478,10 @@ typedef enum
   */
 typedef enum
 {
-  TIM3_DMASource_Update   = ((uint8_t)0x01),  /*!< TIM3 DMA Update Request*/
-  TIM3_DMASource_CC1      = ((uint8_t)0x02),
-  TIM3_DMASource_CC2      = ((uint8_t)0x04)
-}TIM3_DMASource_TypeDef;
+    TIM3_DMASource_Update   = ((uint8_t)0x01),  /*!< TIM3 DMA Update Request*/
+    TIM3_DMASource_CC1      = ((uint8_t)0x02),
+    TIM3_DMASource_CC2      = ((uint8_t)0x04)
+} TIM3_DMASource_TypeDef;
 
 /**
   * @}
@@ -901,7 +901,7 @@ void TIM3_SelectHallSensor(FunctionalState NewState);
 /**
   * @}
   */
-  
+
 /**
   * @}
   */

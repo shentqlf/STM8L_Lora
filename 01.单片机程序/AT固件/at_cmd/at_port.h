@@ -6,5 +6,6 @@
 
 void at_recv_event(char temp);
 void at_process_loop();
+void TransportNewPacket();
 
 #endif

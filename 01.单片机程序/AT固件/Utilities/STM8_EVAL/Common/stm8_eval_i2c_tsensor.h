@@ -4,7 +4,7 @@
   * @author  MCD Application Team
   * @version V2.1.3
   * @date    28-June-2013
-  * @brief   This file contains all the functions prototypes for the 
+  * @brief   This file contains all the functions prototypes for the
   *          stm8_eval_i2c_tsensor firmware driver.
   ******************************************************************************
   *
@@ -14,15 +14,15 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */  
-  
+  */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM8_EVAL_I2C_TSENSOR_H
 #define __STM8_EVAL_I2C_TSENSOR_H
@@ -34,18 +34,18 @@
 /** @addtogroup Utilities
   * @{
   */
-  
+
 /** @addtogroup STM8_EVAL
   * @{
-  */ 
+  */
 
 /** @addtogroup Common
   * @{
   */
-  
+
 /** @addtogroup STM8_EVAL_I2C_TSENSOR
   * @{
-  */  
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -72,7 +72,7 @@ uint16_t LM75_ReadReg(uint8_t RegName);
 void LM75_WriteReg(uint8_t RegName, uint16_t RegValue);
 uint8_t LM75_ReadConfReg(void);
 void LM75_WriteConfReg(uint8_t RegValue);
-void LM75_ShutDown(FunctionalState NewState);  
+void LM75_ShutDown(FunctionalState NewState);
 
 #endif /* __STM8_EVAL_I2C_TSENSOR_H */
 
@@ -86,7 +86,7 @@ void LM75_ShutDown(FunctionalState NewState);
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}

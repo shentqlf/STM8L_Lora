@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -66,69 +66,69 @@ void ShowVoltage(uint16_t Voltage);
   */
 void main(void)
 {
-  uint16_t voltage = 0;
+    uint16_t voltage = 0;
 
-  /* Init the Eval board LCD */
-  STM8_EVAL_LCD_Init();
+    /* Init the Eval board LCD */
+    STM8_EVAL_LCD_Init();
 
-  /* Clear LCD */
-  LCD_Clear();
+    /* Clear LCD */
+    LCD_Clear();
 
-  /* Print "RV ADC Voltage" on LCD line1*/
-  LCD_SetCursorPos(LCD_LINE1, 0);
-  LCD_Print("RV ADC Voltage");
+    /* Print "RV ADC Voltage" on LCD line1*/
+    LCD_SetCursorPos(LCD_LINE1, 0);
+    LCD_Print("RV ADC Voltage");
 
-   /* ADC configuration -------------------------------------------*/
-  ADC_Config(); 
+    /* ADC configuration -------------------------------------------*/
+    ADC_Config();
 
-  /* Init Leds */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED3);
-  STM_EVAL_LEDInit(LED4);
+    /* Init Leds */
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED3);
+    STM_EVAL_LEDInit(LED4);
 
-  /* Infinite loop*/
-  while (1)
-  {
-    ADCSavedData = ADCData;
-    while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
-    ADCData = ADC_GetConversionValue(ADC1);
-
-    if (ADCSavedData != ADCData)
+    /* Infinite loop*/
+    while (1)
     {
-      /* Calculate voltage value*/
-      voltage = (uint16_t)(((uint32_t)ADCData * (uint32_t)ADC_RATIO) / (uint32_t)1000);
+        ADCSavedData = ADCData;
+        while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
+        ADCData = ADC_GetConversionValue(ADC1);
 
-      /* Display voltage value on LCD*/
-      ShowVoltage(voltage);
-      STM_EVAL_LEDOff(LED1);
+        if (ADCSavedData != ADCData)
+        {
+            /* Calculate voltage value*/
+            voltage = (uint16_t)(((uint32_t)ADCData * (uint32_t)ADC_RATIO) / (uint32_t)1000);
 
-      /* LED4 is On only if ADC converted data is higher
-         than High Analog watchdog Threshold */
-      if (ADCData >= HighThresholdData)
-      {
-        STM_EVAL_LEDOn(LED4);
-        LCDString[14] = '<';
-      }
-      else
-      {
-        STM_EVAL_LEDOff(LED4);
-        LCDString[14] = ' ';
-      }
+            /* Display voltage value on LCD*/
+            ShowVoltage(voltage);
+            STM_EVAL_LEDOff(LED1);
 
-      /* LED3 is On only if ADC converted data is lower
-        than Low Analog watchdog Threshold */
-      if (ADCData <= LowThresholdData)
-      {
-        STM_EVAL_LEDOn(LED3);
-        LCDString[0] = '>';
-      }
-      else
-      {
-        STM_EVAL_LEDOff(LED3);
-        LCDString[0] = ' ';
-      }
+            /* LED4 is On only if ADC converted data is higher
+               than High Analog watchdog Threshold */
+            if (ADCData >= HighThresholdData)
+            {
+                STM_EVAL_LEDOn(LED4);
+                LCDString[14] = '<';
+            }
+            else
+            {
+                STM_EVAL_LEDOff(LED4);
+                LCDString[14] = ' ';
+            }
+
+            /* LED3 is On only if ADC converted data is lower
+              than Low Analog watchdog Threshold */
+            if (ADCData <= LowThresholdData)
+            {
+                STM_EVAL_LEDOn(LED3);
+                LCDString[0] = '>';
+            }
+            else
+            {
+                STM_EVAL_LEDOff(LED3);
+                LCDString[0] = ' ';
+            }
+        }
     }
-  }
 
 }
 
@@ -139,36 +139,36 @@ void main(void)
   */
 static void ADC_Config(void)
 {
-  /* Enable ADC1 clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);
-  
-  /* Initialise and configure ADC1 */
-  ADC_Init(ADC1, ADC_ConversionMode_Continuous, ADC_Resolution_12Bit, ADC_Prescaler_2);
-  ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_384Cycles);
+    /* Enable ADC1 clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);
 
-  /* Enable ADC1 */
-  ADC_Cmd(ADC1, ENABLE);
+    /* Initialise and configure ADC1 */
+    ADC_Init(ADC1, ADC_ConversionMode_Continuous, ADC_Resolution_12Bit, ADC_Prescaler_2);
+    ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_384Cycles);
 
-  /* Enable ADC1 Channel 3 */
-  ADC_ChannelCmd(ADC1, ADC_Channel_3, ENABLE);
+    /* Enable ADC1 */
+    ADC_Cmd(ADC1, ENABLE);
 
-  /* Calculate Threshold data value*/
-  HighThresholdData = (uint16_t)(((uint32_t)HIGH_THRESHOLD_VOLTAGE * 1000) / (uint32_t)ADC_RATIO) ;
-  LowThresholdData  = (uint16_t)(((uint32_t)LOW_THRESHOLD_VOLTAGE * 1000) / (uint32_t)ADC_RATIO) ;
+    /* Enable ADC1 Channel 3 */
+    ADC_ChannelCmd(ADC1, ADC_Channel_3, ENABLE);
 
-  /* Configure Analog Watchdog selected channel and Thresholds */
-  ADC_AnalogWatchdogConfig(ADC1, ADC_AnalogWatchdogSelection_Channel3,
-                           HighThresholdData,
-                           LowThresholdData);
+    /* Calculate Threshold data value*/
+    HighThresholdData = (uint16_t)(((uint32_t)HIGH_THRESHOLD_VOLTAGE * 1000) / (uint32_t)ADC_RATIO) ;
+    LowThresholdData  = (uint16_t)(((uint32_t)LOW_THRESHOLD_VOLTAGE * 1000) / (uint32_t)ADC_RATIO) ;
 
-  /* Enable Analog watchdog ADC1 Interrupt */
-  ADC_ITConfig(ADC1, ADC_IT_AWD, ENABLE);
+    /* Configure Analog Watchdog selected channel and Thresholds */
+    ADC_AnalogWatchdogConfig(ADC1, ADC_AnalogWatchdogSelection_Channel3,
+                             HighThresholdData,
+                             LowThresholdData);
 
-  /* Enable Interrupts */
-  enableInterrupts();
+    /* Enable Analog watchdog ADC1 Interrupt */
+    ADC_ITConfig(ADC1, ADC_IT_AWD, ENABLE);
 
-  /* Start ADC1 Conversion using Software trigger*/
-  ADC_SoftwareStartConv(ADC1);
+    /* Enable Interrupts */
+    enableInterrupts();
+
+    /* Start ADC1 Conversion using Software trigger*/
+    ADC_SoftwareStartConv(ADC1);
 }
 
 /**
@@ -178,28 +178,28 @@ static void ADC_Config(void)
   */
 void ShowVoltage(uint16_t Voltage)
 {
-  uint8_t voltage1000 = 0;
-  uint8_t voltage100 = 0;
-  uint8_t voltage10 = 0;
+    uint8_t voltage1000 = 0;
+    uint8_t voltage100 = 0;
+    uint8_t voltage10 = 0;
 
 
-  /* Thousands voltage value*/
-  voltage1000 = (uint8_t)(Voltage / 1000);
-  /* Hundreds voltage value */
-  voltage100 = (uint8_t)((Voltage % 1000) / 100);
-  /* Tens voltage value */
-  voltage10 = (uint8_t)((Voltage % 100 ) / 10);
+    /* Thousands voltage value*/
+    voltage1000 = (uint8_t)(Voltage / 1000);
+    /* Hundreds voltage value */
+    voltage100 = (uint8_t)((Voltage % 1000) / 100);
+    /* Tens voltage value */
+    voltage10 = (uint8_t)((Voltage % 100 ) / 10);
 
 
-  /* Fill the LCDString fields with the current Voltage */
-  LCDString[3] = (uint8_t)((uint8_t)(voltage1000) + ASCII_NUM_0);
-  LCDString[5] = (uint8_t)((uint8_t)(voltage100) + ASCII_NUM_0);
-  LCDString[6] = (uint8_t)((uint8_t)(voltage10) + ASCII_NUM_0);
+    /* Fill the LCDString fields with the current Voltage */
+    LCDString[3] = (uint8_t)((uint8_t)(voltage1000) + ASCII_NUM_0);
+    LCDString[5] = (uint8_t)((uint8_t)(voltage100) + ASCII_NUM_0);
+    LCDString[6] = (uint8_t)((uint8_t)(voltage10) + ASCII_NUM_0);
 
-  /* Print the RV Voltage  on the LCD line2 */
-  /* Print "RV ADC Voltage" on LCD line1*/
-  LCD_SetCursorPos(LCD_LINE2, 0);
-  LCD_Print(LCDString);
+    /* Print the RV Voltage  on the LCD line2 */
+    /* Print "RV ADC Voltage" on LCD line1*/
+    LCD_SetCursorPos(LCD_LINE2, 0);
+    LCD_Print(LCDString);
 
 }
 
@@ -211,20 +211,20 @@ void ShowVoltage(uint16_t Voltage)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-    LCD_SetCursorPos(LCD_LINE1, 0);
-    LCD_Print("      ERR       ");
-    LCD_SetCursorPos(LCD_LINE2, 0);
-    LCD_Print("     ASSERT     ");
+    /* Infinite loop */
+    while (1)
+    {
+        LCD_SetCursorPos(LCD_LINE1, 0);
+        LCD_Print("      ERR       ");
+        LCD_SetCursorPos(LCD_LINE2, 0);
+        LCD_Print("     ASSERT     ");
 
-  }
+    }
 }
 #endif
 /**

@@ -4,7 +4,7 @@
   * @author  MCD Application Team
   * @version V2.1.3
   * @date    28-June-2013
-  * @brief   This file contains all the functions prototypes for the Dot matrix 
+  * @brief   This file contains all the functions prototypes for the Dot matrix
   *          LCD firmware driver.
   ******************************************************************************
   *
@@ -14,14 +14,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */  
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM8_EVAL_LCD_H
@@ -32,10 +32,10 @@
 /** @addtogroup Utilities
   * @{
   */
-  
+
 /** @addtogroup STM8_EVAL
   * @{
-  */ 
+  */
 
 /** @addtogroup Common
   * @{
@@ -46,20 +46,20 @@
 /*
  * Uncomment the line below if you want to use user defined Delay function
  * (for precise timing), otherwise default _delay_ function defined within
- *  this driver is used (less precise timing).  
+ *  this driver is used (less precise timing).
  */
- 
+
 /* #define USE_Delay */
 
 #ifdef USE_Delay
 #include "main.h"
- 
-  #define _delay_     Delay  /* !< User can provide more timing precise _delay_ 
+
+#define _delay_     Delay  /* !< User can provide more timing precise _delay_ 
                                    function (with at least 1ms time base), using
                                    Timer for example */
 #else
-  #define _delay_     delay      /* !< Default _delay_ function with less precise timing */
-#endif 	
+#define _delay_     delay      /* !< Default _delay_ function with less precise timing */
+#endif
 
 
 
@@ -71,14 +71,14 @@
   * @brief  Defines for the SPI and GPIO pins used to drive the SPI Flash
   */
 
- #define LCD_SPI                          SPI1
- #define LCD_NCS_GPIO_PORT                GPIOB /* LCD Chip Select I/O definition */
- #define LCD_NCS_PIN                      GPIO_Pin_4
- #define LCD_SPI_CLK                      CLK_Peripheral_SPI1
- #define LCD_SPI_SCK_PIN                  GPIO_Pin_5
- #define LCD_SPI_MOSI_PIN                 GPIO_Pin_6
- #define LCD_SPI_MISO_PIN                 GPIO_Pin_7
- #define LCD_SPI_GPIO_PORT                GPIOB
+#define LCD_SPI                          SPI1
+#define LCD_NCS_GPIO_PORT                GPIOB /* LCD Chip Select I/O definition */
+#define LCD_NCS_PIN                      GPIO_Pin_4
+#define LCD_SPI_CLK                      CLK_Peripheral_SPI1
+#define LCD_SPI_SCK_PIN                  GPIO_Pin_5
+#define LCD_SPI_MOSI_PIN                 GPIO_Pin_6
+#define LCD_SPI_MISO_PIN                 GPIO_Pin_7
+#define LCD_SPI_GPIO_PORT                GPIOB
 
 /**
   * @}
@@ -91,14 +91,14 @@
   * @brief  Defines for the SPI and GPIO pins used to drive the SPI Flash
   */
 
- #define LCD_SPI                          SPI2
- #define LCD_NCS_GPIO_PORT                GPIOF /* LCD Chip Select I/O definition */
- #define LCD_NCS_PIN                      GPIO_Pin_2
- #define LCD_SPI_CLK                      CLK_Peripheral_SPI2
- #define LCD_SPI_SCK_PIN                  GPIO_Pin_1
- #define LCD_SPI_MOSI_PIN                 GPIO_Pin_2
- #define LCD_SPI_MISO_PIN                 GPIO_Pin_3
- #define LCD_SPI_GPIO_PORT                GPIOI
+#define LCD_SPI                          SPI2
+#define LCD_NCS_GPIO_PORT                GPIOF /* LCD Chip Select I/O definition */
+#define LCD_NCS_PIN                      GPIO_Pin_2
+#define LCD_SPI_CLK                      CLK_Peripheral_SPI2
+#define LCD_SPI_SCK_PIN                  GPIO_Pin_1
+#define LCD_SPI_MOSI_PIN                 GPIO_Pin_2
+#define LCD_SPI_MISO_PIN                 GPIO_Pin_3
+#define LCD_SPI_GPIO_PORT                GPIOI
 
 /**
   * @}
@@ -127,18 +127,18 @@
   * @{
   */
 
-/** 
+/**
   * @brief  Deselect LCD: ChipSelect pin low : LCD disabled
-  */  
+  */
 #define LCD_NCS_LOW()     GPIO_ResetBits(LCD_NCS_GPIO_PORT, LCD_NCS_PIN)
-/** 
-  * @brief  Select LCD : ChipSelect pin high : LCD enabled   
-  */ 
+/**
+  * @brief  Select LCD : ChipSelect pin high : LCD enabled
+  */
 #define LCD_NCS_HIGH()    GPIO_SetBits(LCD_NCS_GPIO_PORT, LCD_NCS_PIN)
 /**
   * @}
   */
-  
+
 /* Exported functions --------------------------------------------------------*/
 void STM8_EVAL_LCD_Init(void);
 void LCD_SetCursorPos(uint8_t Line, uint8_t Offset);
@@ -156,9 +156,9 @@ void LCD_RollString(uint8_t Line, uint8_t *ptr, uint16_t speed);
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

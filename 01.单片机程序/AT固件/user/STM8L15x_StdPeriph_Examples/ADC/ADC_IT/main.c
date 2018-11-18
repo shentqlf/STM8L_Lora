@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -64,56 +64,56 @@ void ShowVoltage(uint16_t Voltage);
   */
 void main(void)
 {
-   /* CLK configuration -------------------------------------------*/
-  CLK_Config(); 
+    /* CLK configuration -------------------------------------------*/
+    CLK_Config();
 
-  /* Init TIM2 to generate 1 ms time base update interrupt */
-  TimingDelay_Init();
+    /* Init TIM2 to generate 1 ms time base update interrupt */
+    TimingDelay_Init();
 
-  /* Enable Interrupts */
-  enableInterrupts();
+    /* Enable Interrupts */
+    enableInterrupts();
 
-  /* 1s delay to ensure proper LCD Init*/
-  Delay(1000);
+    /* 1s delay to ensure proper LCD Init*/
+    Delay(1000);
 
-  /* Init the Eval board LCD */
-  STM8_EVAL_LCD_Init();
+    /* Init the Eval board LCD */
+    STM8_EVAL_LCD_Init();
 
-  /* Clear LCD */
-  LCD_Clear();
+    /* Clear LCD */
+    LCD_Clear();
 
-  /* print "Pot ADC Voltage" on LCD line1*/
-  LCD_SetCursorPos(LCD_LINE1, 0);
-  LCD_Print("Pot ADC Voltage");
+    /* print "Pot ADC Voltage" on LCD line1*/
+    LCD_SetCursorPos(LCD_LINE1, 0);
+    LCD_Print("Pot ADC Voltage");
 
-   /* ADC configuration -------------------------------------------*/
-  ADC_Config();
+    /* ADC configuration -------------------------------------------*/
+    ADC_Config();
 
-  /* Infinite loop*/
-  while (1)
-  {
-    /* Calculate voltage value*/
-    PotVoltage = (uint16_t)((uint32_t)((uint32_t)ADCdata * (uint32_t)ADC_RATIO) / (uint32_t)1000);
+    /* Infinite loop*/
+    while (1)
+    {
+        /* Calculate voltage value*/
+        PotVoltage = (uint16_t)((uint32_t)((uint32_t)ADCdata * (uint32_t)ADC_RATIO) / (uint32_t)1000);
 
-    /* Display voltage value on LCD*/
-    ShowVoltage((uint16_t)PotVoltage);
-  }
+        /* Display voltage value on LCD*/
+        ShowVoltage((uint16_t)PotVoltage);
+    }
 
 }
 
 /**
-  * @brief  Configure System and peripheral Clock 
+  * @brief  Configure System and peripheral Clock
   * @param  None
   * @retval None
   */
 static void CLK_Config(void)
 {
-  
-  /* System Clock is HSI/1 */
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /* Enable ADC1 clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);
+    /* System Clock is HSI/1 */
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+
+    /* Enable ADC1 clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);
 }
 
 /**
@@ -123,21 +123,21 @@ static void CLK_Config(void)
   */
 static void ADC_Config(void)
 {
-  /* Initialise and configure ADC1 */
-  ADC_Init(ADC1, ADC_ConversionMode_Continuous, ADC_Resolution_12Bit, ADC_Prescaler_2);
-  ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_384Cycles);
+    /* Initialise and configure ADC1 */
+    ADC_Init(ADC1, ADC_ConversionMode_Continuous, ADC_Resolution_12Bit, ADC_Prescaler_2);
+    ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_384Cycles);
 
-  /* Enable ADC1 */
-  ADC_Cmd(ADC1, ENABLE);
+    /* Enable ADC1 */
+    ADC_Cmd(ADC1, ENABLE);
 
-  /* Enable ADC1 Channel 3 */
-  ADC_ChannelCmd(ADC1, ADC_Channel_3, ENABLE);
+    /* Enable ADC1 Channel 3 */
+    ADC_ChannelCmd(ADC1, ADC_Channel_3, ENABLE);
 
-  /* Enable End of conversion ADC1 Interrupt */
-  ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
+    /* Enable End of conversion ADC1 Interrupt */
+    ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 
-  /* Start ADC1 Conversion using Software trigger*/
-  ADC_SoftwareStartConv(ADC1);
+    /* Start ADC1 Conversion using Software trigger*/
+    ADC_SoftwareStartConv(ADC1);
 }
 
 /**
@@ -147,27 +147,27 @@ static void ADC_Config(void)
   */
 void ShowVoltage(uint16_t Voltage)
 {
-  uint8_t voltage1000 = 0;
-  uint8_t voltage100 = 0;
-  uint8_t voltage10 = 0;
+    uint8_t voltage1000 = 0;
+    uint8_t voltage100 = 0;
+    uint8_t voltage10 = 0;
 
 
-  /* Thousands voltage value*/
-  voltage1000 = (uint8_t)(Voltage / 1000);
-  /* Hundreds voltage value */
-  voltage100 = (uint8_t)((Voltage % 1000) / 100);
-  /* Tens voltage value */
-  voltage10 = (uint8_t)((Voltage % 100 ) / 10);
+    /* Thousands voltage value*/
+    voltage1000 = (uint8_t)(Voltage / 1000);
+    /* Hundreds voltage value */
+    voltage100 = (uint8_t)((Voltage % 1000) / 100);
+    /* Tens voltage value */
+    voltage10 = (uint8_t)((Voltage % 100 ) / 10);
 
 
-  /* Fill the LCDString fields with the current Voltage */
-  LCDString[3] = (uint8_t)((uint8_t)(voltage1000) + ASCII_NUM_0);
-  LCDString[5] = (uint8_t)((uint8_t)(voltage100) + ASCII_NUM_0);
-  LCDString[6] = (uint8_t)((uint8_t)(voltage10) + ASCII_NUM_0);
+    /* Fill the LCDString fields with the current Voltage */
+    LCDString[3] = (uint8_t)((uint8_t)(voltage1000) + ASCII_NUM_0);
+    LCDString[5] = (uint8_t)((uint8_t)(voltage100) + ASCII_NUM_0);
+    LCDString[6] = (uint8_t)((uint8_t)(voltage10) + ASCII_NUM_0);
 
-  /* Print the Potentiometer Voltage on the LCD line2 */
-  LCD_SetCursorPos(LCD_LINE2, 0);
-  LCD_Print(LCDString);
+    /* Print the Potentiometer Voltage on the LCD line2 */
+    LCD_SetCursorPos(LCD_LINE2, 0);
+    LCD_Print(LCDString);
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -178,20 +178,20 @@ void ShowVoltage(uint16_t Voltage)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
+    /* Infinite loop */
+    while (1)
+    {
 
-    LCD_SetCursorPos(LCD_LINE1, 0);
-    LCD_Print("      ERR       ");
-    LCD_SetCursorPos(LCD_LINE2, 0);
-    LCD_Print("     ASSERT     ");
-  }
+        LCD_SetCursorPos(LCD_LINE1, 0);
+        LCD_Print("      ERR       ");
+        LCD_SetCursorPos(LCD_LINE2, 0);
+        LCD_Print("     ASSERT     ");
+    }
 }
 #endif
 /**

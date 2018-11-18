@@ -17,14 +17,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x_it.h"
@@ -61,9 +61,9 @@ __IO uint16_t Event = 0x00;
 */
 INTERRUPT_HANDLER(NonHandledInterrupt, 0)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 #endif
 
@@ -74,9 +74,9 @@ INTERRUPT_HANDLER(NonHandledInterrupt, 0)
 */
 INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 /**
   * @brief  FLASH Interrupt routine.
@@ -85,9 +85,9 @@ INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler)
   */
 INTERRUPT_HANDLER(FLASH_IRQHandler, 1)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 /**
   * @brief  DMA1 channel0 and channel1 Interrupt routine.
@@ -96,9 +96,9 @@ INTERRUPT_HANDLER(FLASH_IRQHandler, 1)
   */
 INTERRUPT_HANDLER(DMA1_CHANNEL0_1_IRQHandler, 2)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 /**
   * @brief  DMA1 channel2 and channel3 Interrupt routine.
@@ -107,9 +107,9 @@ INTERRUPT_HANDLER(DMA1_CHANNEL0_1_IRQHandler, 2)
   */
 INTERRUPT_HANDLER(DMA1_CHANNEL2_3_IRQHandler, 3)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -119,9 +119,9 @@ INTERRUPT_HANDLER(DMA1_CHANNEL2_3_IRQHandler, 3)
   */
 INTERRUPT_HANDLER(RTC_CSSLSE_IRQHandler, 4)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -131,9 +131,9 @@ INTERRUPT_HANDLER(RTC_CSSLSE_IRQHandler, 4)
   */
 INTERRUPT_HANDLER(EXTIE_F_PVD_IRQHandler, 5)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -143,9 +143,9 @@ INTERRUPT_HANDLER(EXTIE_F_PVD_IRQHandler, 5)
   */
 INTERRUPT_HANDLER(EXTIB_G_IRQHandler, 6)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -155,9 +155,9 @@ INTERRUPT_HANDLER(EXTIB_G_IRQHandler, 6)
   */
 INTERRUPT_HANDLER(EXTID_H_IRQHandler, 7)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -167,9 +167,9 @@ INTERRUPT_HANDLER(EXTID_H_IRQHandler, 7)
   */
 INTERRUPT_HANDLER(EXTI0_IRQHandler, 8)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -179,9 +179,9 @@ INTERRUPT_HANDLER(EXTI0_IRQHandler, 8)
   */
 INTERRUPT_HANDLER(EXTI1_IRQHandler, 9)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -191,9 +191,9 @@ INTERRUPT_HANDLER(EXTI1_IRQHandler, 9)
   */
 INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -203,9 +203,9 @@ INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
   */
 INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -215,9 +215,9 @@ INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
   */
 INTERRUPT_HANDLER(EXTI4_IRQHandler, 12)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -227,9 +227,9 @@ INTERRUPT_HANDLER(EXTI4_IRQHandler, 12)
   */
 INTERRUPT_HANDLER(EXTI5_IRQHandler, 13)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -239,9 +239,9 @@ INTERRUPT_HANDLER(EXTI5_IRQHandler, 13)
   */
 INTERRUPT_HANDLER(EXTI6_IRQHandler, 14)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -251,9 +251,9 @@ INTERRUPT_HANDLER(EXTI6_IRQHandler, 14)
   */
 INTERRUPT_HANDLER(EXTI7_IRQHandler, 15)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -263,9 +263,9 @@ INTERRUPT_HANDLER(EXTI7_IRQHandler, 15)
   */
 INTERRUPT_HANDLER(LCD_AES_IRQHandler, 16)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 /**
   * @brief  CLK switch/CSS/TIM1 break Interrupt routine.
@@ -274,9 +274,9 @@ INTERRUPT_HANDLER(LCD_AES_IRQHandler, 16)
   */
 INTERRUPT_HANDLER(SWITCH_CSS_BREAK_DAC_IRQHandler, 17)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -286,9 +286,9 @@ INTERRUPT_HANDLER(SWITCH_CSS_BREAK_DAC_IRQHandler, 17)
   */
 INTERRUPT_HANDLER(ADC1_COMP_IRQHandler, 18)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -298,9 +298,9 @@ INTERRUPT_HANDLER(ADC1_COMP_IRQHandler, 18)
   */
 INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_USART2_TX_IRQHandler, 19)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -310,9 +310,9 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_USART2_TX_IRQHandler, 19)
   */
 INTERRUPT_HANDLER(TIM2_CC_USART2_RX_IRQHandler, 20)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 
@@ -323,9 +323,9 @@ INTERRUPT_HANDLER(TIM2_CC_USART2_RX_IRQHandler, 20)
   */
 INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQHandler, 21)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -335,9 +335,9 @@ INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQHandler, 21)
   */
 INTERRUPT_HANDLER(TIM3_CC_USART3_RX_IRQHandler, 22)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 /**
   * @brief  TIM1 Update/Overflow/Trigger/Commutation Interrupt routine.
@@ -346,9 +346,9 @@ INTERRUPT_HANDLER(TIM3_CC_USART3_RX_IRQHandler, 22)
   */
 INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_COM_IRQHandler, 23)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 /**
   * @brief  TIM1 Capture/Compare Interrupt routine.
@@ -357,9 +357,9 @@ INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_COM_IRQHandler, 23)
   */
 INTERRUPT_HANDLER(TIM1_CC_IRQHandler, 24)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -369,9 +369,9 @@ INTERRUPT_HANDLER(TIM1_CC_IRQHandler, 24)
   */
 INTERRUPT_HANDLER(TIM4_UPD_OVF_TRG_IRQHandler, 25)
 {
-  /* In order to detect unexpected events during development,
-    it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+      it is recommended to set a breakpoint on the following instruction.
+    */
 }
 /**
   * @brief  SPI1 Interrupt routine.
@@ -380,9 +380,9 @@ INTERRUPT_HANDLER(TIM4_UPD_OVF_TRG_IRQHandler, 25)
   */
 INTERRUPT_HANDLER(SPI1_IRQHandler, 26)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -392,9 +392,9 @@ INTERRUPT_HANDLER(SPI1_IRQHandler, 26)
   */
 INTERRUPT_HANDLER(USART1_TX_TIM5_UPD_OVF_TRG_BRK_IRQHandler, 27)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 
 }
 
@@ -405,9 +405,9 @@ INTERRUPT_HANDLER(USART1_TX_TIM5_UPD_OVF_TRG_BRK_IRQHandler, 27)
   */
 INTERRUPT_HANDLER(USART1_RX_TIM5_CC_IRQHandler, 28)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+    /* In order to detect unexpected events during development,
+       it is recommended to set a breakpoint on the following instruction.
+    */
 }
 
 /**
@@ -417,49 +417,49 @@ INTERRUPT_HANDLER(USART1_RX_TIM5_CC_IRQHandler, 28)
   */
 INTERRUPT_HANDLER(I2C1_SPI2_IRQHandler, 29)
 {
-  /* Read SR2 register to get I2C error */
-  if (I2C_ReadRegister(I2C1, I2C_Register_SR2))
-  {
-    /* Clears SR2 register */
-    I2C1->SR2 = 0;
+    /* Read SR2 register to get I2C error */
+    if (I2C_ReadRegister(I2C1, I2C_Register_SR2))
+    {
+        /* Clears SR2 register */
+        I2C1->SR2 = 0;
 
-    /* Set LED2 */
-    STM_EVAL_LEDOn(LED2);
+        /* Set LED2 */
+        STM_EVAL_LEDOn(LED2);
 
-  }
-  Event = I2C_GetLastEvent(I2C1);
-  switch (Event)
-  {
-      /******* Slave transmitter ******/
-      /* check on EV1 */
+    }
+    Event = I2C_GetLastEvent(I2C1);
+    switch (Event)
+    {
+    /******* Slave transmitter ******/
+    /* check on EV1 */
     case I2C_EVENT_SLAVE_TRANSMITTER_ADDRESS_MATCHED:
-      Tx_Idx = 0;
-      break;
+        Tx_Idx = 0;
+        break;
 
-      /* check on EV3 */
+    /* check on EV3 */
     case I2C_EVENT_SLAVE_BYTE_TRANSMITTING:
-      /* Transmit data */
-      I2C_SendData(I2C1, Slave_Buffer_Rx[Tx_Idx++]);
-      break;
-      /******* Slave receiver **********/
-      /* check on EV1*/
+        /* Transmit data */
+        I2C_SendData(I2C1, Slave_Buffer_Rx[Tx_Idx++]);
+        break;
+    /******* Slave receiver **********/
+    /* check on EV1*/
     case I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED:
-      break;
+        break;
 
-      /* Check on EV2*/
+    /* Check on EV2*/
     case I2C_EVENT_SLAVE_BYTE_RECEIVED:
-      Slave_Buffer_Rx[Rx_Idx++] = I2C_ReceiveData(I2C1);
-      break;
+        Slave_Buffer_Rx[Rx_Idx++] = I2C_ReceiveData(I2C1);
+        break;
 
-      /* Check on EV4 */
+    /* Check on EV4 */
     case (I2C_EVENT_SLAVE_STOP_DETECTED):
-            /* write to CR2 to clear STOPF flag */
-            I2C1->CR2 |= I2C_CR2_ACK;
-      break;
+        /* write to CR2 to clear STOPF flag */
+        I2C1->CR2 |= I2C_CR2_ACK;
+        break;
 
     default:
-      break;
-  }
+        break;
+    }
 }
 
 

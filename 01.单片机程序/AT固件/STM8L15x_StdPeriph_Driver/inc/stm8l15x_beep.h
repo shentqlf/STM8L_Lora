@@ -17,13 +17,13 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
-  ******************************************************************************  
+  ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -36,29 +36,30 @@
 /** @addtogroup STM8L15x_StdPeriph_Driver
   * @{
   */
-  
+
 /** @addtogroup BEEP
   * @{
-  */ 
-  
+  */
+
 /* Exported types ------------------------------------------------------------*/
 /** @defgroup BEEP_Exported_Types
   * @{
   */
-  
+
 /** @defgroup BEEP_Frequency
   * @{
   */
-typedef enum {
-  BEEP_Frequency_1KHz = (uint8_t)0x00,  /*!< Beep signal output frequency 1 KHz */
-  BEEP_Frequency_2KHz = (uint8_t)0x40,  /*!< Beep signal output frequency 2 KHz */
-  BEEP_Frequency_4KHz = (uint8_t)0x80   /*!< Beep signal output frequency 4 KHz */
+typedef enum
+{
+    BEEP_Frequency_1KHz = (uint8_t)0x00,  /*!< Beep signal output frequency 1 KHz */
+    BEEP_Frequency_2KHz = (uint8_t)0x40,  /*!< Beep signal output frequency 2 KHz */
+    BEEP_Frequency_4KHz = (uint8_t)0x80   /*!< Beep signal output frequency 4 KHz */
 } BEEP_Frequency_TypeDef;
 
 #define IS_BEEP_FREQUENCY(FREQ) (((FREQ) == BEEP_Frequency_1KHz) || \
                                  ((FREQ) == BEEP_Frequency_2KHz) || \
                                  ((FREQ) == BEEP_Frequency_4KHz))
- 
+
 /**
   * @}
   */
@@ -66,7 +67,7 @@ typedef enum {
 /**
   * @}
   */
-      
+
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup BEEP_Exported_Constants
   * @{
@@ -92,7 +93,7 @@ typedef enum {
 
 /* Exported functions ------------------------------------------------------- */
 
-/*  Function used to set the BEEP configuration to the default reset state *****/  
+/*  Function used to set the BEEP configuration to the default reset state *****/
 void BEEP_DeInit(void);
 
 /* Initialization and Configuration functions *********************************/

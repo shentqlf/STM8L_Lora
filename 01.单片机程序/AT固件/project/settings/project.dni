@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=1077342539
+Checksum=-1682915209
 [CallStack]
 ShowArgs=0
 [Disassembly]

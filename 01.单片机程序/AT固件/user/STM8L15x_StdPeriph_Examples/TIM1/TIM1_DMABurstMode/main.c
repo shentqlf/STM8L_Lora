@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -67,83 +67,83 @@ void RAM_InitBuffers(void);
   */
 void main(void)
 {
-   /* CLK configuration -------------------------------------------*/
-  CLK_Config(); 
+    /* CLK configuration -------------------------------------------*/
+    CLK_Config();
 
-   /* GPIO configuration -------------------------------------------*/
-  GPIO_Config(); 
-    
-  /* Configure key button in EXTI mode */
-  STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_EXTI);
+    /* GPIO configuration -------------------------------------------*/
+    GPIO_Config();
 
-  /* Init RAM Buffers */
-  RAM_InitBuffers();
+    /* Configure key button in EXTI mode */
+    STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_EXTI);
 
-   /* TIM1 configuration -------------------------------------------*/
-  TIM1_Config();
+    /* Init RAM Buffers */
+    RAM_InitBuffers();
 
-  /* Enable global interrupts */
-  enableInterrupts();
+    /* TIM1 configuration -------------------------------------------*/
+    TIM1_Config();
 
-  while (1)
-  {
-    PSCRHcurrentValue = TIM1->PSCRH;
-    PSCRLcurrentValue = TIM1->PSCRL;
-    ARRHcurrentValue  = TIM1->ARRH;
-    ARRLcurrentValue  = TIM1->ARRL;
-    RCRcurrentValue   = TIM1->RCR;
-    CCR1HcurrentValue = TIM1->CCR1H;
-    CCR1LcurrentValue = TIM1->CCR1L;
-  }
+    /* Enable global interrupts */
+    enableInterrupts();
+
+    while (1)
+    {
+        PSCRHcurrentValue = TIM1->PSCRH;
+        PSCRLcurrentValue = TIM1->PSCRL;
+        ARRHcurrentValue  = TIM1->ARRH;
+        ARRLcurrentValue  = TIM1->ARRL;
+        RCRcurrentValue   = TIM1->RCR;
+        CCR1HcurrentValue = TIM1->CCR1H;
+        CCR1LcurrentValue = TIM1->CCR1L;
+    }
 }
 
 /**
-  * @brief  Configure peripherals Clock   
+  * @brief  Configure peripherals Clock
   * @param  None
   * @retval None
   */
 static void CLK_Config(void)
 {
-  /* Enable DMA1 clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
+    /* Enable DMA1 clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
 
-  /* Enable TIM1 clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, ENABLE);
+    /* Enable TIM1 clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, ENABLE);
 }
 
 /**
-  * @brief  Configure TIM Channels GPIO 
+  * @brief  Configure TIM Channels GPIO
   * @param  None
   * @retval None
   */
 static void GPIO_Config(void)
 {
-  /* TIM1 Channel1 configuration: PD2 in output pushpull mode */
-  GPIO_Init(GPIOD,  GPIO_Pin_2, GPIO_Mode_Out_PP_Low_Fast);
+    /* TIM1 Channel1 configuration: PD2 in output pushpull mode */
+    GPIO_Init(GPIOD,  GPIO_Pin_2, GPIO_Mode_Out_PP_Low_Fast);
 }
 
 /**
-  * @brief  Configure TIM1 peripheral 
+  * @brief  Configure TIM1 peripheral
   * @param  None
   * @retval None
   */
 static void TIM1_Config(void)
 {
-  /* Configure TIM1 channel 1 to generate a PWM output */
-  TIM1_OC1Init(TIM1_OCMode_PWM1, TIM1_OutputState_Enable,
-               TIM1_OutputNState_Disable, 0/* TIM1_Pulse */,
-               TIM1_OCPolarity_Low, TIM1_OCNPolarity_Low,
-               TIM1_OCIdleState_Reset, TIM1_OCNIdleState_Reset);
-  /* Enable TIM1 outputs */
-  TIM1_CtrlPWMOutputs(ENABLE);
+    /* Configure TIM1 channel 1 to generate a PWM output */
+    TIM1_OC1Init(TIM1_OCMode_PWM1, TIM1_OutputState_Enable,
+                 TIM1_OutputNState_Disable, 0/* TIM1_Pulse */,
+                 TIM1_OCPolarity_Low, TIM1_OCNPolarity_Low,
+                 TIM1_OCIdleState_Reset, TIM1_OCNIdleState_Reset);
+    /* Enable TIM1 outputs */
+    TIM1_CtrlPWMOutputs(ENABLE);
 
-  /* Configure base address and buffer length for DMA burst mode */
-  TIM1_DMAConfig(TIM1_DMABase_PSCH, TIM1_DMABurstLength_7Byte);
-  /* Enable commutation event as DMA request source */
-  TIM1_DMACmd(TIM1_DMASource_COM, ENABLE);
+    /* Configure base address and buffer length for DMA burst mode */
+    TIM1_DMAConfig(TIM1_DMABase_PSCH, TIM1_DMABurstLength_7Byte);
+    /* Enable commutation event as DMA request source */
+    TIM1_DMACmd(TIM1_DMASource_COM, ENABLE);
 
-  /* Enable TIM1 counter */
-  TIM1_Cmd(ENABLE);
+    /* Enable TIM1 counter */
+    TIM1_Cmd(ENABLE);
 }
 
 /**
@@ -153,23 +153,23 @@ static void TIM1_Config(void)
   */
 void RAM_InitBuffers(void)
 {
-  /* RAMBuffer1 Init*/
-  RAMBuffer1[0] = 0xFF; /* PSCRH new value*/
-  RAMBuffer1[1] = 0xEE; /* PSCRL new value*/
-  RAMBuffer1[2] = 0xDD; /* ARRH new value*/
-  RAMBuffer1[3] = 0xCC; /* ARRL new value*/
-  RAMBuffer1[4] = 0xBB; /* RCR new value*/
-  RAMBuffer1[5] = 0xAA; /* CCR1H new value*/
-  RAMBuffer1[6] = 0x99; /* CCR1L new value*/
+    /* RAMBuffer1 Init*/
+    RAMBuffer1[0] = 0xFF; /* PSCRH new value*/
+    RAMBuffer1[1] = 0xEE; /* PSCRL new value*/
+    RAMBuffer1[2] = 0xDD; /* ARRH new value*/
+    RAMBuffer1[3] = 0xCC; /* ARRL new value*/
+    RAMBuffer1[4] = 0xBB; /* RCR new value*/
+    RAMBuffer1[5] = 0xAA; /* CCR1H new value*/
+    RAMBuffer1[6] = 0x99; /* CCR1L new value*/
 
-  /* RAMBuffer2 Init*/
-  RAMBuffer2[0] = 0x77; /* PSCRH new value*/
-  RAMBuffer2[1] = 0x66; /* PSCRL new value*/
-  RAMBuffer2[2] = 0x55; /* ARRH new value*/
-  RAMBuffer2[3] = 0x44; /* ARRL new value*/
-  RAMBuffer2[4] = 0x33; /* RCR new value*/
-  RAMBuffer2[5] = 0x22; /* CCR1H new value*/
-  RAMBuffer2[6] = 0x11; /* CCR1L new value*/
+    /* RAMBuffer2 Init*/
+    RAMBuffer2[0] = 0x77; /* PSCRH new value*/
+    RAMBuffer2[1] = 0x66; /* PSCRL new value*/
+    RAMBuffer2[2] = 0x55; /* ARRH new value*/
+    RAMBuffer2[3] = 0x44; /* ARRL new value*/
+    RAMBuffer2[4] = 0x33; /* RCR new value*/
+    RAMBuffer2[5] = 0x22; /* CCR1H new value*/
+    RAMBuffer2[6] = 0x11; /* CCR1L new value*/
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -180,14 +180,14 @@ void RAM_InitBuffers(void)
   * @param line: assert_param error line source number
   * @retval : None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-while(1)
-  {}
+    /* Infinite loop */
+    while(1)
+    {}
 }
 #endif
 /**

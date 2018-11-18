@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -61,91 +61,91 @@ __IO uint8_t CommunicationEnd = 0x00;
   */
 void main(void)
 {
-  uint8_t i = 0;
-  /* I2C  clock Enable*/
-  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, ENABLE);
+    uint8_t i = 0;
+    /* I2C  clock Enable*/
+    CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, ENABLE);
 
-  /* system_clock / 1 */
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    /* system_clock / 1 */
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /* Initialize LEDs mounted on STM8L1526-EVAL board */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED2);
-  STM_EVAL_LEDInit(LED3);
-  STM_EVAL_LEDInit(LED4);
-  STM_EVAL_LEDInit(LED5);
+    /* Initialize LEDs mounted on STM8L1526-EVAL board */
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED2);
+    STM_EVAL_LEDInit(LED3);
+    STM_EVAL_LEDInit(LED4);
+    STM_EVAL_LEDInit(LED5);
 
-  I2C_DeInit(I2C1);
-  /* Initialize I2C peripheral */
+    I2C_DeInit(I2C1);
+    /* Initialize I2C peripheral */
 
 #ifdef I2C_slave_7Bits_Address
-  I2C_Init(I2C1, 100000, SLAVE_ADDRESS,
-           I2C_Mode_I2C, I2C_DutyCycle_2,
-           I2C_Ack_Enable, I2C_AcknowledgedAddress_7bit);
+    I2C_Init(I2C1, 100000, SLAVE_ADDRESS,
+             I2C_Mode_I2C, I2C_DutyCycle_2,
+             I2C_Ack_Enable, I2C_AcknowledgedAddress_7bit);
 #else
-  I2C_Init(I2C1, 100000, SLAVE_ADDRESS,
-           I2C_Mode_I2C, I2C_DutyCycle_2,
-           I2C_Ack_Enable, I2C_AcknowledgedAddress_10bit);
+    I2C_Init(I2C1, 100000, SLAVE_ADDRESS,
+             I2C_Mode_I2C, I2C_DutyCycle_2,
+             I2C_Ack_Enable, I2C_AcknowledgedAddress_10bit);
 #endif
 
-  /* Enable Error Interrupt*/
-  I2C_ITConfig(I2C1, (I2C_IT_TypeDef)(I2C_IT_ERR | I2C_IT_EVT | I2C_IT_BUF), ENABLE);
+    /* Enable Error Interrupt*/
+    I2C_ITConfig(I2C1, (I2C_IT_TypeDef)(I2C_IT_ERR | I2C_IT_EVT | I2C_IT_BUF), ENABLE);
 
-  /* Enable general interrupts */
-  enableInterrupts();
+    /* Enable general interrupts */
+    enableInterrupts();
 
-  /*Main Loop */
+    /*Main Loop */
 
-  while (1)
-  {
-    while (CommunicationEnd != 0x01);
-    CommunicationEnd = 0x00;
-    switch (Slave_Buffer_Rx[0])
+    while (1)
     {
-      case 0x01 :
-        for (i = 100; i > 0 ; i--)
-          /* LD1 is on */
-          STM_EVAL_LEDOn(LED1);
-        /* all other leds are off */
-        STM_EVAL_LEDOff(LED2);
-        STM_EVAL_LEDOff(LED3);
-        STM_EVAL_LEDOff(LED4);
-        break;
-      case 0x02:
-        /* LD2 is on */
-        STM_EVAL_LEDOn(LED2);
-        /* all other leds are off */
-        STM_EVAL_LEDOff(LED1);
-        STM_EVAL_LEDOff(LED3);
-        STM_EVAL_LEDOff(LED4);
-        break;
-      case 0x03:
-        /* LED3 is on */
-        STM_EVAL_LEDOn(LED3);
-        /* all other leds are off */
-        STM_EVAL_LEDOff(LED2);
-        STM_EVAL_LEDOff(LED1);
-        STM_EVAL_LEDOff(LED4);
-        break;
-      case 0x04:
-        /* LED4 is on */
-        STM_EVAL_LEDOn(LED4);
-        /* all other leds are off */
-        STM_EVAL_LEDOff(LED2);
-        STM_EVAL_LEDOff(LED3);
-        STM_EVAL_LEDOff(LED1);
-        break;
-      case 0xAA:
-        /* All LEDs are on */
-        STM_EVAL_LEDOn(LED1);
-        STM_EVAL_LEDOn(LED2);
-        STM_EVAL_LEDOn(LED3);
-        STM_EVAL_LEDOn(LED4);
-        break;
-      default:
-        break;
+        while (CommunicationEnd != 0x01);
+        CommunicationEnd = 0x00;
+        switch (Slave_Buffer_Rx[0])
+        {
+        case 0x01 :
+            for (i = 100; i > 0 ; i--)
+                /* LD1 is on */
+                STM_EVAL_LEDOn(LED1);
+            /* all other leds are off */
+            STM_EVAL_LEDOff(LED2);
+            STM_EVAL_LEDOff(LED3);
+            STM_EVAL_LEDOff(LED4);
+            break;
+        case 0x02:
+            /* LD2 is on */
+            STM_EVAL_LEDOn(LED2);
+            /* all other leds are off */
+            STM_EVAL_LEDOff(LED1);
+            STM_EVAL_LEDOff(LED3);
+            STM_EVAL_LEDOff(LED4);
+            break;
+        case 0x03:
+            /* LED3 is on */
+            STM_EVAL_LEDOn(LED3);
+            /* all other leds are off */
+            STM_EVAL_LEDOff(LED2);
+            STM_EVAL_LEDOff(LED1);
+            STM_EVAL_LEDOff(LED4);
+            break;
+        case 0x04:
+            /* LED4 is on */
+            STM_EVAL_LEDOn(LED4);
+            /* all other leds are off */
+            STM_EVAL_LEDOff(LED2);
+            STM_EVAL_LEDOff(LED3);
+            STM_EVAL_LEDOff(LED1);
+            break;
+        case 0xAA:
+            /* All LEDs are on */
+            STM_EVAL_LEDOn(LED1);
+            STM_EVAL_LEDOn(LED2);
+            STM_EVAL_LEDOn(LED3);
+            STM_EVAL_LEDOn(LED4);
+            break;
+        default:
+            break;
+        }
     }
-  }
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -156,14 +156,14 @@ void main(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

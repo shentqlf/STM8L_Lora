@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -52,22 +52,22 @@ void DAC_Config(void);
   */
 void main(void)
 {
-  /* DAC configuration -------------------------------------------*/
-  DAC_Config();
-  
-  /* Init Eval Board used Buttons*/
-  STM_EVAL_PBInit(BUTTON_RIGHT, BUTTON_MODE_EXTI);
-  STM_EVAL_PBInit(BUTTON_LEFT, BUTTON_MODE_EXTI);
+    /* DAC configuration -------------------------------------------*/
+    DAC_Config();
 
-  /* Enable Interrupts */
-  enableInterrupts();
+    /* Init Eval Board used Buttons*/
+    STM_EVAL_PBInit(BUTTON_RIGHT, BUTTON_MODE_EXTI);
+    STM_EVAL_PBInit(BUTTON_LEFT, BUTTON_MODE_EXTI);
 
-  /* Infinite loop */
-  while(1)
-  {
-    /* Enable Software Trigger for Both DAC channels*/
-    DAC_DualSoftwareTriggerCmd(ENABLE);
-  }
+    /* Enable Interrupts */
+    enableInterrupts();
+
+    /* Infinite loop */
+    while(1)
+    {
+        /* Enable Software Trigger for Both DAC channels*/
+        DAC_DualSoftwareTriggerCmd(ENABLE);
+    }
 }
 
 /**
@@ -77,32 +77,32 @@ void main(void)
   */
 static void DAC_Config(void)
 {
-  /* Enable the Clock of DAC */
-  CLK_PeripheralClockConfig(CLK_Peripheral_DAC, ENABLE);
-  
-  DAC_DeInit();
+    /* Enable the Clock of DAC */
+    CLK_PeripheralClockConfig(CLK_Peripheral_DAC, ENABLE);
 
-  /* Init DAC channel 1 and DAC channel 2 outputs */
-  DAC_Init(DAC_Channel_1, DAC_Trigger_Software, DAC_OutputBuffer_Enable);
-  DAC_Init(DAC_Channel_2, DAC_Trigger_Software, DAC_OutputBuffer_Enable);
+    DAC_DeInit();
 
-  /* DAC channel 1 Triangle wave generator enabled */
-  DAC_WaveGenerationCmd(DAC_Channel_1, DAC_Wave_Triangle, ENABLE);
+    /* Init DAC channel 1 and DAC channel 2 outputs */
+    DAC_Init(DAC_Channel_1, DAC_Trigger_Software, DAC_OutputBuffer_Enable);
+    DAC_Init(DAC_Channel_2, DAC_Trigger_Software, DAC_OutputBuffer_Enable);
 
-  /* DAC channel 1 Noise  wave generator enabled */
-  DAC_WaveGenerationCmd(DAC_Channel_2, DAC_Wave_Noise, ENABLE);
+    /* DAC channel 1 Triangle wave generator enabled */
+    DAC_WaveGenerationCmd(DAC_Channel_1, DAC_Wave_Triangle, ENABLE);
 
-  /* Select DAC channel 1 Triangle wave generator amplitude  */
-  DAC_SetTriangleWaveAmplitude(DAC_Channel_1, DAC_TriangleAmplitude_4095);
+    /* DAC channel 1 Noise  wave generator enabled */
+    DAC_WaveGenerationCmd(DAC_Channel_2, DAC_Wave_Noise, ENABLE);
 
-  /* Select DAC channel 2 Mask  */
-  DAC_SetNoiseWaveLFSR(DAC_Channel_2, DAC_LFSRUnmask_Bits11_0);
+    /* Select DAC channel 1 Triangle wave generator amplitude  */
+    DAC_SetTriangleWaveAmplitude(DAC_Channel_1, DAC_TriangleAmplitude_4095);
 
-  /* Enable DAC channel 1 and 2 outputs  */
-  DAC_Cmd(DAC_Channel_1, ENABLE);
-  DAC_Cmd(DAC_Channel_2, ENABLE);
+    /* Select DAC channel 2 Mask  */
+    DAC_SetNoiseWaveLFSR(DAC_Channel_2, DAC_LFSRUnmask_Bits11_0);
 
-  DAC_SetDualChannelData(DAC_Align_12b_R, 0, 0);
+    /* Enable DAC channel 1 and 2 outputs  */
+    DAC_Cmd(DAC_Channel_1, ENABLE);
+    DAC_Cmd(DAC_Channel_2, ENABLE);
+
+    DAC_SetDualChannelData(DAC_Align_12b_R, 0, 0);
 }
 #ifdef  USE_FULL_ASSERT
 
@@ -113,14 +113,14 @@ static void DAC_Config(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

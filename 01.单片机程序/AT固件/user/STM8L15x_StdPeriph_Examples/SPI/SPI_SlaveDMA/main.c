@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8_eval.h"
@@ -67,7 +67,7 @@ static void USART_Config(void);
 static void DMA_Config(void);
 static void SPI_Config(void);
 
-TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
+TestStatus Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength);
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -77,196 +77,196 @@ TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength
   */
 void main(void)
 {
-  uint32_t index = 0;
+    uint32_t index = 0;
 
-   /* CLK configuration -------------------------------------------*/
-  CLK_Config(); 
- 
-  /* Set the MOSI and SCK at high level */
-  GPIO_ExternalPullUpConfig(GPIOB, GPIO_Pin_6 | GPIO_Pin_5, ENABLE);
+    /* CLK configuration -------------------------------------------*/
+    CLK_Config();
+
+    /* Set the MOSI and SCK at high level */
+    GPIO_ExternalPullUpConfig(GPIOB, GPIO_Pin_6 | GPIO_Pin_5, ENABLE);
 
 #ifdef USE_STM8L1526_EVAL
-  /* Set USART CK at high level */
-  GPIO_ExternalPullUpConfig(GPIOC, GPIO_Pin_4, ENABLE);
+    /* Set USART CK at high level */
+    GPIO_ExternalPullUpConfig(GPIOC, GPIO_Pin_4, ENABLE);
 #else /* USE_STM8L1528_EVAL is defined */
-  /* Set USART CK at high level */
-  GPIO_ExternalPullUpConfig(GPIOH, GPIO_Pin_6, ENABLE);
+    /* Set USART CK at high level */
+    GPIO_ExternalPullUpConfig(GPIOH, GPIO_Pin_6, ENABLE);
 #endif  /* USE_STM8L1526_EVAL */
 
-   /* USART configuration -------------------------------------------*/
-  USART_Config(); 
-  
-   /* SPI configuration -------------------------------------------*/
-  SPI_Config(); 
-  
-  /*Disable USART the master*/
-  USART_Cmd(EVAL_COM1, DISABLE);
+    /* USART configuration -------------------------------------------*/
+    USART_Config();
 
-   /* DMA configuration -------------------------------------------*/
-  DMA_Config(); 
- 
-  /* Enable USART */
-  USART_Cmd(EVAL_COM1, ENABLE);
+    /* SPI configuration -------------------------------------------*/
+    SPI_Config();
 
-  /* Insert Delay to ensure Synchro w/ SPI */
-  for (index = 0; index < 0xFF; index++);
+    /*Disable USART the master*/
+    USART_Cmd(EVAL_COM1, DISABLE);
 
-  /* Enable SPI */
-  SPI_Cmd(SPI1, ENABLE);
+    /* DMA configuration -------------------------------------------*/
+    DMA_Config();
 
-  USART_ITConfig(EVAL_COM1, USART_IT_TC, ENABLE);
+    /* Enable USART */
+    USART_Cmd(EVAL_COM1, ENABLE);
 
-  /* Wait until Data transmitted to SPI*/
-  while (UsartTransferStatus != 2);
-  /* Wait the SPI DMA Rx transfer complete */
-  while (DMA_GetFlagStatus((DMA_FLAG_TypeDef)SPI_DMA_FlagTCRx) == RESET);
+    /* Insert Delay to ensure Synchro w/ SPI */
+    for (index = 0; index < 0xFF; index++);
+
+    /* Enable SPI */
+    SPI_Cmd(SPI1, ENABLE);
+
+    USART_ITConfig(EVAL_COM1, USART_IT_TC, ENABLE);
+
+    /* Wait until Data transmitted to SPI*/
+    while (UsartTransferStatus != 2);
+    /* Wait the SPI DMA Rx transfer complete */
+    while (DMA_GetFlagStatus((DMA_FLAG_TypeDef)SPI_DMA_FlagTCRx) == RESET);
 
 
-  /* Check the correctness of written dada */
-  TransferStatus1 = Buffercmp((uint8_t*)RxBuffer1, SPIBuffer_Rx, RX_BUFFER_SIZE);
-  /* TransferStatus1 = PASSED, if the received data by USART and received data
-    by SPI1 are the same */
-  /* TransferStatus1 = FAILED, if the received data by USART and received data
-     by SPI1 are different */
+    /* Check the correctness of written dada */
+    TransferStatus1 = Buffercmp((uint8_t *)RxBuffer1, SPIBuffer_Rx, RX_BUFFER_SIZE);
+    /* TransferStatus1 = PASSED, if the received data by USART and received data
+      by SPI1 are the same */
+    /* TransferStatus1 = FAILED, if the received data by USART and received data
+       by SPI1 are different */
 
-  if (TransferStatus1 != FAILED)
-  {
-    for (index = 0; index < MESSAGE2_SIZE; index++)
+    if (TransferStatus1 != FAILED)
     {
-      /* Wait while USART TC = 0 */
-      while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
-      /* Send on byte from stm8l15x USART to HyperTerminal */
-      USART_SendData8(EVAL_COM1, Message2[index]);
+        for (index = 0; index < MESSAGE2_SIZE; index++)
+        {
+            /* Wait while USART TC = 0 */
+            while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
+            /* Send on byte from stm8l15x USART to HyperTerminal */
+            USART_SendData8(EVAL_COM1, Message2[index]);
+        }
     }
-  }
-  else
-  {
-    for (index = 0; index < MESSAGE3_SIZE; index++)
+    else
     {
-      /* Wait while USART TC = 0 */
-      while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
-      /* Send on byte from stm8l15x USART to HyperTerminal */
-      USART_SendData8(EVAL_COM1, Message3[index]);
+        for (index = 0; index < MESSAGE3_SIZE; index++)
+        {
+            /* Wait while USART TC = 0 */
+            while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET);
+            /* Send on byte from stm8l15x USART to HyperTerminal */
+            USART_SendData8(EVAL_COM1, Message3[index]);
+        }
     }
-  }
 
-  while (1)
-  {}
+    while (1)
+    {}
 }
 
 /**
-  * @brief  Configure peripheral clock 
+  * @brief  Configure peripheral clock
   * @param  None
   * @retval None
   */
 static void CLK_Config(void)
 {
-  /* Select HSE as system clock source */
-  CLK_SYSCLKSourceSwitchCmd(ENABLE);
-  CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSE);
-  
-  /*High speed external clock prescaler: 1*/
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_2);
+    /* Select HSE as system clock source */
+    CLK_SYSCLKSourceSwitchCmd(ENABLE);
+    CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSE);
 
-  while (CLK_GetSYSCLKSource() != CLK_SYSCLKSource_HSE)
-  {}
+    /*High speed external clock prescaler: 1*/
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_2);
 
-  /* Enable SPI clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_SPI1, ENABLE);
-  /* Enable DMA clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
+    while (CLK_GetSYSCLKSource() != CLK_SYSCLKSource_HSE)
+    {}
+
+    /* Enable SPI clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_SPI1, ENABLE);
+    /* Enable DMA clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
 }
 
 /**
-  * @brief  Configure USART peripheral  
+  * @brief  Configure USART peripheral
   * @param  None
   * @retval None
   */
 static void USART_Config(void)
 {
-  USART_DeInit(EVAL_COM1);
-  /* EVAL COM (USARTx) configuration -----------------------------------------*/
-  /* USART configured as follow:
-          - BaudRate = 115200 baud  
-          - Word Length = 8 Bits
-          - One Stop Bit
-          - Odd parity
-          - Receive and transmit enabled
-          - USART Clock disabled
-  */
-  STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
-                   USART_Parity_Odd, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
+    USART_DeInit(EVAL_COM1);
+    /* EVAL COM (USARTx) configuration -----------------------------------------*/
+    /* USART configured as follow:
+            - BaudRate = 115200 baud
+            - Word Length = 8 Bits
+            - One Stop Bit
+            - Odd parity
+            - Receive and transmit enabled
+            - USART Clock disabled
+    */
+    STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
+                     USART_Parity_Odd, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
 
-  /* Enable the USART Receive interrupt: this interrupt is generated when the USART
-      receives data: DR is not empty */
-  USART_ITConfig(EVAL_COM1, USART_IT_RXNE, ENABLE);
+    /* Enable the USART Receive interrupt: this interrupt is generated when the USART
+        receives data: DR is not empty */
+    USART_ITConfig(EVAL_COM1, USART_IT_RXNE, ENABLE);
 
-  /* Enable the USART Transmit complete interrupt: this interrupt is generated when
-     the USART transmit Shift Register is empty */
-  USART_ITConfig(EVAL_COM1, USART_IT_TC, ENABLE);
+    /* Enable the USART Transmit complete interrupt: this interrupt is generated when
+       the USART transmit Shift Register is empty */
+    USART_ITConfig(EVAL_COM1, USART_IT_TC, ENABLE);
 
-  /* Enable general interrupts */
-  enableInterrupts();
+    /* Enable general interrupts */
+    enableInterrupts();
 
-  /* Wait until data to be sent to SPI is Received */
-  while (UsartTransferStatus != 1);
+    /* Wait until data to be sent to SPI is Received */
+    while (UsartTransferStatus != 1);
 
-  /*Disable USART the master*/
-  USART_DeInit(EVAL_COM1);
+    /*Disable USART the master*/
+    USART_DeInit(EVAL_COM1);
 
-  /* USART configuration  for data transmission to SPI */
-  /* USART configured as follow:
-          - BaudRate = 115200 baud  
-          - Word Length = 8 Bits
-          - One Stop Bit
-          - No parity
-          - Receive and transmit enabled
-  */
-  STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1, USART_Parity_No,
-                   (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
-  USART_ClockInit(EVAL_COM1, USART_Clock_Enable, USART_CPOL_Low, USART_CPHA_2Edge, USART_LastBit_Enable);
+    /* USART configuration  for data transmission to SPI */
+    /* USART configured as follow:
+            - BaudRate = 115200 baud
+            - Word Length = 8 Bits
+            - One Stop Bit
+            - No parity
+            - Receive and transmit enabled
+    */
+    STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1, USART_Parity_No,
+                     (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
+    USART_ClockInit(EVAL_COM1, USART_Clock_Enable, USART_CPOL_Low, USART_CPHA_2Edge, USART_LastBit_Enable);
 }
 
 /**
-  * @brief  Configure SPI peripheral  
+  * @brief  Configure SPI peripheral
   * @param  None
   * @retval None
   */
 static void SPI_Config(void)
 {
-SPI_DeInit(SPI1);
-  /* SPI Configuration --------------------------------------------------------*/
-  SPI_Init(SPI1, SPI_FirstBit_LSB, SPI_BaudRatePrescaler_2, SPI_Mode_Slave,
-           SPI_CPOL_Low, SPI_CPHA_2Edge, SPI_Direction_2Lines_FullDuplex,
-           SPI_NSS_Soft, (uint8_t)0x07);
+    SPI_DeInit(SPI1);
+    /* SPI Configuration --------------------------------------------------------*/
+    SPI_Init(SPI1, SPI_FirstBit_LSB, SPI_BaudRatePrescaler_2, SPI_Mode_Slave,
+             SPI_CPOL_Low, SPI_CPHA_2Edge, SPI_Direction_2Lines_FullDuplex,
+             SPI_NSS_Soft, (uint8_t)0x07);
 }
 
 /**
-  * @brief  Configure DMA peripheral  
+  * @brief  Configure DMA peripheral
   * @param  None
   * @retval None
   */
 static void DMA_Config(void)
 {
- /* Deinitialize DMA channels */
-  DMA_GlobalDeInit();
-  DMA_DeInit(SPI_DMAChannelRx);
-  DMA_SetTimeOut(0x3F);
+    /* Deinitialize DMA channels */
+    DMA_GlobalDeInit();
+    DMA_DeInit(SPI_DMAChannelRx);
+    DMA_SetTimeOut(0x3F);
 
-  /* DMA channel Rx of SPI Configuration */
-  DMA_Init(SPI_DMAChannelRx, (uint16_t)SPIBuffer_Rx, (uint16_t)SPI_DR_Address, \
-           RX_BUFFER_SIZE, DMA_DIR_PeripheralToMemory, DMA_Mode_Normal, \
-           DMA_MemoryIncMode_Inc, DMA_Priority_High, DMA_MemoryDataSize_Byte);
+    /* DMA channel Rx of SPI Configuration */
+    DMA_Init(SPI_DMAChannelRx, (uint16_t)SPIBuffer_Rx, (uint16_t)SPI_DR_Address, \
+             RX_BUFFER_SIZE, DMA_DIR_PeripheralToMemory, DMA_Mode_Normal, \
+             DMA_MemoryIncMode_Inc, DMA_Priority_High, DMA_MemoryDataSize_Byte);
 
 
-  /* Enable the SPI Rx DMA requests */
-  SPI_DMACmd(SPI1, SPI_DMAReq_RX, ENABLE);
+    /* Enable the SPI Rx DMA requests */
+    SPI_DMACmd(SPI1, SPI_DMAReq_RX, ENABLE);
 
-  /* Enable Global DMA */
-  DMA_GlobalCmd(ENABLE);
+    /* Enable Global DMA */
+    DMA_GlobalCmd(ENABLE);
 
-  /* Enable the SPI RX DMA channel */
-  DMA_Cmd(SPI_DMAChannelRx, ENABLE);
+    /* Enable the SPI RX DMA channel */
+    DMA_Cmd(SPI_DMAChannelRx, ENABLE);
 }
 
 /**
@@ -276,20 +276,20 @@ static void DMA_Config(void)
   * @retval PASSED: pBuffer1 identical to pBuffer2
   *         FAILED: pBuffer1 differs from pBuffer2
   */
-TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength)
+TestStatus Buffercmp(uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength)
 {
-  while (BufferLength--)
-  {
-    if (*pBuffer1 != *pBuffer2)
+    while (BufferLength--)
     {
-      return FAILED;
+        if (*pBuffer1 != *pBuffer2)
+        {
+            return FAILED;
+        }
+
+        pBuffer1++;
+        pBuffer2++;
     }
 
-    pBuffer1++;
-    pBuffer2++;
-  }
-
-  return PASSED;
+    return PASSED;
 }
 #ifdef  USE_FULL_ASSERT
 /**
@@ -299,14 +299,14 @@ TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

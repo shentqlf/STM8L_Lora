@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -49,18 +49,18 @@ TestStatus OperationStatus;
 
 #ifdef _RAISONANCE_
 /* needed by memcpy for raisonance */
- #include <string.h>
- extern int __address__FLASH_EraseBlock;
- extern int __size__FLASH_EraseBlock;
- extern int __address__FLASH_ProgramBlock;
- extern int __size__FLASH_ProgramBlock;
+#include <string.h>
+extern int __address__FLASH_EraseBlock;
+extern int __size__FLASH_EraseBlock;
+extern int __address__FLASH_ProgramBlock;
+extern int __size__FLASH_ProgramBlock;
 #endif /*_RAISONANCE_*/
 
 /* Private function prototypes -----------------------------------------------*/
 /* Declare _fctcpy function prototype as it is packaged by default in the Cosmic
    machine library */
 #ifdef _COSMIC_
- int _fctcpy(char name);
+int _fctcpy(char name);
 #endif /*_COSMIC_*/
 void Delay(uint32_t nCount);
 
@@ -73,115 +73,115 @@ void Delay(uint32_t nCount);
   */
 void main(void)
 {
-  uint32_t add, startadd, stopadd = 0;
-  uint8_t newval = 0xAA;
-  uint8_t i = 0;
+    uint32_t add, startadd, stopadd = 0;
+    uint8_t newval = 0xAA;
+    uint8_t i = 0;
 
 #ifdef _COSMIC_
-/* Call the _fctcpy() function with the first segment character as parameter 
-   "_fctcpy('F');"  for a manual copy of the declared moveable code segment
-   (FLASH_CODE) in RAM before execution*/
-  _fctcpy('F');
+    /* Call the _fctcpy() function with the first segment character as parameter
+       "_fctcpy('F');"  for a manual copy of the declared moveable code segment
+       (FLASH_CODE) in RAM before execution*/
+    _fctcpy('F');
 #endif /*_COSMIC_*/
 
 #ifdef _RAISONANCE_
-/* Call the standard C library: memcpy() or fmemcpy() functions available through 
-   the <string.h> to copy the inram function to the RAM destination address */
-  MEMCPY(FLASH_EraseBlock,
-         (void PointerAttr*)&__address__FLASH_EraseBlock,
-         (int)&__size__FLASH_EraseBlock);
-  MEMCPY(FLASH_ProgramBlock,
-         (void PointerAttr*)&__address__FLASH_ProgramBlock,
-         (int)&__size__FLASH_ProgramBlock);
+    /* Call the standard C library: memcpy() or fmemcpy() functions available through
+       the <string.h> to copy the inram function to the RAM destination address */
+    MEMCPY(FLASH_EraseBlock,
+           (void PointerAttr *)&__address__FLASH_EraseBlock,
+           (int)&__size__FLASH_EraseBlock);
+    MEMCPY(FLASH_ProgramBlock,
+           (void PointerAttr *)&__address__FLASH_ProgramBlock,
+           (int)&__size__FLASH_ProgramBlock);
 #endif /*_RAISONANCE_*/
 
-  /* Initialize I/Os in Output Mode */
-  STM_EVAL_LEDInit(LED2);
-  STM_EVAL_LEDInit(LED3);
-  STM_EVAL_LEDInit(LED4);
+    /* Initialize I/Os in Output Mode */
+    STM_EVAL_LEDInit(LED2);
+    STM_EVAL_LEDInit(LED3);
+    STM_EVAL_LEDInit(LED4);
 
-  /* High speed internal clock prescaler */
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    /* High speed internal clock prescaler */
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /* Define flash programming Time*/
-  FLASH_SetProgrammingTime(FLASH_ProgramTime_Standard);
+    /* Define flash programming Time*/
+    FLASH_SetProgrammingTime(FLASH_ProgramTime_Standard);
 
-  FLASH_Unlock(FLASH_MemType_Program);
-  /* Wait until Flash Program area unlocked flag is set*/
-  while (FLASH_GetFlagStatus(FLASH_FLAG_PUL) == RESET)
-  {}
+    FLASH_Unlock(FLASH_MemType_Program);
+    /* Wait until Flash Program area unlocked flag is set*/
+    while (FLASH_GetFlagStatus(FLASH_FLAG_PUL) == RESET)
+    {}
 
-  /* Unlock flash data eeprom memory */
-  FLASH_Unlock(FLASH_MemType_Data);
-  /* Wait until Data EEPROM area unlocked flag is set*/
-  while (FLASH_GetFlagStatus(FLASH_FLAG_DUL) == RESET)
-  {}
+    /* Unlock flash data eeprom memory */
+    FLASH_Unlock(FLASH_MemType_Data);
+    /* Wait until Data EEPROM area unlocked flag is set*/
+    while (FLASH_GetFlagStatus(FLASH_FLAG_DUL) == RESET)
+    {}
 
-  /* Fill the buffer in RAM */
-  for (i = 0; i < FLASH_BLOCK_SIZE; i++)
-  {
-    GBuffer[i] = newval;
-  }
-  /* This function is executed from RAM */
-  FLASH_ProgramBlock(BLOCK_OPERATION, FLASH_MemType_Data, FLASH_ProgramMode_Standard, GBuffer);
-  
-  /* Wait until End of high voltage flag is set*/
-  while (FLASH_GetFlagStatus(FLASH_FLAG_HVOFF) == RESET)
-  {}
-  /* Check the programmed block */
-  startadd = FLASH_DATA_EEPROM_START_PHYSICAL_ADDRESS + ((uint16_t)BLOCK_OPERATION * (uint16_t)FLASH_BLOCK_SIZE);
-  stopadd = startadd + (uint16_t)FLASH_BLOCK_SIZE;
-  for (add = startadd; add < stopadd; add++)
-      {
+    /* Fill the buffer in RAM */
+    for (i = 0; i < FLASH_BLOCK_SIZE; i++)
+    {
+        GBuffer[i] = newval;
+    }
+    /* This function is executed from RAM */
+    FLASH_ProgramBlock(BLOCK_OPERATION, FLASH_MemType_Data, FLASH_ProgramMode_Standard, GBuffer);
+
+    /* Wait until End of high voltage flag is set*/
+    while (FLASH_GetFlagStatus(FLASH_FLAG_HVOFF) == RESET)
+    {}
+    /* Check the programmed block */
+    startadd = FLASH_DATA_EEPROM_START_PHYSICAL_ADDRESS + ((uint16_t)BLOCK_OPERATION * (uint16_t)FLASH_BLOCK_SIZE);
+    stopadd = startadd + (uint16_t)FLASH_BLOCK_SIZE;
+    for (add = startadd; add < stopadd; add++)
+    {
         if (FLASH_ReadByte(add) != newval)
         {
-          /* Error */
-          OperationStatus = FAILED;
-          /* OperationStatus = PASSED, if the data written/read to/from Flash program memory is correct */
-          /* OperationStatus = FAILED, if the data written/read to/from Flash program memory is corrupted */
-          while (1)
-          {
-            STM_EVAL_LEDToggle(LED1); /*FAIL: write error */
-            
-            Delay(0xFFFF);
-          }
+            /* Error */
+            OperationStatus = FAILED;
+            /* OperationStatus = PASSED, if the data written/read to/from Flash program memory is correct */
+            /* OperationStatus = FAILED, if the data written/read to/from Flash program memory is corrupted */
+            while (1)
+            {
+                STM_EVAL_LEDToggle(LED1); /*FAIL: write error */
+
+                Delay(0xFFFF);
+            }
         }
-      }
-  /* Erase block 0 and verify it */
-  /* This function is executed from RAM */
-  FLASH_EraseBlock(BLOCK_OPERATION, FLASH_MemType_Data);
+    }
+    /* Erase block 0 and verify it */
+    /* This function is executed from RAM */
+    FLASH_EraseBlock(BLOCK_OPERATION, FLASH_MemType_Data);
 
-  /* Wait until End of high voltage flag is set*/
-  while (FLASH_GetFlagStatus(FLASH_FLAG_HVOFF) == RESET)
-  {}
+    /* Wait until End of high voltage flag is set*/
+    while (FLASH_GetFlagStatus(FLASH_FLAG_HVOFF) == RESET)
+    {}
 
-  for (add = startadd; add < stopadd; add++)
-      {
+    for (add = startadd; add < stopadd; add++)
+    {
         if (FLASH_ReadByte(add) != 0x00)
         {
-          /* Error */
-          OperationStatus = FAILED;
-          /* OperationStatus = PASSED, if the data written/read to/from Flash program memory is correct */
-          /* OperationStatus = FAILED, if the data written/read to/from Flash program memory is corrupted */
-          while (1)
-          {
-            STM_EVAL_LEDToggle(LED2); /* FAIL: Erase error */
-            
-           Delay(0xFFFF);
-          }
-        }
-      }
+            /* Error */
+            OperationStatus = FAILED;
+            /* OperationStatus = PASSED, if the data written/read to/from Flash program memory is correct */
+            /* OperationStatus = FAILED, if the data written/read to/from Flash program memory is corrupted */
+            while (1)
+            {
+                STM_EVAL_LEDToggle(LED2); /* FAIL: Erase error */
 
-  /* Pass */
-  OperationStatus = PASSED;
-  /* OperationStatus = PASSED, if the data written/read to/from Flash program memory is correct */
-  /* OperationStatus = FAILED, if the data written/read to/from Flash program memory is corrupted */
-  while (1)
-  {
-    STM_EVAL_LEDToggle(LED3); /* PASS: without errors*/
-    
-    Delay(0xFFFF);
-  }
+                Delay(0xFFFF);
+            }
+        }
+    }
+
+    /* Pass */
+    OperationStatus = PASSED;
+    /* OperationStatus = PASSED, if the data written/read to/from Flash program memory is correct */
+    /* OperationStatus = FAILED, if the data written/read to/from Flash program memory is corrupted */
+    while (1)
+    {
+        STM_EVAL_LEDToggle(LED3); /* PASS: without errors*/
+
+        Delay(0xFFFF);
+    }
 }
 
 /**
@@ -206,14 +206,14 @@ void Delay(uint32_t nCount)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

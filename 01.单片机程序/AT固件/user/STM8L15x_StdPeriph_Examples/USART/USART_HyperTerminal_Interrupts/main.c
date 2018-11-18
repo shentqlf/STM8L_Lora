@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -54,57 +54,57 @@ void Delay (uint32_t nCount);
   */
 void main(void)
 {
-  /*High speed internal clock prescaler: 1*/
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    /*High speed internal clock prescaler: 1*/
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /* Initialize LEDs mounted on STM8L152X-EVAL board */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED2);
-  STM_EVAL_LEDInit(LED3);
-  STM_EVAL_LEDInit(LED4);
+    /* Initialize LEDs mounted on STM8L152X-EVAL board */
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED2);
+    STM_EVAL_LEDInit(LED3);
+    STM_EVAL_LEDInit(LED4);
 
-   /* USART configuration -------------------------------------------*/
-  USART_Config();
-  
-  while (1)
-  {
-    STM_EVAL_LEDToggle(LED1);
-    STM_EVAL_LEDToggle(LED2);
-    STM_EVAL_LEDToggle(LED3);
-    STM_EVAL_LEDToggle(LED4);
-    Delay((uint32_t)0xFFFFFF);
-  }
+    /* USART configuration -------------------------------------------*/
+    USART_Config();
+
+    while (1)
+    {
+        STM_EVAL_LEDToggle(LED1);
+        STM_EVAL_LEDToggle(LED2);
+        STM_EVAL_LEDToggle(LED3);
+        STM_EVAL_LEDToggle(LED4);
+        Delay((uint32_t)0xFFFFFF);
+    }
 }
 
 /**
-  * @brief  Configure USART peripheral  
+  * @brief  Configure USART peripheral
   * @param  None
   * @retval None
   */
 static void USART_Config(void)
 {
-  /* USART configured as follow:
-        - BaudRate = 115200 baud  
-        - Word Length = 8 Bits
-        - One Stop Bit
-        - Odd parity
-        - Receive and transmit enabled
-        - USART Clock disabled
-  */
-  STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
-                   USART_Parity_Odd, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
-  /* Enable general interrupts */
-  enableInterrupts();
+    /* USART configured as follow:
+          - BaudRate = 115200 baud
+          - Word Length = 8 Bits
+          - One Stop Bit
+          - Odd parity
+          - Receive and transmit enabled
+          - USART Clock disabled
+    */
+    STM_EVAL_COMInit(COM1, (uint32_t)115200, USART_WordLength_8b, USART_StopBits_1,
+                     USART_Parity_Odd, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
+    /* Enable general interrupts */
+    enableInterrupts();
 
-  /* Enable the USART Receive interrupt: this interrupt is generated when the USART
-    receive data register is not empty */
-  USART_ITConfig(EVAL_COM1, USART_IT_RXNE, ENABLE);
-  /* Enable the USART Transmit complete interrupt: this interrupt is generated when the USART
-    transmit Shift Register is empty */
-  USART_ITConfig(EVAL_COM1, USART_IT_TC, ENABLE);
+    /* Enable the USART Receive interrupt: this interrupt is generated when the USART
+      receive data register is not empty */
+    USART_ITConfig(EVAL_COM1, USART_IT_RXNE, ENABLE);
+    /* Enable the USART Transmit complete interrupt: this interrupt is generated when the USART
+      transmit Shift Register is empty */
+    USART_ITConfig(EVAL_COM1, USART_IT_TC, ENABLE);
 
-  /* Enable USART */
-  USART_Cmd(EVAL_COM1, ENABLE);
+    /* Enable USART */
+    USART_Cmd(EVAL_COM1, ENABLE);
 }
 
 /**
@@ -114,11 +114,11 @@ static void USART_Config(void)
   */
 void Delay(uint32_t nCount)
 {
-  /* Decrement nCount value */
-  while (nCount != 0)
-  {
-    nCount--;
-  }
+    /* Decrement nCount value */
+    while (nCount != 0)
+    {
+        nCount--;
+    }
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -129,14 +129,14 @@ void Delay(uint32_t nCount)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 /**

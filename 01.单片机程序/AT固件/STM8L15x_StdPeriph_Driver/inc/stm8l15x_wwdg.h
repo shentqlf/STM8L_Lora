@@ -17,13 +17,13 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
-  ******************************************************************************  
+  ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -36,11 +36,11 @@
 /** @addtogroup STM8L15x_StdPeriph_Driver
   * @{
   */
-  
+
 /** @addtogroup WWDG
   * @{
-  */ 
-  
+  */
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
@@ -49,23 +49,23 @@
   * @{
   */
 
-/** @defgroup WWDG_WindowLimitValue 
+/** @defgroup WWDG_WindowLimitValue
   * @{
-  */ 
+  */
 #define IS_WWDG_WINDOW_LIMIT_VALUE(WindowLimitValue) ((WindowLimitValue) <= 0x7F)
 
 /**
   * @}
   */
 
-/** @defgroup WWDG_CounterValue 
+/** @defgroup WWDG_CounterValue
   * @{
   */
 #define IS_WWDG_COUNTER_VALUE(CounterValue) ((CounterValue) <= 0x7F)
 /**
   * @}
   */
-  
+
 /**
   * @}
   */

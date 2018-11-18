@@ -14,14 +14,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM8L1526_EVAL_H
@@ -253,9 +253,9 @@ void STM_EVAL_LEDOff(Led_TypeDef Led);
 void STM_EVAL_LEDToggle(Led_TypeDef Led);
 void STM_EVAL_PBInit(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode);
 uint8_t STM_EVAL_PBGetState(Button_TypeDef Button);
-void STM_EVAL_COMInit(COM_TypeDef COM, uint32_t USART_BaudRate, USART_WordLength_TypeDef USART_WordLength,\
-                      USART_StopBits_TypeDef USART_StopBits,\
-                      USART_Parity_TypeDef USART_Parity,\
+void STM_EVAL_COMInit(COM_TypeDef COM, uint32_t USART_BaudRate, USART_WordLength_TypeDef USART_WordLength, \
+                      USART_StopBits_TypeDef USART_StopBits, \
+                      USART_Parity_TypeDef USART_Parity, \
                       USART_Mode_TypeDef USART_Mode);
 void SD_LowLevel_DeInit(void);
 void SD_LowLevel_Init(void);

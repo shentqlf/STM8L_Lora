@@ -13,14 +13,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM8_EVAL_H
@@ -74,43 +74,43 @@
   */
 typedef enum
 {
-  LED1 = 0,
-  LED2 = 1,
-  LED3 = 2,
-  LED4 = 3,
-  LED5 = 4  /* Bicolor Led */
+    LED1 = 0,
+    LED2 = 1,
+    LED3 = 2,
+    LED4 = 3,
+    LED5 = 4  /* Bicolor Led */
 } Led_TypeDef;
 
 typedef enum
 {
-  BUTTON_KEY = 0,
-  BUTTON_RIGHT = 1,
-  BUTTON_LEFT = 2,
-  BUTTON_UP = 3,
-  BUTTON_DOWN = 4,
-  BUTTON_SEL = 5,
-  BUTTON_TAMPER = 6
+    BUTTON_KEY = 0,
+    BUTTON_RIGHT = 1,
+    BUTTON_LEFT = 2,
+    BUTTON_UP = 3,
+    BUTTON_DOWN = 4,
+    BUTTON_SEL = 5,
+    BUTTON_TAMPER = 6
 } Button_TypeDef;
 
 typedef enum
 {
-  BUTTON_MODE_GPIO = 0,
-  BUTTON_MODE_EXTI = 1
+    BUTTON_MODE_GPIO = 0,
+    BUTTON_MODE_EXTI = 1
 } ButtonMode_TypeDef;
 
 typedef enum
 {
-  JOY_NONE = 0,
-  JOY_SEL = 1,
-  JOY_DOWN = 2,
-  JOY_LEFT = 3,
-  JOY_RIGHT = 4,
-  JOY_UP = 5
+    JOY_NONE = 0,
+    JOY_SEL = 1,
+    JOY_DOWN = 2,
+    JOY_LEFT = 3,
+    JOY_RIGHT = 4,
+    JOY_UP = 5
 } JOYState_TypeDef;
 
 typedef enum
 {
-  COM1 = 0
+    COM1 = 0
 } COM_TypeDef;
 
 /**

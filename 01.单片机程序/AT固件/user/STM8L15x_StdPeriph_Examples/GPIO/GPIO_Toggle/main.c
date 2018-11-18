@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -62,15 +62,15 @@ void Delay (uint16_t nCount);
   */
 void main(void)
 {
-  /* Initialize LEDs mounted on STM8L152X-EVAL board */
-  GPIO_Init(LED_GPIO_PORT, LED_GPIO_PINS, GPIO_Mode_Out_PP_Low_Fast);
+    /* Initialize LEDs mounted on STM8L152X-EVAL board */
+    GPIO_Init(LED_GPIO_PORT, LED_GPIO_PINS, GPIO_Mode_Out_PP_Low_Fast);
 
-  while (1)
-  {
-    /* Toggle LEDs LD1..LD4 */
-    GPIO_ToggleBits(LED_GPIO_PORT, LED_GPIO_PINS);
-    Delay(0xFFFF);
-  }
+    while (1)
+    {
+        /* Toggle LEDs LD1..LD4 */
+        GPIO_ToggleBits(LED_GPIO_PORT, LED_GPIO_PINS);
+        Delay(0xFFFF);
+    }
 }
 
 /**
@@ -80,11 +80,11 @@ void main(void)
   */
 void Delay(__IO uint16_t nCount)
 {
-  /* Decrement nCount value */
-  while (nCount != 0)
-  {
-    nCount--;
-  }
+    /* Decrement nCount value */
+    while (nCount != 0)
+    {
+        nCount--;
+    }
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -96,13 +96,13 @@ void Delay(__IO uint16_t nCount)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* Infinite loop */
-  while (1)
-  {}
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

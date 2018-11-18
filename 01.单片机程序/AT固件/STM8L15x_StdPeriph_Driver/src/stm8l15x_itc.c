@@ -4,8 +4,8 @@
   * @author  MCD Application Team
   * @version V1.6.1
   * @date    30-September-2014
-  * @brief   This file provides firmware functions to manage the following 
-  *          functionality of the Interrupt controller (ITC) peripheral:           
+  * @brief   This file provides firmware functions to manage the following
+  *          functionality of the Interrupt controller (ITC) peripheral:
   *           - Configuration and management
   ******************************************************************************
   * @attention
@@ -18,8 +18,8 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
@@ -33,11 +33,11 @@
 /** @addtogroup STM8L15x_StdPeriph_Driver
   * @{
   */
-  
-/** @defgroup ITC 
+
+/** @defgroup ITC
   * @brief ITC driver modules
   * @{
-  */ 
+  */
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -56,30 +56,30 @@
 uint8_t ITC_GetCPUCC(void)
 {
 #ifdef _COSMIC_
-  _asm("push cc");
-  _asm("pop a");
-  return; /* Ignore compiler warning, the returned value is in A register */
+    _asm("push cc");
+    _asm("pop a");
+    return; /* Ignore compiler warning, the returned value is in A register */
 #elif defined _RAISONANCE_ /* _RAISONANCE_ */
-  return _getCC_();
+    return _getCC_();
 #else /* _IAR_ */
-  asm("push cc");
-  asm("pop a"); /* Ignore compiler warning, the returned value is in A register */
+    asm("push cc");
+    asm("pop a"); /* Ignore compiler warning, the returned value is in A register */
 #endif /* _COSMIC_*/
-  
+
 }
 
 /** @defgroup ITC_Group1 ITC configuration and management functions
  *  @brief   ITC configuration and management functions
  *
-@verbatim   
+@verbatim
  ===============================================================================
                   ITC configuration and management functions
- ===============================================================================  
+ ===============================================================================
 
 @endverbatim
   * @{
   */
-  
+
 /**
   * @brief  Deinitializes the ITC registers to their default reset value.
   * @param  None
@@ -87,14 +87,14 @@ uint8_t ITC_GetCPUCC(void)
  */
 void ITC_DeInit(void)
 {
-  ITC->ISPR1 = ITC_SPRX_RESET_VALUE;
-  ITC->ISPR2 = ITC_SPRX_RESET_VALUE;
-  ITC->ISPR3 = ITC_SPRX_RESET_VALUE;
-  ITC->ISPR4 = ITC_SPRX_RESET_VALUE;
-  ITC->ISPR5 = ITC_SPRX_RESET_VALUE;
-  ITC->ISPR6 = ITC_SPRX_RESET_VALUE;
-  ITC->ISPR7 = ITC_SPRX_RESET_VALUE;
-  ITC->ISPR8 = ITC_SPRX_RESET_VALUE;
+    ITC->ISPR1 = ITC_SPRX_RESET_VALUE;
+    ITC->ISPR2 = ITC_SPRX_RESET_VALUE;
+    ITC->ISPR3 = ITC_SPRX_RESET_VALUE;
+    ITC->ISPR4 = ITC_SPRX_RESET_VALUE;
+    ITC->ISPR5 = ITC_SPRX_RESET_VALUE;
+    ITC->ISPR6 = ITC_SPRX_RESET_VALUE;
+    ITC->ISPR7 = ITC_SPRX_RESET_VALUE;
+    ITC->ISPR8 = ITC_SPRX_RESET_VALUE;
 }
 
 /**
@@ -104,7 +104,7 @@ void ITC_DeInit(void)
  */
 uint8_t ITC_GetSoftIntStatus(void)
 {
-  return ((uint8_t)(ITC_GetCPUCC() & CPU_SOFT_INT_DISABLED));
+    return ((uint8_t)(ITC_GetCPUCC() & CPU_SOFT_INT_DISABLED));
 }
 
 /**
@@ -114,22 +114,22 @@ uint8_t ITC_GetSoftIntStatus(void)
  */
 ITC_PriorityLevel_TypeDef ITC_GetSoftwarePriority(IRQn_TypeDef IRQn)
 {
-  uint8_t Value = 0;
-  uint8_t Mask = 0;
+    uint8_t Value = 0;
+    uint8_t Mask = 0;
 
-  /* Check function parameters */
-  assert_param(IS_ITC_IRQ(IRQn));
+    /* Check function parameters */
+    assert_param(IS_ITC_IRQ(IRQn));
 
-  /* Define the mask corresponding to the bits position in the SPR register */
-  Mask = (uint8_t)(0x03U << ((IRQn % 4U) * 2U));
+    /* Define the mask corresponding to the bits position in the SPR register */
+    Mask = (uint8_t)(0x03U << ((IRQn % 4U) * 2U));
 
-  switch (IRQn)
-  {
+    switch (IRQn)
+    {
     case FLASH_IRQn:
     case DMA1_CHANNEL0_1_IRQn:
     case DMA1_CHANNEL2_3_IRQn:
-      Value = (uint8_t)(ITC->ISPR1 & Mask); /* Read software priority */
-      break;
+        Value = (uint8_t)(ITC->ISPR1 & Mask); /* Read software priority */
+        break;
 
     case EXTIE_F_PVD_IRQn:
 #if defined (STM8L15X_MD) || defined (STM8L05X_MD_VL) || defined (STM8AL31_L_MD)
@@ -145,28 +145,28 @@ ITC_PriorityLevel_TypeDef ITC_GetSoftwarePriority(IRQn_TypeDef IRQn)
     case EXTIB_G_IRQn:
     case EXTID_H_IRQn:
 #endif  /* STM8L15X_MD */
-      Value = (uint8_t)(ITC->ISPR2 & Mask); /* Read software priority */
-      break;
+        Value = (uint8_t)(ITC->ISPR2 & Mask); /* Read software priority */
+        break;
 
     case EXTI0_IRQn:
     case EXTI1_IRQn:
     case EXTI2_IRQn:
     case EXTI3_IRQn:
-      Value = (uint8_t)(ITC->ISPR3 & Mask); /* Read software priority */
-      break;
+        Value = (uint8_t)(ITC->ISPR3 & Mask); /* Read software priority */
+        break;
 
     case EXTI4_IRQn:
     case EXTI5_IRQn:
     case EXTI6_IRQn:
     case EXTI7_IRQn:
-      Value = (uint8_t)(ITC->ISPR4 & Mask); /* Read software priority */
-      break;
+        Value = (uint8_t)(ITC->ISPR4 & Mask); /* Read software priority */
+        break;
 
 #if defined (STM8L15X_LD) || defined (STM8L05X_LD_VL)
     case SWITCH_CSS_IRQn:
 #else
     case SWITCH_CSS_BREAK_DAC_IRQn:
-#endif /* STM8L15X_LD */		
+#endif /* STM8L15X_LD */
     case ADC1_COMP_IRQn:
 #if defined (STM8L15X_MD) || defined (STM8L05X_MD_VL) || defined (STM8AL31_L_MD)
     case LCD_IRQn:
@@ -177,12 +177,12 @@ ITC_PriorityLevel_TypeDef ITC_GetSoftwarePriority(IRQn_TypeDef IRQn)
     case LCD_AES_IRQn:
     case TIM2_UPD_OVF_TRG_BRK_USART2_TX_IRQn:
 #endif  /* STM8L15X_MD */
-      Value = (uint8_t)(ITC->ISPR5 & Mask); /* Read software priority */
-      break;
-			
+        Value = (uint8_t)(ITC->ISPR5 & Mask); /* Read software priority */
+        break;
+
 #if !defined (STM8L15X_LD) && !defined (STM8L05X_LD_VL)
     case TIM1_UPD_OVF_TRG_IRQn:
-#endif /* STM8L15X_LD */		
+#endif /* STM8L15X_LD */
 #if defined (STM8L15X_MD) || defined (STM8L15X_LD) || defined (STM8L05X_MD_VL) ||\
  defined (STM8AL31_L_MD) || defined (STM8L05X_LD_VL)
     case TIM2_CC_IRQn:
@@ -193,12 +193,12 @@ ITC_PriorityLevel_TypeDef ITC_GetSoftwarePriority(IRQn_TypeDef IRQn)
     case TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQn :
     case TIM3_CC_USART3_RX_IRQn:
 #endif  /* STM8L15X_MD */
-      Value = (uint8_t)(ITC->ISPR6 & Mask); /* Read software priority */
-      break;
-			
+        Value = (uint8_t)(ITC->ISPR6 & Mask); /* Read software priority */
+        break;
+
 #if !defined (STM8L15X_LD) && !defined (STM8L05X_LD_VL)
     case TIM1_CC_IRQn:
-#endif /* STM8L15X_LD */	
+#endif /* STM8L15X_LD */
     case TIM4_UPD_OVF_TRG_IRQn:
     case SPI1_IRQn:
 #if defined (STM8L15X_MD) || defined (STM8L15X_LD) || defined (STM8L05X_MD_VL) ||\
@@ -207,8 +207,8 @@ ITC_PriorityLevel_TypeDef ITC_GetSoftwarePriority(IRQn_TypeDef IRQn)
 #elif defined (STM8L15X_HD) || defined (STM8L15X_MDP) || defined (STM8L05X_HD_VL)
     case USART1_TX_TIM5_UPD_OVF_TRG_BRK_IRQn:
 #endif  /* STM8L15X_MD || STM8L15X_LD */
-      Value = (uint8_t)(ITC->ISPR7 & Mask); /* Read software priority */
-      break;
+        Value = (uint8_t)(ITC->ISPR7 & Mask); /* Read software priority */
+        break;
 
 #if defined (STM8L15X_MD) || defined (STM8L15X_LD) || defined (STM8L05X_MD_VL) ||\
  defined (STM8AL31_L_MD) || defined (STM8L05X_LD_VL)
@@ -218,16 +218,16 @@ ITC_PriorityLevel_TypeDef ITC_GetSoftwarePriority(IRQn_TypeDef IRQn)
     case USART1_RX_TIM5_CC_IRQn:
     case I2C1_SPI2_IRQn:
 #endif  /* STM8L15X_MD || STM8L15X_LD*/
-      Value = (uint8_t)(ITC->ISPR8 & Mask); /* Read software priority */
-      break;
+        Value = (uint8_t)(ITC->ISPR8 & Mask); /* Read software priority */
+        break;
 
     default:
-      break;
-  }
+        break;
+    }
 
-  Value >>= (uint8_t)((IRQn % 4u) * 2u);
+    Value >>= (uint8_t)((IRQn % 4u) * 2u);
 
-  return((ITC_PriorityLevel_TypeDef)Value);
+    return((ITC_PriorityLevel_TypeDef)Value);
 
 }
 
@@ -245,35 +245,35 @@ ITC_PriorityLevel_TypeDef ITC_GetSoftwarePriority(IRQn_TypeDef IRQn)
   *            @arg ITC_PriorityLevel_0: Software priority level 0 (cannot be written)
   *            @arg ITC_PriorityLevel_1: Software priority level 1
   *            @arg ITC_PriorityLevel_2: Software priority level 2
-  *            @arg ITC_PriorityLevel_3: Software priority level 3     
+  *            @arg ITC_PriorityLevel_3: Software priority level 3
   * @retval None
   */
 void ITC_SetSoftwarePriority(IRQn_TypeDef IRQn, ITC_PriorityLevel_TypeDef ITC_PriorityLevel)
 {
-  uint8_t Mask = 0;
-  uint8_t NewPriority = 0;
+    uint8_t Mask = 0;
+    uint8_t NewPriority = 0;
 
-  /* Check function parameters */
-  assert_param(IS_ITC_IRQ(IRQn));
-  assert_param(IS_ITC_PRIORITY(ITC_PriorityLevel));
+    /* Check function parameters */
+    assert_param(IS_ITC_IRQ(IRQn));
+    assert_param(IS_ITC_PRIORITY(ITC_PriorityLevel));
 
-  /* Check if interrupts are disabled */
-  assert_param(IS_ITC_INTERRUPTS_DISABLED);
+    /* Check if interrupts are disabled */
+    assert_param(IS_ITC_INTERRUPTS_DISABLED);
 
-  /* Define the mask corresponding to the bits position in the SPR register */
-  /* The mask is reversed in order to clear the 2 bits after more easily */
-  Mask = (uint8_t)(~(uint8_t)(0x03U << ((IRQn % 4U) * 2U)));
-  /* Define the new priority to write */
-  NewPriority = (uint8_t)((uint8_t)(ITC_PriorityLevel) << ((IRQn % 4U) * 2U));
+    /* Define the mask corresponding to the bits position in the SPR register */
+    /* The mask is reversed in order to clear the 2 bits after more easily */
+    Mask = (uint8_t)(~(uint8_t)(0x03U << ((IRQn % 4U) * 2U)));
+    /* Define the new priority to write */
+    NewPriority = (uint8_t)((uint8_t)(ITC_PriorityLevel) << ((IRQn % 4U) * 2U));
 
-  switch (IRQn)
-  {
+    switch (IRQn)
+    {
     case FLASH_IRQn:
     case DMA1_CHANNEL0_1_IRQn:
     case DMA1_CHANNEL2_3_IRQn:
-      ITC->ISPR1 &= Mask;
-      ITC->ISPR1 |= NewPriority;
-      break;
+        ITC->ISPR1 &= Mask;
+        ITC->ISPR1 |= NewPriority;
+        break;
 
     case EXTIE_F_PVD_IRQn:
 #if defined (STM8L15X_MD) || defined (STM8L05X_MD_VL) || defined (STM8AL31_L_MD)
@@ -289,25 +289,25 @@ void ITC_SetSoftwarePriority(IRQn_TypeDef IRQn, ITC_PriorityLevel_TypeDef ITC_Pr
     case EXTIB_G_IRQn:
     case EXTID_H_IRQn:
 #endif  /* STM8L15X_MD */
-      ITC->ISPR2 &= Mask;
-      ITC->ISPR2 |= NewPriority;
-      break;
+        ITC->ISPR2 &= Mask;
+        ITC->ISPR2 |= NewPriority;
+        break;
 
     case EXTI0_IRQn:
     case EXTI1_IRQn:
     case EXTI2_IRQn:
     case EXTI3_IRQn:
-      ITC->ISPR3 &= Mask;
-      ITC->ISPR3 |= NewPriority;
-      break;
+        ITC->ISPR3 &= Mask;
+        ITC->ISPR3 |= NewPriority;
+        break;
 
     case EXTI4_IRQn:
     case EXTI5_IRQn:
     case EXTI6_IRQn:
     case EXTI7_IRQn:
-      ITC->ISPR4 &= Mask;
-      ITC->ISPR4 |= NewPriority;
-      break;
+        ITC->ISPR4 &= Mask;
+        ITC->ISPR4 |= NewPriority;
+        break;
 #if !defined (STM8L15X_LD) && !defined (STM8L05X_LD_VL)
     case SWITCH_CSS_BREAK_DAC_IRQn:
 #else
@@ -323,9 +323,9 @@ void ITC_SetSoftwarePriority(IRQn_TypeDef IRQn, ITC_PriorityLevel_TypeDef ITC_Pr
     case LCD_AES_IRQn:
     case TIM2_UPD_OVF_TRG_BRK_USART2_TX_IRQn:
 #endif  /* STM8L15X_MD */
-      ITC->ISPR5 &= Mask;
-      ITC->ISPR5 |= NewPriority;
-      break;
+        ITC->ISPR5 &= Mask;
+        ITC->ISPR5 |= NewPriority;
+        break;
 #if !defined (STM8L15X_LD) && !defined (STM8L05X_LD_VL)
     case TIM1_UPD_OVF_TRG_IRQn:
 #endif  /* STM8L15X_LD */
@@ -339,9 +339,9 @@ void ITC_SetSoftwarePriority(IRQn_TypeDef IRQn, ITC_PriorityLevel_TypeDef ITC_Pr
     case TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQn :
     case TIM3_CC_USART3_RX_IRQn:
 #endif  /* STM8L15X_MD */
-      ITC->ISPR6 &= Mask;
-      ITC->ISPR6 |= NewPriority;
-      break;
+        ITC->ISPR6 &= Mask;
+        ITC->ISPR6 |= NewPriority;
+        break;
 
 #if !defined (STM8L15X_LD) && !defined (STM8L05X_LD_VL)
     case TIM1_CC_IRQn:
@@ -354,9 +354,9 @@ void ITC_SetSoftwarePriority(IRQn_TypeDef IRQn, ITC_PriorityLevel_TypeDef ITC_Pr
 #elif defined (STM8L15X_HD) || defined (STM8L15X_MDP) || defined (STM8L05X_HD_VL)
     case USART1_TX_TIM5_UPD_OVF_TRG_BRK_IRQn:
 #endif  /* STM8L15X_MD */
-      ITC->ISPR7 &= Mask;
-      ITC->ISPR7 |= NewPriority;
-      break;
+        ITC->ISPR7 &= Mask;
+        ITC->ISPR7 |= NewPriority;
+        break;
 
 #if defined (STM8L15X_MD) || defined (STM8L15X_LD) || defined (STM8L05X_MD_VL) ||\
  defined (STM8AL31_L_MD) || defined (STM8L05X_LD_VL)
@@ -366,13 +366,13 @@ void ITC_SetSoftwarePriority(IRQn_TypeDef IRQn, ITC_PriorityLevel_TypeDef ITC_Pr
     case USART1_RX_TIM5_CC_IRQn:
     case I2C1_SPI2_IRQn:
 #endif  /* STM8L15X_MD */
-      ITC->ISPR8 &= Mask;
-      ITC->ISPR8 |= NewPriority;
-      break;
+        ITC->ISPR8 &= Mask;
+        ITC->ISPR8 |= NewPriority;
+        break;
 
     default:
-      break;
-  }
+        break;
+    }
 }
 
 /**
@@ -390,5 +390,5 @@ void ITC_SetSoftwarePriority(IRQn_TypeDef IRQn, ITC_PriorityLevel_TypeDef ITC_Pr
 /**
   * @}
   */
-  
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

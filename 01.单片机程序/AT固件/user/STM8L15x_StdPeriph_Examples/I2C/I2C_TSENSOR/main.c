@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -60,110 +60,110 @@ void Delay(uint32_t nCount);
   */
 void main(void)
 {
-  uint8_t i = 0;
+    uint8_t i = 0;
 
-   /* CLK configuration -------------------------------------------*/
-  CLK_Config(); 
-  
-  /* Initialize dot matrix LCD */
-  STM8_EVAL_LCD_Init();
+    /* CLK configuration -------------------------------------------*/
+    CLK_Config();
 
-  /* Clear LCD */
-  LCD_Clear();
+    /* Initialize dot matrix LCD */
+    STM8_EVAL_LCD_Init();
 
-  /* Configure RTC */ 
-  RTC_WakeUpClockConfig(RTC_WakeUpClock_CK_SPRE_16bits);
-  RTC_ITConfig(RTC_IT_WUT, ENABLE);
+    /* Clear LCD */
+    LCD_Clear();
 
-  enableInterrupts();
+    /* Configure RTC */
+    RTC_WakeUpClockConfig(RTC_WakeUpClock_CK_SPRE_16bits);
+    RTC_ITConfig(RTC_IT_WUT, ENABLE);
 
-  /* Initialize the Temperature Sensor */
-  LM75_Init();
+    enableInterrupts();
 
-  while (LM75_GetStatus() != SUCCESS);
+    /* Initialize the Temperature Sensor */
+    LM75_Init();
 
-  while (1)
-  {
-    LCD_Clear(); /* Clear the LCD */
-    LCD_SetCursorPos(LCD_LINE1, 0);
-    LCD_Print("  EVAL Temp.   ");
+    while (LM75_GetStatus() != SUCCESS);
 
-    /* Get double of Temperature value */
-    TempCelsiusValue = LM75_ReadTemp();
-
-    if (TempCelsiusValue <= 256)
+    while (1)
     {
-      /* Positive temperature measured */
-      TempCelsiusDisplay[3] = '+';
+        LCD_Clear(); /* Clear the LCD */
+        LCD_SetCursorPos(LCD_LINE1, 0);
+        LCD_Print("  EVAL Temp.   ");
+
+        /* Get double of Temperature value */
+        TempCelsiusValue = LM75_ReadTemp();
+
+        if (TempCelsiusValue <= 256)
+        {
+            /* Positive temperature measured */
+            TempCelsiusDisplay[3] = '+';
+        }
+        else
+        {
+            /* Negative temperature measured */
+            TempCelsiusDisplay[3] = '-';
+            /* Remove temperature value sign */
+            TempCelsiusValue = 0x200 - TempCelsiusValue;
+        }
+
+        /* Calculate temperature digits in °C */
+        if ((TempCelsiusValue & 0x01) == 0x01)
+        {
+            TempCelsiusDisplay[7] = 0x05 + 0x30;
+        }
+        else
+        {
+            TempCelsiusDisplay[7] = 0x00 + 0x30;
+        }
+        TempCelsiusValue >>= 1;
+
+        TempCelsiusDisplay[4] = (uint8_t)(((TempCelsiusValue % 100) / 10) + 0x30);
+        TempCelsiusDisplay[5] = (uint8_t)(((TempCelsiusValue % 100) % 10) + 0x30);
+
+        LCD_SetCursorPos(LCD_LINE2, 0);
+        LCD_Print((uint8_t *)TempCelsiusDisplay);
+
+        for (i = 0; i < 250; i++)
+        {
+            Delay(0x7FFF);
+        }
+
+        LCD_SetCursorPos(LCD_LINE1, 0);
+        LCD_Print(" CPU in Active");
+
+        LCD_SetCursorPos(LCD_LINE2, 0);
+        LCD_Print("   Halt mode");
+
+        /* RTC will wake-up from halt every 10second */
+        RTC_SetWakeUpCounter(10);
+        RTC_WakeUpCmd(ENABLE);
+
+        /*CPU in Active Halt mode */
+        halt();
+
+        RTC_WakeUpCmd(DISABLE);
     }
-    else
-    {
-      /* Negative temperature measured */
-      TempCelsiusDisplay[3] = '-';
-      /* Remove temperature value sign */
-      TempCelsiusValue = 0x200 - TempCelsiusValue;
-    }
-
-    /* Calculate temperature digits in °C */
-    if ((TempCelsiusValue & 0x01) == 0x01)
-    {
-      TempCelsiusDisplay[7] = 0x05 + 0x30;
-    }
-    else
-    {
-      TempCelsiusDisplay[7] = 0x00 + 0x30;
-    }
-    TempCelsiusValue >>= 1;
-
-    TempCelsiusDisplay[4] = (uint8_t)(((TempCelsiusValue % 100) / 10) + 0x30);
-    TempCelsiusDisplay[5] = (uint8_t)(((TempCelsiusValue % 100) % 10) + 0x30);
-
-    LCD_SetCursorPos(LCD_LINE2, 0);
-    LCD_Print((uint8_t*)TempCelsiusDisplay);
-
-    for (i = 0;i < 250;i++)
-    {
-      Delay(0x7FFF);
-    }
-
-    LCD_SetCursorPos(LCD_LINE1, 0);
-    LCD_Print(" CPU in Active");
-
-    LCD_SetCursorPos(LCD_LINE2, 0);
-    LCD_Print("   Halt mode");
-
-    /* RTC will wake-up from halt every 10second */
-    RTC_SetWakeUpCounter(10);
-    RTC_WakeUpCmd(ENABLE);
-
-    /*CPU in Active Halt mode */
-    halt();
-
-    RTC_WakeUpCmd(DISABLE);
-  }
 }
 
 /**
-  * @brief  Configure peripheral clock 
+  * @brief  Configure peripheral clock
   * @param  None
   * @retval None
   */
 static void CLK_Config(void)
 {
-  /* Select HSE as system clock source */
-  CLK_SYSCLKSourceSwitchCmd(ENABLE);
-  CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSE);
-  /* High speed external clock prescaler: 1*/
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
-  while (CLK_GetSYSCLKSource() != CLK_SYSCLKSource_HSE)
-  {}
+    /* Select HSE as system clock source */
+    CLK_SYSCLKSourceSwitchCmd(ENABLE);
+    CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSE);
+    /* High speed external clock prescaler: 1*/
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    while (CLK_GetSYSCLKSource() != CLK_SYSCLKSource_HSE)
+    {}
 
- /* Enable I2C1 clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, ENABLE);
+    /* Enable I2C1 clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, ENABLE);
 
-  /* Configures RTC clock */
-  CLK_RTCClockConfig(CLK_RTCCLKSource_LSE, CLK_RTCCLKDiv_1);
-  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);
+    /* Configures RTC clock */
+    CLK_RTCClockConfig(CLK_RTCCLKSource_LSE, CLK_RTCCLKDiv_1);
+    CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);
 }
 
 /**
@@ -173,11 +173,11 @@ static void CLK_Config(void)
   */
 void Delay(uint32_t nCount)
 {
-  /* Decrement nCount value */
-  while (nCount != 0)
-  {
-    nCount--;
-  }
+    /* Decrement nCount value */
+    while (nCount != 0)
+    {
+        nCount--;
+    }
 }
 #ifdef  USE_FULL_ASSERT
 /**
@@ -187,14 +187,14 @@ void Delay(uint32_t nCount)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

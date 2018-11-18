@@ -6,15 +6,15 @@
 
 at_stateType  at_state = at_statIdle;
 
- uint8_t at_cmdLine[at_cmdLenMax];
+uint8_t at_cmdLine[at_cmdLenMax];
 
- 
- 
- uint8_t Transport_counter = 0;
- uint32_t Transport_last_time = 0;
- uint32_t Transport_sending_note_flag = 0;
- uint8_t Transport_exit_flag_pre = 0;
- 
+
+
+uint8_t Transport_counter = 0;
+uint32_t Transport_last_time = 0;
+uint32_t Transport_sending_note_flag = 0;
+uint8_t Transport_exit_flag_pre = 0;
+
 void at_recv_event(char temp)
 {
     static uint8_t atHead[3];
@@ -31,96 +31,97 @@ void at_recv_event(char temp)
             pCmdLine = at_cmdLine;
             atHead[1] = 0x00;
         }
-      break;
+        break;
     case at_statRecving: //push receive data to cmd line
-      *pCmdLine = temp;
-      if(temp == '\n')
-      {
-        pCmdLine++;
-        *pCmdLine = '\0';
-        at_state = at_statProcess;
+        *pCmdLine = temp;
+        if(temp == '\n')
+        {
+            pCmdLine++;
+            *pCmdLine = '\0';
+            at_state = at_statProcess;
 
-      }
-      else if(pCmdLine >= &at_cmdLine[at_cmdLenMax - 1])
-      {
-        at_state = at_statIdle;
-      }
-      pCmdLine++;
-      break;      
+        }
+        else if(pCmdLine >= &at_cmdLine[at_cmdLenMax - 1])
+        {
+            at_state = at_statIdle;
+        }
+        pCmdLine++;
+        break;
     case at_statProcess: //process data
-      if(temp == '\n')
-      {
-        at_back(AT_ERR_CPU_BUSY_ID);
-      }
-      break;
-      
-      
+        if(temp == '\n')
+        {
+            at_back(AT_ERR_CPU_BUSY_ID);
+        }
+        break;
+
+
     case at_statTranInit://no break;
         pCmdLine = at_cmdLine;
         at_state = at_statIpTraning;
     case at_statIpTraning:
-      if(count  < (LoRaPacket.len - 4) )
-      {
-        *pCmdLine = temp;
-        pCmdLine++;
-        count++;
-      }
-      
-      if(count >= (LoRaPacket.len - 4))
-      {
+        if(count  < (LoRaPacket.len - 4) )
+        {
+            *pCmdLine++ = temp;
+            count++;
+        }
+
+        if(count >= (LoRaPacket.len - 4))
+        {
             LoRaPacket.source.val = LoRaAddr;
             LoRaPacket.destination.val = DestAddr;
             LoRaPacket.data = (uint8_t *)at_cmdLine;
             SX1278SetTxPacket(&LoRaPacket);
+            SX1278SetRFState(RFLR_STATE_TX_INIT);
             at_state = at_statIdle;
             count = 0;
             uart1_write_string("AT,SENDING\r\n");
-      }
-      break;
+        }
+        break;
     case at_statTransportIdle://no break,进入透传后的初始化
         pCmdLine = at_cmdLine;
         Transport_counter = 0;
         Transport_sending_note_flag = 0;
         at_state = at_statTransportRecv;
     case at_statTransportRecv:
-            if(Transport_counter <= 250) 
+        if(Transport_counter <= 250)
+        {
+            pCmdLine[Transport_counter] = temp;
+            Transport_counter++;
+        }
+        if( Transport_counter < 4)
+        {
+
+            atHead[0] = atHead[1];
+            atHead[1] = atHead[2];
+            atHead[2] = temp;
+            Transport_last_time = millis();
+            if(memcmp(atHead, "+++", 3) == 0)
             {
-               *pCmdLine++ = temp;
-               Transport_counter++;
+                Transport_exit_flag_pre = 1;
+                atHead[2] = 0x00;
             }
-            if( Transport_counter < 4)
-            {
+        }
+        Transport_last_time = milli_second;
 
-                atHead[0] = atHead[1];
-                atHead[1] = atHead[2];
-                atHead[2] = temp;  
-                Transport_last_time = millis();  
-                if(memcmp(atHead, "+++", 3) == 0)
-                {
-                  Transport_exit_flag_pre = 1;
-                  atHead[2] = 0x00;
-                 }        
-              }
-                            Transport_last_time = milli_second;
+        break;
 
-              break;
-
-    case at_statTransportSending: 
-            if(Transport_sending_note_flag == 0)
-            {
-              Transport_sending_note_flag = 1;
-              uart1_write_string("AT,busy...\r\n");
-            }
-            break;
+    case at_statTransportSending:
+        if(Transport_sending_note_flag == 0)
+        {
+            Transport_sending_note_flag = 1;
+            uart1_write_string("AT,busy...\r\n");
+        }
+        break;
     }
 
-   
+
 
 }
+
 void at_process_loop()
 {
-  
-  uint8_t temp;
+
+    uint8_t temp;
     if(at_state == at_statProcess)
     {
         at_cmdProcess(at_cmdLine);
@@ -128,33 +129,32 @@ void at_process_loop()
     else if(at_state == at_statTransportRecv)
     {
         temp = milli_second - Transport_last_time;
-      if(temp > 5)
-      {
-        if( Transport_exit_flag_pre == 1 )
+        if(temp > 5)
         {
-            Transport_exit_flag_pre = 0;
+            if( Transport_exit_flag_pre == 1 )
+            {
+                Transport_exit_flag_pre = 0;
 
-            at_state = at_statIdle;
-            uart1_write_string("AT,OK\r\n");
-            return ;
-        }
-        
-            
+                at_state = at_statIdle;
+                uart1_write_string("AT,OK\r\n");
+                return ;
+            }
             LoRaPacket.len = Transport_counter + 4;
             LoRaPacket.source.val = LoRaAddr;
             LoRaPacket.destination.val = DestAddr;
             LoRaPacket.data = (uint8_t *)at_cmdLine;
-            SX1278SetTxPacket(&LoRaPacket);
             at_state = at_statTransportSending;
-            Transport_counter = 0;
-            
-      }
-       // SX1278SetTxPacket(at_dataLine,123);//UartDev.rcv_buff.pRcvMsgBuff);
+        }
     }
     else if(at_state == at_statTransportSending)
     {
 
     }
+}
 
-    
+
+void TransportNewPacket()
+{
+
+    SX1278SetTxPacket(&LoRaPacket);
 }

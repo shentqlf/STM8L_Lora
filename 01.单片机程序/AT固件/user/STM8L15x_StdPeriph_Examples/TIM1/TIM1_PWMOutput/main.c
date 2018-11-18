@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -61,101 +61,101 @@ static void TIM1_Config(void);
   */
 void main(void)
 {
-   /* CLK configuration -------------------------------------------*/
-  CLK_Config(); 
+    /* CLK configuration -------------------------------------------*/
+    CLK_Config();
 
-   /* GPIO configuration -------------------------------------------*/
-  GPIO_Config(); 
-  
-   /* TIM1 configuration -------------------------------------------*/
-  TIM1_Config();
+    /* GPIO configuration -------------------------------------------*/
+    GPIO_Config();
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* TIM1 configuration -------------------------------------------*/
+    TIM1_Config();
+
+    /* Infinite loop */
+    while (1)
+    {}
 }
 
 /**
-  * @brief  Configure peripherals Clock   
+  * @brief  Configure peripherals Clock
   * @param  None
   * @retval None
   */
 static void CLK_Config(void)
 {
-  /* Enable TIM1 clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, ENABLE);
+    /* Enable TIM1 clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, ENABLE);
 }
 
 /**
-  * @brief  Configure TIM Channels GPIO 
+  * @brief  Configure TIM Channels GPIO
   * @param  None
   * @retval None
   */
 static void GPIO_Config(void)
 {
-  /* GPIOD configuration: TIM1 channel 1 (PD2), channel 2 (PD4) and channel 3 (PD5) */
-  GPIO_Init(GPIOD, GPIO_Pin_2 | GPIO_Pin_4 | GPIO_Pin_5, GPIO_Mode_Out_PP_Low_Fast);
+    /* GPIOD configuration: TIM1 channel 1 (PD2), channel 2 (PD4) and channel 3 (PD5) */
+    GPIO_Init(GPIOD, GPIO_Pin_2 | GPIO_Pin_4 | GPIO_Pin_5, GPIO_Mode_Out_PP_Low_Fast);
 }
 
 /**
-  * @brief  Configure TIM1 peripheral 
+  * @brief  Configure TIM1 peripheral
   * @param  None
   * @retval None
   */
 static void TIM1_Config(void)
 {
-  /*
-  - TIM1CLK = 2 MHz
-  - TIM1 counter clock = TIM1CLK / TIM1_PRESCALER+1 = 2 MHz/1+1 = 1 MHz
-  */
-  /* Time base configuration */
-  TIM1_TimeBaseInit(TIM1_PRESCALER, TIM1_CounterMode_Up, TIM1_PERIOD, TIM1_REPTETION_COUNTER);
+    /*
+    - TIM1CLK = 2 MHz
+    - TIM1 counter clock = TIM1CLK / TIM1_PRESCALER+1 = 2 MHz/1+1 = 1 MHz
+    */
+    /* Time base configuration */
+    TIM1_TimeBaseInit(TIM1_PRESCALER, TIM1_CounterMode_Up, TIM1_PERIOD, TIM1_REPTETION_COUNTER);
 
-  /*
-  - The TIM1 CCR1 register value is equal to 32768: 
-  - CC1 update rate = TIM1 counter clock / CCR1_Val = 30.51 Hz,
-  - So the TIM1 Channel 1 generates a periodic signal with a frequency equal to 15.25 Hz.
-  */
-  /* Toggle Mode configuration: Channel1 */
-  TIM1_OC1Init(TIM1_OCMode_Toggle, TIM1_OutputState_Enable, TIM1_OutputNState_Disable,
-               CCR1_Val, TIM1_OCPolarity_Low, TIM1_OCNPolarity_Low, TIM1_OCIdleState_Set,
-               TIM1_OCNIdleState_Set);
-  TIM1_OC1PreloadConfig(DISABLE);
+    /*
+    - The TIM1 CCR1 register value is equal to 32768:
+    - CC1 update rate = TIM1 counter clock / CCR1_Val = 30.51 Hz,
+    - So the TIM1 Channel 1 generates a periodic signal with a frequency equal to 15.25 Hz.
+    */
+    /* Toggle Mode configuration: Channel1 */
+    TIM1_OC1Init(TIM1_OCMode_Toggle, TIM1_OutputState_Enable, TIM1_OutputNState_Disable,
+                 CCR1_Val, TIM1_OCPolarity_Low, TIM1_OCNPolarity_Low, TIM1_OCIdleState_Set,
+                 TIM1_OCNIdleState_Set);
+    TIM1_OC1PreloadConfig(DISABLE);
 
-  /*
-  - The TIM1 CCR2 register is equal to 16384:
-  - CC2 update rate = TIM1 counter clock / CCR2_Val = 61.03 Hz
-  - So the TIM1 channel 2 generates a periodic signal with a frequency equal to 30.51 Hz.
-  */
-  /* Toggle Mode configuration: Channel2 */
-  TIM1_OC2Init(TIM1_OCMode_Toggle, TIM1_OutputState_Enable, TIM1_OutputNState_Disable,
-               CCR2_Val, TIM1_OCPolarity_Low, TIM1_OCNPolarity_Low, TIM1_OCIdleState_Set,
-               TIM1_OCNIdleState_Set);
-  TIM1_OC2PreloadConfig(DISABLE);
+    /*
+    - The TIM1 CCR2 register is equal to 16384:
+    - CC2 update rate = TIM1 counter clock / CCR2_Val = 61.03 Hz
+    - So the TIM1 channel 2 generates a periodic signal with a frequency equal to 30.51 Hz.
+    */
+    /* Toggle Mode configuration: Channel2 */
+    TIM1_OC2Init(TIM1_OCMode_Toggle, TIM1_OutputState_Enable, TIM1_OutputNState_Disable,
+                 CCR2_Val, TIM1_OCPolarity_Low, TIM1_OCNPolarity_Low, TIM1_OCIdleState_Set,
+                 TIM1_OCNIdleState_Set);
+    TIM1_OC2PreloadConfig(DISABLE);
 
-  /*
-  -The TIM1 CCR3 register is equal to 8192:
-  - CC3 update rate = TIM1 counter clock / CCR3_Val = 123.01 Hz
-  - So the TIM1 channel 3 generates a periodic signal with a frequency equal to 61.5 Hz.
-  */
-  /* Toggle Mode configuration: Channel3 */
-  TIM1_OC3Init(TIM1_OCMode_Toggle, TIM1_OutputState_Enable, TIM1_OutputNState_Disable,
-               CCR3_Val, TIM1_OCPolarity_Low, TIM1_OCNPolarity_Low, TIM1_OCIdleState_Set,
-               TIM1_OCNIdleState_Set);
-  TIM1_OC3PreloadConfig(DISABLE);
+    /*
+    -The TIM1 CCR3 register is equal to 8192:
+    - CC3 update rate = TIM1 counter clock / CCR3_Val = 123.01 Hz
+    - So the TIM1 channel 3 generates a periodic signal with a frequency equal to 61.5 Hz.
+    */
+    /* Toggle Mode configuration: Channel3 */
+    TIM1_OC3Init(TIM1_OCMode_Toggle, TIM1_OutputState_Enable, TIM1_OutputNState_Disable,
+                 CCR3_Val, TIM1_OCPolarity_Low, TIM1_OCNPolarity_Low, TIM1_OCIdleState_Set,
+                 TIM1_OCNIdleState_Set);
+    TIM1_OC3PreloadConfig(DISABLE);
 
-  TIM1_ARRPreloadConfig(ENABLE);
+    TIM1_ARRPreloadConfig(ENABLE);
 
-  /* TIM1 Interrupt enable */
-  TIM1_ITConfig(TIM1_IT_CC1, ENABLE);
-  TIM1_ITConfig(TIM1_IT_CC2, ENABLE);
-  TIM1_ITConfig(TIM1_IT_CC3, ENABLE);
-  enableInterrupts();
+    /* TIM1 Interrupt enable */
+    TIM1_ITConfig(TIM1_IT_CC1, ENABLE);
+    TIM1_ITConfig(TIM1_IT_CC2, ENABLE);
+    TIM1_ITConfig(TIM1_IT_CC3, ENABLE);
+    enableInterrupts();
 
-  /* Enable TIM1 outputs */
-  TIM1_CtrlPWMOutputs(ENABLE);
-  /* TIM1 enable counter */
-  TIM1_Cmd(ENABLE);
+    /* Enable TIM1 outputs */
+    TIM1_CtrlPWMOutputs(ENABLE);
+    /* TIM1 enable counter */
+    TIM1_Cmd(ENABLE);
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -167,14 +167,14 @@ static void TIM1_Config(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

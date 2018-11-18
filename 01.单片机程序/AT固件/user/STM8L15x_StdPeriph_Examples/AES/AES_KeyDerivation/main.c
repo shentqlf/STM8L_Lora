@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -53,63 +53,63 @@ uint8_t DecryptionKey[16];
   */
 void main(void)
 {
-  uint8_t arrayindex = 0;
+    uint8_t arrayindex = 0;
 
-  /* Enable AES clock */
-  CLK_PeripheralClockConfig(CLK_Peripheral_AES, ENABLE);
+    /* Enable AES clock */
+    CLK_PeripheralClockConfig(CLK_Peripheral_AES, ENABLE);
 
-  /* Initialize LEDs mounted on STM8L1528-EVAL board */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED3);
+    /* Initialize LEDs mounted on STM8L1528-EVAL board */
+    STM_EVAL_LEDInit(LED1);
+    STM_EVAL_LEDInit(LED3);
 
-  /* Select the key derivation mode */
-  AES_OperationModeConfig(AES_Operation_KeyDeriv);
+    /* Select the key derivation mode */
+    AES_OperationModeConfig(AES_Operation_KeyDeriv);
 
-  /* Enable the AES peripheral */
-  AES_Cmd(ENABLE);
+    /* Enable the AES peripheral */
+    AES_Cmd(ENABLE);
 
-  /* write 16 times in the DINR register with encryption key */
-  while (arrayindex < 16)
-  {
-    /* writing MSB first */
-    AES_WriteSubKey(EncryptionKey[arrayindex]);
-    /* Increment arrayindex */
-    arrayindex++;
-  }
+    /* write 16 times in the DINR register with encryption key */
+    while (arrayindex < 16)
+    {
+        /* writing MSB first */
+        AES_WriteSubKey(EncryptionKey[arrayindex]);
+        /* Increment arrayindex */
+        arrayindex++;
+    }
 
-  /* Wait for CCF flag to be set */
-  while (AES_GetFlagStatus(AES_FLAG_CCF) == RESET);
+    /* Wait for CCF flag to be set */
+    while (AES_GetFlagStatus(AES_FLAG_CCF) == RESET);
 
-  /* Clear CCF flag */
-  AES_ClearFlag(AES_FLAG_CCF);
+    /* Clear CCF flag */
+    AES_ClearFlag(AES_FLAG_CCF);
 
-  /* Init arrayindex */
-  arrayindex = 0;
+    /* Init arrayindex */
+    arrayindex = 0;
 
-  /* read 16 times the DOUTR register to get the decryption key */
-  while (arrayindex < 16)
-  {
-    /* Reading MSB first */
-    DecryptionKey[arrayindex] = AES_ReadSubData();
-    /* Increment arrayindex */
-    arrayindex++;
-  }
+    /* read 16 times the DOUTR register to get the decryption key */
+    while (arrayindex < 16)
+    {
+        /* Reading MSB first */
+        DecryptionKey[arrayindex] = AES_ReadSubData();
+        /* Increment arrayindex */
+        arrayindex++;
+    }
 
-  /* Check errors flags */
-  if ((AES_GetFlagStatus(AES_FLAG_RDERR) != RESET) || (AES_GetFlagStatus(AES_FLAG_WRERR) != RESET))
-  {
-    /* Turn on LD3 */
-    STM_EVAL_LEDOn(LED3);
-  }
-  else
-  {
-    /* Turn on LD1 */
-    STM_EVAL_LEDOn(LED1);
-  }
+    /* Check errors flags */
+    if ((AES_GetFlagStatus(AES_FLAG_RDERR) != RESET) || (AES_GetFlagStatus(AES_FLAG_WRERR) != RESET))
+    {
+        /* Turn on LD3 */
+        STM_EVAL_LEDOn(LED3);
+    }
+    else
+    {
+        /* Turn on LD1 */
+        STM_EVAL_LEDOn(LED1);
+    }
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -121,14 +121,14 @@ void main(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 #endif
 

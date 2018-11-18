@@ -13,14 +13,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */  
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM8_EVAL_SPI_FLASH_H
@@ -31,27 +31,27 @@
 /** @addtogroup Utilities
   * @{
   */
-  
+
 /** @addtogroup STM8_EVAL
   * @{
-  */ 
+  */
 
 /** @addtogroup Common
   * @{
   */
-  
+
 /** @addtogroup STM8_EVAL_SPI_FLASH
   * @{
-  */  
+  */
 
 /* Exported types ------------------------------------------------------------*/
-  
+
 /** @defgroup STM8_EVAL_SPI_FLASH_Exported_Constants
   * @{
   */
 /**
   * @brief  M25P SPI Flash supported commands
-  */ 
+  */
 #define sFLASH_CMD_WRITE          0x02  /*!< Write to Memory instruction */
 #define sFLASH_CMD_WRSR           0x01  /*!< Write Status Register instruction */
 #define sFLASH_CMD_WREN           0x06  /*!< Write enable instruction */
@@ -68,7 +68,7 @@
 
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup STM8_EVAL_SPI_FLASH_Exported_Macros
   * @{
@@ -80,11 +80,11 @@
 /**
   * @brief  Deselect sFLASH: Chip Select pin high
   */
-#define sFLASH_CS_HIGH()      GPIO_SetBits(sFLASH_CS_GPIO_PORT, sFLASH_CS_PIN)   
+#define sFLASH_CS_HIGH()      GPIO_SetBits(sFLASH_CS_GPIO_PORT, sFLASH_CS_PIN)
 /**
   * @}
-  */  
-  
+  */
+
 
 /** @defgroup STM8_EVAL_SPI_FLASH_Exported_Functions
   * @{
@@ -96,11 +96,11 @@ void sFLASH_DeInit(void);
 void sFLASH_Init(void);
 void sFLASH_EraseSector(uint32_t SectorAddr);
 void sFLASH_EraseBulk(void);
-void sFLASH_WritePage(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite);
-void sFLASH_WriteBuffer(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite);
-void sFLASH_ReadBuffer(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteToRead);
+void sFLASH_WritePage(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite);
+void sFLASH_WriteBuffer(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite);
+void sFLASH_ReadBuffer(uint8_t *pBuffer, uint32_t ReadAddr, uint16_t NumByteToRead);
 uint32_t sFLASH_ReadID(void);
-void sFLASH_StartReadSequence(uint32_t ReadAddr);  
+void sFLASH_StartReadSequence(uint32_t ReadAddr);
 
 /**
   * @brief  Low layer functions
@@ -127,9 +127,9 @@ void sFLASH_WaitForWriteEnd(void);
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */  
+  */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

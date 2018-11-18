@@ -1,18 +1,18 @@
 /*
- * THE FOLLOWING FIRMWARE IS PROVIDED: (1) "AS IS" WITH NO WARRANTY; AND 
+ * THE FOLLOWING FIRMWARE IS PROVIDED: (1) "AS IS" WITH NO WARRANTY; AND
  * (2)TO ENABLE ACCESS TO CODING INFORMATION TO GUIDE AND FACILITATE CUSTOMER.
  * CONSEQUENTLY, SEMTECH SHALL NOT BE HELD LIABLE FOR ANY DIRECT, INDIRECT OR
  * CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE CONTENT
  * OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING INFORMATION
  * CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
- * 
+ *
  * Copyright (C) SEMTECH S.A.
  */
-/*! 
+/*!
  * \file       sx1276-Hal.c
  * \brief      SX1276 Hardware Abstraction Layer
  *
- * \version    2.0.B2 
+ * \version    2.0.B2
  * \date       Nov 21 2012
  * \author     Miguel Luis
  *
@@ -24,9 +24,9 @@
 
 void SX1278InitIo( void )
 {
-    // Configure RESET PIN as output    
+    // Configure RESET PIN as output
     GPIO_Init(GPIOA, GPIO_Pin_2, GPIO_Mode_Out_PP_Low_Slow);
-    
+
     // Configure DIO0
     //DIO0_PIN.mode(INPUT);
     GPIO_Init(GPIOA, GPIO_Pin_3, GPIO_Mode_In_FL_No_IT);
@@ -43,18 +43,19 @@ void SX1278InitIo( void )
     GPIO_Init(GPIOB, GPIO_Pin_3, GPIO_Mode_In_FL_No_IT);
 
     // Configure DIO4 as input
-    
+
     // Configure DIO5 as input
-    
+
     //init spi
     spi_config();
 }
 
-uint8_t SX1278WriteBits(uint8_t reg, uint8_t value, uint8_t msb, uint8_t lsb) 
+uint8_t SX1278WriteBits(uint8_t reg, uint8_t value, uint8_t msb, uint8_t lsb)
 {
     uint8_t currentValue;
     uint8_t newValue;
-    if((msb > 7) || (lsb > 7)) {
+    if((msb > 7) || (lsb > 7))
+    {
         return 0xFF;
     }
     currentValue = SX1278Read(reg);
@@ -63,10 +64,12 @@ uint8_t SX1278WriteBits(uint8_t reg, uint8_t value, uint8_t msb, uint8_t lsb)
     return 0;
 }
 
-uint8_t SX1278ReadBits(uint8_t reg, uint8_t msb, uint8_t lsb) {
+uint8_t SX1278ReadBits(uint8_t reg, uint8_t msb, uint8_t lsb)
+{
     uint8_t rawValue;
     uint8_t maskedValue;
-    if((msb > 7) || (lsb > 7)) {
+    if((msb > 7) || (lsb > 7))
+    {
         return 0xFF;
     }
     rawValue = SX1278Read(reg);
@@ -76,7 +79,7 @@ uint8_t SX1278ReadBits(uint8_t reg, uint8_t msb, uint8_t lsb) {
 uint8_t SX1278Write( uint8_t addr, uint8_t data )
 {
     SX1278WriteBuffer( addr, &data, 1 );
-   // LORA_DBG("REG0X%02X:0X%02X",addr,SX1278Read(addr));
+    // LORA_DBG("REG0X%02X:0X%02X",addr,SX1278Read(addr));
     return data;
 }
 
@@ -98,7 +101,7 @@ void SX1278WriteBuffer( uint8_t addr, uint8_t *buffer, uint8_t size )
     for( i = 0; i < size; i++ )
     {
         spi1_transfer( buffer[i]) ;
-   }
+    }
     //NSS = 1;
     NSS_PIN_SET;
 

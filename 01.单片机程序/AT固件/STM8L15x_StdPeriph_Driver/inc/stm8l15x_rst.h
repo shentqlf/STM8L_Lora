@@ -17,13 +17,13 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
-  ******************************************************************************  
+  ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -36,27 +36,28 @@
 /** @addtogroup STM8L15x_StdPeriph_Driver
   * @{
   */
-  
+
 /** @addtogroup RST
   * @{
-  */ 
-  
+  */
+
 /* Exported variables ------------------------------------------------------- */
 /* Exported types ------------------------------------------------------------*/
 /** @defgroup RST_Exported_Types
   * @{
   */
 
-/** @defgroup RST_Flags 
+/** @defgroup RST_Flags
   * @{
   */
-typedef enum {
-  RST_FLAG_PORF   = (uint8_t)0x01, /*!< POR reset flag */
-  RST_FLAG_SWIMF  = (uint8_t)0x08, /*!< SWIM reset flag */
-  RST_FLAG_ILLOPF = (uint8_t)0x04, /*!< Illegal opcode reset flag */
-  RST_FLAG_IWDGF  = (uint8_t)0x02, /*!< Independent watchdog reset flag */
-  RST_FLAG_WWDGF  = (uint8_t)0x10, /*!< Window watchdog reset flag */
-  RST_FLAG_BORF   = (uint8_t)0x20  /*!< BOR reset flag */
+typedef enum
+{
+    RST_FLAG_PORF   = (uint8_t)0x01, /*!< POR reset flag */
+    RST_FLAG_SWIMF  = (uint8_t)0x08, /*!< SWIM reset flag */
+    RST_FLAG_ILLOPF = (uint8_t)0x04, /*!< Illegal opcode reset flag */
+    RST_FLAG_IWDGF  = (uint8_t)0x02, /*!< Independent watchdog reset flag */
+    RST_FLAG_WWDGF  = (uint8_t)0x10, /*!< Window watchdog reset flag */
+    RST_FLAG_BORF   = (uint8_t)0x20  /*!< BOR reset flag */
 } RST_FLAG_TypeDef;
 
 #define IS_RST_FLAG(FLAG)  (((FLAG) == RST_FLAG_PORF) || ((FLAG) == RST_FLAG_BORF) || \
@@ -65,7 +66,7 @@ typedef enum {
 /**
   * @}
   */
-  
+
 /**
   * @}
   */
@@ -83,7 +84,7 @@ void RST_GPOutputEnable(void);
 /**
   * @}
   */
-  
+
 /**
   * @}
   */

@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -56,39 +56,39 @@ static void PVD_Config(void);
   */
 void main(void)
 {
-  /* System Clock is HSI/1 */
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    /* System Clock is HSI/1 */
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /* Init TIM2 to generate 1 ms time base update interrupt */
-  TimingDelay_Init();
+    /* Init TIM2 to generate 1 ms time base update interrupt */
+    TimingDelay_Init();
 
-   /* PVD configuration -------------------------------------------*/
-  PVD_Config(); 
+    /* PVD configuration -------------------------------------------*/
+    PVD_Config();
 
-  /* Enable Interrupts */
-  enableInterrupts();
+    /* Enable Interrupts */
+    enableInterrupts();
 
-  /* 1s delay to ensure proper LCD Init*/
-  Delay(1000);
+    /* 1s delay to ensure proper LCD Init*/
+    Delay(1000);
 
-  /* Init the Eval board LCD */
-  STM8_EVAL_LCD_Init();
+    /* Init the Eval board LCD */
+    STM8_EVAL_LCD_Init();
 
-  /* Clear LCD */
-  LCD_Clear();
+    /* Clear LCD */
+    LCD_Clear();
 
-  LCD_SetCursorPos(LCD_LINE1, 0);
-  LCD_Print("MCU : Run  Mode");
+    LCD_SetCursorPos(LCD_LINE1, 0);
+    LCD_Print("MCU : Run  Mode");
 
-  LCD_SetCursorPos(LCD_LINE2, 0);
-  LCD_Print(" Turn VDD ADJ  ");
+    LCD_SetCursorPos(LCD_LINE2, 0);
+    LCD_Print(" Turn VDD ADJ  ");
 
-  /* Disable TIM2 update interrupt */
-  TIM2_ITConfig(TIM2_IT_Update, DISABLE);
+    /* Disable TIM2 update interrupt */
+    TIM2_ITConfig(TIM2_IT_Update, DISABLE);
 
-  /* Infinite loop */
-  while (1)
-  {}
+    /* Infinite loop */
+    while (1)
+    {}
 }
 
 /**
@@ -98,14 +98,14 @@ void main(void)
   */
 static void PVD_Config(void)
 {
-  /* select PVD threshold*/
-  PWR_PVDLevelConfig(PWR_PVDLevel_2V85);
+    /* select PVD threshold*/
+    PWR_PVDLevelConfig(PWR_PVDLevel_2V85);
 
-  /*Enable PVD  : optional (PVD is by default enabled)*/
-  PWR_PVDCmd(ENABLE);
+    /*Enable PVD  : optional (PVD is by default enabled)*/
+    PWR_PVDCmd(ENABLE);
 
-  /*Enable PVD Interrupt*/
-  PWR_PVDITConfig(ENABLE);
+    /*Enable PVD Interrupt*/
+    PWR_PVDITConfig(ENABLE);
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -116,19 +116,19 @@ static void PVD_Config(void)
   * @param line: assert_param error line source number
   * @retval : None
   */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-    LCD_SetCursorPos(LCD_LINE1, 0);
-    LCD_Print("      ERR       ");
-    LCD_SetCursorPos(LCD_LINE2, 0);
-    LCD_Print("     ASSERT     ");
-  }
+    /* Infinite loop */
+    while (1)
+    {
+        LCD_SetCursorPos(LCD_LINE1, 0);
+        LCD_Print("      ERR       ");
+        LCD_SetCursorPos(LCD_LINE2, 0);
+        LCD_Print("     ASSERT     ");
+    }
 }
 #endif
 

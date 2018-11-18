@@ -16,14 +16,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -58,40 +58,40 @@
 void main(void)
 {
 
-  /* I2C  clock Enable*/
-  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, ENABLE);
+    /* I2C  clock Enable*/
+    CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, ENABLE);
 
-  /* system_clock / 1 */
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
+    /* system_clock / 1 */
+    CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
 
-  /* Initialize LEDs mounted on STM8L1526-EVAL board */
-  STM_EVAL_LEDInit(LED2);
-  STM_EVAL_LEDInit(LED3);
+    /* Initialize LEDs mounted on STM8L1526-EVAL board */
+    STM_EVAL_LEDInit(LED2);
+    STM_EVAL_LEDInit(LED3);
 
-  I2C_DeInit(I2C1);
-  /* Initialize I2C peripheral */
+    I2C_DeInit(I2C1);
+    /* Initialize I2C peripheral */
 
 #ifdef I2C_slave_7Bits_Address
-  I2C_Init(I2C1, 100000, SLAVE_ADDRESS,
-           I2C_Mode_I2C, I2C_DutyCycle_2,
-           I2C_Ack_Enable, I2C_AcknowledgedAddress_7bit);
+    I2C_Init(I2C1, 100000, SLAVE_ADDRESS,
+             I2C_Mode_I2C, I2C_DutyCycle_2,
+             I2C_Ack_Enable, I2C_AcknowledgedAddress_7bit);
 #else
-  I2C_Init(I2C1, 100000, SLAVE_ADDRESS,
-           I2C_Mode_I2C, I2C_DutyCycle_2,
-           I2C_Ack_Enable, I2C_AcknowledgedAddress_10bit);
+    I2C_Init(I2C1, 100000, SLAVE_ADDRESS,
+             I2C_Mode_I2C, I2C_DutyCycle_2,
+             I2C_Ack_Enable, I2C_AcknowledgedAddress_10bit);
 #endif
 
-  /* Enable Error Interrupt*/
-  I2C_ITConfig(I2C1, (I2C_IT_TypeDef)(I2C_IT_ERR | I2C_IT_EVT | I2C_IT_BUF), ENABLE);
+    /* Enable Error Interrupt*/
+    I2C_ITConfig(I2C1, (I2C_IT_TypeDef)(I2C_IT_ERR | I2C_IT_EVT | I2C_IT_BUF), ENABLE);
 
-  /* Enable general interrupts */
-  enableInterrupts();
+    /* Enable general interrupts */
+    enableInterrupts();
 
-  /*Main Loop */
-  while (1)
-  {
-    /* infinite loop */
-  }
+    /*Main Loop */
+    while (1)
+    {
+        /* infinite loop */
+    }
 }
 
 /**
