@@ -59,15 +59,19 @@ void at_recv_event(char temp)
         pCmdLine = at_cmdLine;
         at_state = at_statIpTraning;
     case at_statIpTraning:
-        if(count  < (LoRaPacket.len - 4) )
+        if(count  < (LoRaPacket.data_len) )
         {
             *pCmdLine++ = temp;
             count++;
         }
 
-        if(count >= (LoRaPacket.len - 4))
+        if(count >= (LoRaPacket.data_len ))
         {
-            LoRaPacket.source.val = LoRaAddr;
+           if(AddrEnable == 1)
+                LoRaPacket.packet_len = LoRaPacket.data_len + 4;
+           else
+                LoRaPacket.packet_len = LoRaPacket.data_len ;
+           LoRaPacket.source.val = LoRaAddr;
             LoRaPacket.destination.val = DestAddr;
             LoRaPacket.data = (uint8_t *)at_cmdLine;
             SX1278SetTxPacket(&LoRaPacket);
@@ -139,7 +143,13 @@ void at_process_loop()
                 uart1_write_string("AT,OK\r\n");
                 return ;
             }
-            LoRaPacket.len = Transport_counter + 4;
+            LoRaPacket.data_len = Transport_counter ;
+           if(AddrEnable == 1)
+                LoRaPacket.packet_len = Transport_counter + 4;
+           else
+                LoRaPacket.packet_len = Transport_counter ;
+
+
             LoRaPacket.source.val = LoRaAddr;
             LoRaPacket.destination.val = DestAddr;
             LoRaPacket.data = (uint8_t *)at_cmdLine;

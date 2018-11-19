@@ -315,22 +315,22 @@ void SX1278Send(uint8_t *pBuffer, uint8_t len)
 void SX1278SetTxPacket(Packet_t *packet)
 {
     uint8_t *p = RFBuffer;
-    if(LoRaSettings.ImplicitHeaderOn == TRUE && LoRaSettings.PayloadLength < packet->len)
+    if(LoRaSettings.ImplicitHeaderOn == TRUE && LoRaSettings.PayloadLength < packet->packet_len)
     {
         TxPacketSize = LoRaSettings.PayloadLength;
     }
     else
     {
-        TxPacketSize = packet->len  ;
+        TxPacketSize = packet->packet_len  ;
     }
     if(AddrEnable == 1)
     {
-        *p++ = packet->source.byte[0];
+       *p++ = packet->source.byte[0];
         *p++ = packet->source.byte[1];
         *p++ = packet->destination.byte[0];
         *p++ = packet->destination.byte[1];
 
-        memcpy( ( void * )(RFBuffer + 4), packet->data, ( size_t )(TxPacketSize - 4 ) );
+        memcpy( ( void * )(RFBuffer + 4), packet->data, ( size_t )( packet->data_len  ) );
     }
     else
     {

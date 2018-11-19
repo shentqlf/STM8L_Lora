@@ -882,6 +882,7 @@
             this.tbDestAddr.Name = "tbDestAddr";
             this.tbDestAddr.Size = new System.Drawing.Size(100, 21);
             this.tbDestAddr.TabIndex = 96;
+            this.tbDestAddr.Text = "FFFF";
             this.tbDestAddr.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textInput16_4_Dest_KeyPress);
             // 
             // btnDestAddr
@@ -920,6 +921,7 @@
             this.tbAddr.Name = "tbAddr";
             this.tbAddr.Size = new System.Drawing.Size(100, 21);
             this.tbAddr.TabIndex = 91;
+            this.tbAddr.Text = "FFFF";
             this.tbAddr.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textInput_KeyPress);
             // 
             // label20
@@ -981,6 +983,7 @@
             this.tbACK.Name = "tbACK";
             this.tbACK.Size = new System.Drawing.Size(100, 21);
             this.tbACK.TabIndex = 113;
+            this.tbACK.Text = "0";
             // 
             // cbLiangChan
             // 
@@ -999,6 +1002,7 @@
             this.tbAddrEnable.Name = "tbAddrEnable";
             this.tbAddrEnable.Size = new System.Drawing.Size(100, 21);
             this.tbAddrEnable.TabIndex = 116;
+            this.tbAddrEnable.Text = "0";
             // 
             // btnAddrEn
             // 

@@ -344,8 +344,8 @@ void at_CmdSend(char *pPara)
     {
         if(SX1278GetRFState() != RFLR_STATE_TX_RUNNING)
         {
-            LoRaPacket.len = getPara(&pPara, 10) + 4;
-            if(LoRaPacket.len > 4 && LoRaPacket.len < 255)
+            LoRaPacket.data_len = getPara(&pPara, 10);
+            if(LoRaPacket.data_len > 0 && LoRaPacket.data_len < 250)
             {
                 at_back(AT_ERR_OK_ID);
                 at_state = at_statTranInit;
@@ -426,6 +426,8 @@ void at_CmdAck(char *pPara)
 void at_CmdTransport(char *pPara)
 {
     at_state = at_statTransportIdle;
+    if(SX1278GetRFState() == RFLR_STATE_IDLE)
+      SX1278SetRFState(RFLR_STATE_RX_INIT);
     at_back(AT_ERR_OK_ID);
 }
 #if USE_IO

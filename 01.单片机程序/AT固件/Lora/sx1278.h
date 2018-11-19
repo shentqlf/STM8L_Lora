@@ -156,7 +156,8 @@ typedef struct
     xuint16_t source;
     xuint16_t destination;
     uint8_t *data;
-    uint8_t len;
+    uint8_t data_len;
+    uint8_t packet_len;
 } Packet_t;
 
 extern tLoRaSettings LoRaSettings;

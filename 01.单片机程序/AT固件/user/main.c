@@ -20,7 +20,7 @@ void ForwardPacket()
     // *size = RxPacketSize;
     //memcpy( ( void * )buffer, ( void * )RFBuffer, ( size_t )*size );
     uint8_t buf[8] ;
-    uint8_t len = RxPacketSize - 4;
+    uint8_t len = RxPacketSize;
     xuint16_t sourceAddr;
     xuint16_t destAddr;
 
@@ -31,7 +31,7 @@ void ForwardPacket()
     destAddr.byte[1] = *(RFBuffer + 3);
     if(AddrEnable == 1)
     {
-
+        len -= 4;
         if(LoRaAddr == destAddr.val || destAddr.val == 0xffff || LoRaAddr == 0xffff)
         {
             if(ack_on == 1)
@@ -57,7 +57,7 @@ void ForwardPacket()
             uart1_write((uint8_t *)buf, 8);
 
 
-            uart1_write((RFBuffer + 4), len);
+            uart1_write((RFBuffer + 4), len );
             uart1_write_string("\r\n");
         }
     }
