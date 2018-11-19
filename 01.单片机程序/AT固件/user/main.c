@@ -16,6 +16,7 @@ extern uint8_t RxPacketSize;
 extern at_stateType  at_state;
 void ForwardPacket()
 {
+  disableInterrupts();
     // *size = RxPacketSize;
     //memcpy( ( void * )buffer, ( void * )RFBuffer, ( size_t )*size );
     uint8_t buf[8] ;
@@ -85,6 +86,7 @@ void ForwardPacket()
     */
 
     RxPacketSize = 0;
+    enableInterrupts();
 }
 uint8_t temp;
 
@@ -154,7 +156,7 @@ void main(void)
             //SX1276LoRaSetRFState(RFLR_STATE_RX_INIT);
             else
             {
-                uart1_write_string("AT,SEND OK\r\n");
+                uart1_write_string("AT,SENDED\r\n");
             }
 
             break;
