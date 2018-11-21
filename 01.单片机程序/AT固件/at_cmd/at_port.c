@@ -130,7 +130,9 @@ void at_process_loop()
     uint8_t temp;
     if(at_state == at_statProcess)
     {
+      disableInterrupts();
         at_cmdProcess(at_cmdLine);
+        enableInterrupts();
     }
     else if(at_state == at_statTransportRecv)
     {

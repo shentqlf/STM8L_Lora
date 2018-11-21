@@ -361,13 +361,21 @@ void SX1278RxMode(bool RxSingleOn)
                 SX1278_DIO0_RX_DONE |
                 SX1278_DIO1_RX_TIMEOUT |
                 SX1278_DIO2_FHSS_CHANGE_CHANNEL |
-                SX1278_DIO3_CAD_DONE
+                SX1278_DIO3_VALID_HEADER
                );
     SX1278WriteBits(SX1278_REG_DIO_MAPPING_2,
                     SX1278_DIO4_CAD_DETECTED |
                     SX1278_DIO5_MODE_READY,
                     7, 4);
-    //set single mode on or off
+     SX1278Write(SX1278_REG_IRQ_FLAGS_MASK, 
+                            SX1278_MASK_IRQ_FLAG_RX_TIMEOUT&
+                            SX1278_MASK_IRQ_FLAG_RX_DONE &
+                            SX1278_MASK_IRQ_FLAG_FHSS_CHANGE_CHANNEL&
+                            SX1278_MASK_IRQ_FLAG_VALID_HEADER &
+                            SX1278_MASK_IRQ_FLAG_CAD_DETECTED
+                            );
+   
+   //set single mode on or off
     if(RxSingleOn == TRUE)
     {
         //set OpMode receive
@@ -444,16 +452,16 @@ uint8_t SX1278Process( void )
         result = RF_IDLE;
         break;
     case RFLR_STATE_RX_INIT:
-        LORA_DBG("RX_INIT");
         SX1278RxMode(LoRaSettings.RxSingleOn);
         RFLRState = RFLR_STATE_RX_WAIT_SIGNAL;
         LastRxTxTime  = millis();
         break;
     case RFLR_STATE_RX_WAIT_SIGNAL:
-        temp = SX1278Read( SX1278_REG_MODEM_STAT );
-        if((temp & 0x03) != 0x0)
+        if( DIO3_PIN_READ == 1 ) // RxDone
         {
             RFLRState = RFLR_STATE_RX_RUNNING;
+            SX1278ClearIRQFlags(SX1278_CLEAR_IRQ_FLAG_VALID_HEADER);
+            //uart1_write_string("run\r\n");
         }
         result = RF_RX_WAIT_SIGNAL;
         break;
@@ -463,11 +471,12 @@ uint8_t SX1278Process( void )
         if( DIO0_PIN_READ == 1 ) // RxDone
         {
             RxTxPacketTime = millis() - LastRxTxTime;
-            LORA_DBG("IRQ0:0x%02x", SX1278Read(SX1278_REG_IRQ_FLAGS));
             // Clear Irq
             SX1278ClearIRQFlags(SX1278_CLEAR_IRQ_FLAG_RX_DONE);
             RFLRState = RFLR_STATE_RX_DONE;
         }
+
+
 
         /*
         不使用硬件的超时中断
@@ -508,8 +517,8 @@ uint8_t SX1278Process( void )
         result = RF_RX_RUNNING;
         break;
     case RFLR_STATE_RX_DONE:
-        LORA_DBG("RX_DONE");
-        LastRxTxTime =  millis();
+        //     uart1_write_string("done\r\n");
+       LastRxTxTime =  millis();
         if((SX1278Read(SX1278_REG_IRQ_FLAGS)&SX1278_CLEAR_IRQ_FLAG_PAYLOAD_CRC_ERROR) == SX1278_CLEAR_IRQ_FLAG_PAYLOAD_CRC_ERROR)
         {
             LORA_DBG("IRQ3:0x%02x", SX1278Read(SX1278_REG_IRQ_FLAGS));

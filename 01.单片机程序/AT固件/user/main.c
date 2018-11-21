@@ -124,12 +124,17 @@ void main(void)
         case RF_RX_WAIT_SIGNAL:
             if(at_state == at_statTransportRecvOver)
             {
+                      disableInterrupts();
+
                 TransportNewPacket();
                 SX1278SendEnable();
+                        enableInterrupts();
+
             }
             break;
         case RF_RX_RUNNING:
             //RxPacketSize = SX1278Read( SX1278_REG_RX_NB_BYTES );
+            //uart1_write_string("x\r\n");
 
             break;
 
