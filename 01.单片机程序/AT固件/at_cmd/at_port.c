@@ -109,6 +109,8 @@ void at_recv_event(char temp)
 
         break;
 
+    case at_statTransportRecvOver:
+      
     case at_statTransportSending:
         if(Transport_sending_note_flag == 0)
         {
@@ -153,7 +155,7 @@ void at_process_loop()
             LoRaPacket.source.val = LoRaAddr;
             LoRaPacket.destination.val = DestAddr;
             LoRaPacket.data = (uint8_t *)at_cmdLine;
-            at_state = at_statTransportSending;
+            at_state = at_statTransportRecvOver;
         }
     }
     else if(at_state == at_statTransportSending)
@@ -167,4 +169,5 @@ void TransportNewPacket()
 {
 
     SX1278SetTxPacket(&LoRaPacket);
+    at_state = at_statTransportSending;
 }

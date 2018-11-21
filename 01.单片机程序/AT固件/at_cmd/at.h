@@ -14,6 +14,7 @@ typedef enum
     //透传模式状态机
     at_statTransportIdle,
     at_statTransportRecv,
+    at_statTransportRecvOver,
     at_statTransportSending
 
 } at_stateType;

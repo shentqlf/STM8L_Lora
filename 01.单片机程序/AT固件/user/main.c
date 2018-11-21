@@ -122,7 +122,7 @@ void main(void)
             //gpio_pb0_toggle();
             break;
         case RF_RX_WAIT_SIGNAL:
-            if(at_state == at_statTransportSending)
+            if(at_state == at_statTransportRecvOver)
             {
                 TransportNewPacket();
                 SX1278SendEnable();
