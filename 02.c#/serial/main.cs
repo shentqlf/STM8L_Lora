@@ -760,7 +760,7 @@ namespace serial
         #region LoRa命令测试功能
         private void ParamentLoad()
         {
-            tbPFrq.Text = "453000000";
+            tbPFrq.Text = "433000000";
             tbPPower.Text = "20";
             tbPBW.Text = "9";
             tbPSF.Text = "10";
