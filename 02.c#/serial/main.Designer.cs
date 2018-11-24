@@ -63,7 +63,6 @@
             this.tbPPower = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.tbPSF = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.tbPBW = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -121,6 +120,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.txtRecvChar = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -132,9 +132,9 @@
             // cbBaudRate
             // 
             this.cbBaudRate.FormattingEnabled = true;
-            this.cbBaudRate.Location = new System.Drawing.Point(63, 24);
+            this.cbBaudRate.Location = new System.Drawing.Point(74, 24);
             this.cbBaudRate.Name = "cbBaudRate";
-            this.cbBaudRate.Size = new System.Drawing.Size(73, 20);
+            this.cbBaudRate.Size = new System.Drawing.Size(67, 20);
             this.cbBaudRate.TabIndex = 1;
             // 
             // label1
@@ -143,9 +143,9 @@
             this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(11, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 12);
+            this.label1.Size = new System.Drawing.Size(40, 12);
             this.label1.TabIndex = 2;
-            this.label1.Text = "端口：";
+            this.label1.Text = "port:";
             // 
             // label2
             // 
@@ -153,9 +153,9 @@
             this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(0, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 12);
+            this.label2.Size = new System.Drawing.Size(68, 12);
             this.label2.TabIndex = 3;
-            this.label2.Text = "波特率：";
+            this.label2.Text = "baudrate:";
             // 
             // label3
             // 
@@ -163,9 +163,9 @@
             this.label3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(148, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 12);
+            this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 4;
-            this.label3.Text = "校验位：";
+            this.label3.Text = "check：";
             // 
             // cbParity
             // 
@@ -182,9 +182,9 @@
             this.label4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.Location = new System.Drawing.Point(0, 53);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 12);
+            this.label4.Size = new System.Drawing.Size(75, 12);
             this.label4.TabIndex = 6;
-            this.label4.Text = "数据位：";
+            this.label4.Text = "data bits:";
             // 
             // label5
             // 
@@ -192,17 +192,17 @@
             this.label5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.Location = new System.Drawing.Point(148, 53);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 12);
+            this.label5.Size = new System.Drawing.Size(46, 12);
             this.label5.TabIndex = 7;
-            this.label5.Text = "停止位：";
+            this.label5.Text = "stop：";
             // 
             // cbData
             // 
             this.cbData.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbData.FormattingEnabled = true;
-            this.cbData.Location = new System.Drawing.Point(63, 50);
+            this.cbData.Location = new System.Drawing.Point(74, 50);
             this.cbData.Name = "cbData";
-            this.cbData.Size = new System.Drawing.Size(74, 20);
+            this.cbData.Size = new System.Drawing.Size(68, 20);
             this.cbData.TabIndex = 8;
             // 
             // cbStop
@@ -220,7 +220,7 @@
             this.btnSwitch.Name = "btnSwitch";
             this.btnSwitch.Size = new System.Drawing.Size(121, 23);
             this.btnSwitch.TabIndex = 10;
-            this.btnSwitch.Text = "打开串口";
+            this.btnSwitch.Text = "open";
             this.btnSwitch.UseVisualStyleBackColor = true;
             this.btnSwitch.Click += new System.EventHandler(this.btnSwitch_Click);
             // 
@@ -239,7 +239,7 @@
             this.groupBox1.Size = new System.Drawing.Size(280, 74);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "串口设置";
+            this.groupBox1.Text = "settings";
             // 
             // cbSerial
             // 
@@ -256,7 +256,7 @@
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 19;
-            this.btnExit.Text = "退出";
+            this.btnExit.Text = "exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -266,7 +266,7 @@
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(62, 23);
             this.btnClear.TabIndex = 20;
-            this.btnClear.Text = "清空";
+            this.btnClear.Text = "clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
@@ -286,14 +286,14 @@
             this.菜单ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.打开binToolStripMenuItem});
             this.菜单ToolStripMenuItem.Name = "菜单ToolStripMenuItem";
-            this.菜单ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.菜单ToolStripMenuItem.Text = "文件";
+            this.菜单ToolStripMenuItem.Size = new System.Drawing.Size(37, 21);
+            this.菜单ToolStripMenuItem.Text = "file";
             // 
             // 打开binToolStripMenuItem
             // 
             this.打开binToolStripMenuItem.Name = "打开binToolStripMenuItem";
-            this.打开binToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.打开binToolStripMenuItem.Text = "打开（*.bin）";
+            this.打开binToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.打开binToolStripMenuItem.Text = "open（*.bin）";
             this.打开binToolStripMenuItem.Click += new System.EventHandler(this.打开binToolStripMenuItem_Click);
             // 
             // 帮助ToolStripMenuItem
@@ -302,20 +302,20 @@
             this.注册ToolStripMenuItem,
             this.版本ToolStripMenuItem});
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.帮助ToolStripMenuItem.Text = "帮助";
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(45, 21);
+            this.帮助ToolStripMenuItem.Text = "help";
             // 
             // 注册ToolStripMenuItem
             // 
             this.注册ToolStripMenuItem.Name = "注册ToolStripMenuItem";
-            this.注册ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.注册ToolStripMenuItem.Text = "注册";
+            this.注册ToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.注册ToolStripMenuItem.Text = "regedit";
             // 
             // 版本ToolStripMenuItem
             // 
             this.版本ToolStripMenuItem.Name = "版本ToolStripMenuItem";
-            this.版本ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.版本ToolStripMenuItem.Text = "版本";
+            this.版本ToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.版本ToolStripMenuItem.Text = "version";
             this.版本ToolStripMenuItem.Click += new System.EventHandler(this.版本ToolStripMenuItem_Click);
             // 
             // btnDownload
@@ -325,7 +325,7 @@
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(133, 23);
             this.btnDownload.TabIndex = 24;
-            this.btnDownload.Text = "下载程序";
+            this.btnDownload.Text = "download";
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
@@ -345,8 +345,8 @@
             // tsState
             // 
             this.tsState.Name = "tsState";
-            this.tsState.Size = new System.Drawing.Size(41, 17);
-            this.tsState.Text = "等待...";
+            this.tsState.Size = new System.Drawing.Size(40, 17);
+            this.tsState.Text = "wait...";
             // 
             // tsProgressBar
             // 
@@ -356,8 +356,8 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(107, 17);
-            this.toolStripStatusLabel1.Text = "最后一条AT命令：";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(113, 17);
+            this.toolStripStatusLabel1.Text = "Last AT commond";
             // 
             // tsLoRaCMD
             // 
@@ -373,7 +373,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(106, 23);
             this.button2.TabIndex = 39;
-            this.button2.Text = "打开文件";
+            this.button2.Text = "open file";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -408,7 +408,7 @@
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(62, 49);
             this.btnSend.TabIndex = 43;
-            this.btnSend.Text = "发送";
+            this.btnSend.Text = "send";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click_1);
             // 
@@ -418,7 +418,7 @@
             this.btnReadVersion.Name = "btnReadVersion";
             this.btnReadVersion.Size = new System.Drawing.Size(86, 23);
             this.btnReadVersion.TabIndex = 45;
-            this.btnReadVersion.Text = "读取版本信息";
+            this.btnReadVersion.Text = "Version";
             this.btnReadVersion.UseVisualStyleBackColor = true;
             this.btnReadVersion.Click += new System.EventHandler(this.btnReadVersion_Click);
             // 
@@ -428,7 +428,7 @@
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(86, 23);
             this.btnTest.TabIndex = 46;
-            this.btnTest.Text = "测试";
+            this.btnTest.Text = "test";
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
@@ -437,9 +437,9 @@
             this.cbEnter.AutoSize = true;
             this.cbEnter.Location = new System.Drawing.Point(1027, 387);
             this.cbEnter.Name = "cbEnter";
-            this.cbEnter.Size = new System.Drawing.Size(84, 16);
+            this.cbEnter.Size = new System.Drawing.Size(72, 16);
             this.cbEnter.TabIndex = 47;
-            this.cbEnter.Text = "加回车换行";
+            this.cbEnter.Text = "add \\r\\n";
             this.cbEnter.UseVisualStyleBackColor = true;
             // 
             // tbFileSize
@@ -455,18 +455,18 @@
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(86, 23);
             this.btnRestart.TabIndex = 53;
-            this.btnRestart.Text = "复位";
+            this.btnRestart.Text = "RST";
             this.btnRestart.UseVisualStyleBackColor = true;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(60, 9);
+            this.label7.Location = new System.Drawing.Point(66, 9);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(41, 12);
+            this.label7.Size = new System.Drawing.Size(35, 12);
             this.label7.TabIndex = 54;
-            this.label7.Text = "频率：";
+            this.label7.Text = "freq:";
             // 
             // tbPFrq
             // 
@@ -485,11 +485,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(60, 37);
+            this.label8.Location = new System.Drawing.Point(60, 38);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(41, 12);
             this.label8.TabIndex = 56;
-            this.label8.Text = "功率：";
+            this.label8.Text = "power:";
             // 
             // tbPSF
             // 
@@ -497,15 +497,6 @@
             this.tbPSF.Name = "tbPSF";
             this.tbPSF.Size = new System.Drawing.Size(100, 21);
             this.tbPSF.TabIndex = 61;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(36, 93);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(65, 12);
-            this.label9.TabIndex = 60;
-            this.label9.Text = "扩频因子：";
             // 
             // tbPBW
             // 
@@ -517,16 +508,16 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(60, 65);
+            this.label10.Location = new System.Drawing.Point(78, 67);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 12);
+            this.label10.Size = new System.Drawing.Size(23, 12);
             this.label10.TabIndex = 58;
-            this.label10.Text = "带宽：";
+            this.label10.Text = "BW:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(66, 149);
+            this.label11.Location = new System.Drawing.Point(66, 154);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 12);
             this.label11.TabIndex = 64;
@@ -542,11 +533,11 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(48, 121);
+            this.label12.Location = new System.Drawing.Point(78, 125);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(53, 12);
+            this.label12.Size = new System.Drawing.Size(23, 12);
             this.label12.TabIndex = 62;
-            this.label12.Text = "纠错码：";
+            this.label12.Text = "CR:";
             // 
             // tbPPayloadLen
             // 
@@ -558,11 +549,11 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(12, 317);
+            this.label13.Location = new System.Drawing.Point(12, 328);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(89, 12);
             this.label13.TabIndex = 77;
-            this.label13.Text = "用户数据长度：";
+            this.label13.Text = "PayloadLength:";
             // 
             // tbPRXTimeout
             // 
@@ -574,11 +565,11 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 289);
+            this.label14.Location = new System.Drawing.Point(0, 299);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(89, 12);
+            this.label14.Size = new System.Drawing.Size(101, 12);
             this.label14.TabIndex = 75;
-            this.label14.Text = "接收超时时间：";
+            this.label14.Text = "RxPacketTimeout:";
             // 
             // tbPHopTime
             // 
@@ -590,38 +581,38 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(36, 261);
+            this.label15.Location = new System.Drawing.Point(36, 270);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(65, 12);
             this.label15.TabIndex = 73;
-            this.label15.Text = "跳频周期：";
+            this.label15.Text = "HopPeriod:";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(60, 233);
+            this.label16.Location = new System.Drawing.Point(48, 241);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(41, 12);
+            this.label16.Size = new System.Drawing.Size(53, 12);
             this.label16.TabIndex = 71;
-            this.label16.Text = "跳频：";
+            this.label16.Text = "FreqHop:";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(36, 205);
+            this.label17.Location = new System.Drawing.Point(42, 212);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(65, 12);
+            this.label17.Size = new System.Drawing.Size(59, 12);
             this.label17.TabIndex = 69;
-            this.label17.Text = "单次接收：";
+            this.label17.Text = "RxSingle:";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(36, 177);
+            this.label18.Location = new System.Drawing.Point(6, 183);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(65, 12);
+            this.label18.Size = new System.Drawing.Size(95, 12);
             this.label18.TabIndex = 67;
-            this.label18.Text = "隐式报头：";
+            this.label18.Text = "ImplicitHeader:";
             // 
             // tbPPreambleLen
             // 
@@ -633,11 +624,11 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(24, 345);
+            this.label19.Location = new System.Drawing.Point(6, 357);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(77, 12);
+            this.label19.Size = new System.Drawing.Size(95, 12);
             this.label19.TabIndex = 79;
-            this.label19.Text = "前导码长度：";
+            this.label19.Text = "PreambleLength:";
             // 
             // cbCRC
             // 
@@ -681,12 +672,13 @@
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(75, 23);
             this.btnSettings.TabIndex = 85;
-            this.btnSettings.Text = "配置";
+            this.btnSettings.Text = "config";
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.btnTransportIn);
             this.panel1.Controls.Add(this.btnSaveParament);
             this.panel1.Controls.Add(this.btnTransportOut);
@@ -712,7 +704,6 @@
             this.panel1.Controls.Add(this.tbPPayloadLen);
             this.panel1.Controls.Add(this.tbPBW);
             this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.tbPRXTimeout);
             this.panel1.Controls.Add(this.tbPSF);
             this.panel1.Controls.Add(this.label14);
@@ -738,7 +729,7 @@
             this.btnTransportIn.TabIndex = 105;
             this.btnTransportIn.Text = "TSP";
             this.btnTransportIn.UseVisualStyleBackColor = true;
-            this.btnTransportIn.Click += new System.EventHandler(this.button3_Click);
+            this.btnTransportIn.Click += new System.EventHandler(this.btnTransportIn_Click);
             // 
             // btnSaveParament
             // 
@@ -746,7 +737,7 @@
             this.btnSaveParament.Name = "btnSaveParament";
             this.btnSaveParament.Size = new System.Drawing.Size(75, 23);
             this.btnSaveParament.TabIndex = 104;
-            this.btnSaveParament.Text = "保存";
+            this.btnSaveParament.Text = "save";
             this.btnSaveParament.UseVisualStyleBackColor = true;
             this.btnSaveParament.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -758,7 +749,7 @@
             this.btnTransportOut.TabIndex = 117;
             this.btnTransportOut.Text = "+++";
             this.btnTransportOut.UseVisualStyleBackColor = true;
-            this.btnTransportOut.Click += new System.EventHandler(this.button4_Click);
+            this.btnTransportOut.Click += new System.EventHandler(this.btnTransportOut_Click);
             // 
             // btnRX
             // 
@@ -814,24 +805,24 @@
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(16, 450);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(65, 12);
+            this.label23.Size = new System.Drawing.Size(71, 12);
             this.label23.TabIndex = 104;
-            this.label23.Text = "发送间隔：";
+            this.label23.Text = "Send period";
             // 
             // cbAutoSend
             // 
             this.cbAutoSend.AutoSize = true;
             this.cbAutoSend.Location = new System.Drawing.Point(171, 451);
             this.cbAutoSend.Name = "cbAutoSend";
-            this.cbAutoSend.Size = new System.Drawing.Size(72, 16);
+            this.cbAutoSend.Size = new System.Drawing.Size(78, 16);
             this.cbAutoSend.TabIndex = 100;
-            this.cbAutoSend.Text = "自动发送";
+            this.cbAutoSend.Text = "Auto send";
             this.cbAutoSend.UseVisualStyleBackColor = true;
             this.cbAutoSend.CheckedChanged += new System.EventHandler(this.cbAutoSend_CheckedChanged);
             // 
             // tbLoRaSendLength
             // 
-            this.tbLoRaSendLength.Location = new System.Drawing.Point(106, 356);
+            this.tbLoRaSendLength.Location = new System.Drawing.Point(124, 356);
             this.tbLoRaSendLength.Name = "tbLoRaSendLength";
             this.tbLoRaSendLength.Size = new System.Drawing.Size(100, 21);
             this.tbLoRaSendLength.TabIndex = 99;
@@ -841,9 +832,9 @@
             // 
             this.btnLoRaSendLength.Location = new System.Drawing.Point(7, 354);
             this.btnLoRaSendLength.Name = "btnLoRaSendLength";
-            this.btnLoRaSendLength.Size = new System.Drawing.Size(75, 23);
+            this.btnLoRaSendLength.Size = new System.Drawing.Size(91, 23);
             this.btnLoRaSendLength.TabIndex = 98;
-            this.btnLoRaSendLength.Text = "发送长度";
+            this.btnLoRaSendLength.Text = "send length";
             this.btnLoRaSendLength.UseVisualStyleBackColor = true;
             this.btnLoRaSendLength.Click += new System.EventHandler(this.btnLoRaSendLength_Click);
             // 
@@ -862,23 +853,23 @@
             this.btnLoRaSendData.Name = "btnLoRaSendData";
             this.btnLoRaSendData.Size = new System.Drawing.Size(75, 23);
             this.btnLoRaSendData.TabIndex = 88;
-            this.btnLoRaSendData.Text = "发送内容";
+            this.btnLoRaSendData.Text = "send data";
             this.btnLoRaSendData.UseVisualStyleBackColor = true;
             this.btnLoRaSendData.Click += new System.EventHandler(this.btnLoRa_Click);
             // 
             // btnReadDestAddr
             // 
-            this.btnReadDestAddr.Location = new System.Drawing.Point(214, 329);
+            this.btnReadDestAddr.Location = new System.Drawing.Point(232, 329);
             this.btnReadDestAddr.Name = "btnReadDestAddr";
             this.btnReadDestAddr.Size = new System.Drawing.Size(57, 19);
             this.btnReadDestAddr.TabIndex = 97;
-            this.btnReadDestAddr.Text = "读取";
+            this.btnReadDestAddr.Text = "read";
             this.btnReadDestAddr.UseVisualStyleBackColor = true;
             this.btnReadDestAddr.Click += new System.EventHandler(this.btnReadDestAddr_Click);
             // 
             // tbDestAddr
             // 
-            this.tbDestAddr.Location = new System.Drawing.Point(106, 328);
+            this.tbDestAddr.Location = new System.Drawing.Point(124, 328);
             this.tbDestAddr.Name = "tbDestAddr";
             this.tbDestAddr.Size = new System.Drawing.Size(100, 21);
             this.tbDestAddr.TabIndex = 96;
@@ -889,19 +880,19 @@
             // 
             this.btnDestAddr.Location = new System.Drawing.Point(7, 328);
             this.btnDestAddr.Name = "btnDestAddr";
-            this.btnDestAddr.Size = new System.Drawing.Size(75, 23);
+            this.btnDestAddr.Size = new System.Drawing.Size(91, 23);
             this.btnDestAddr.TabIndex = 95;
-            this.btnDestAddr.Text = "目标地址";
+            this.btnDestAddr.Text = "target addr";
             this.btnDestAddr.UseVisualStyleBackColor = true;
             this.btnDestAddr.Click += new System.EventHandler(this.btnDestAddr_Click);
             // 
             // btnReadAddr
             // 
-            this.btnReadAddr.Location = new System.Drawing.Point(214, 299);
+            this.btnReadAddr.Location = new System.Drawing.Point(232, 299);
             this.btnReadAddr.Name = "btnReadAddr";
             this.btnReadAddr.Size = new System.Drawing.Size(57, 20);
             this.btnReadAddr.TabIndex = 93;
-            this.btnReadAddr.Text = "读取";
+            this.btnReadAddr.Text = "read";
             this.btnReadAddr.UseVisualStyleBackColor = true;
             this.btnReadAddr.Click += new System.EventHandler(this.btnReadAddr_Click);
             // 
@@ -909,15 +900,15 @@
             // 
             this.btnAddr.Location = new System.Drawing.Point(7, 297);
             this.btnAddr.Name = "btnAddr";
-            this.btnAddr.Size = new System.Drawing.Size(75, 23);
+            this.btnAddr.Size = new System.Drawing.Size(91, 23);
             this.btnAddr.TabIndex = 90;
-            this.btnAddr.Text = "设置地址";
+            this.btnAddr.Text = "set addr";
             this.btnAddr.UseVisualStyleBackColor = true;
             this.btnAddr.Click += new System.EventHandler(this.btnAddr_Click);
             // 
             // tbAddr
             // 
-            this.tbAddr.Location = new System.Drawing.Point(106, 297);
+            this.tbAddr.Location = new System.Drawing.Point(124, 297);
             this.tbAddr.Name = "tbAddr";
             this.tbAddr.Size = new System.Drawing.Size(100, 21);
             this.tbAddr.TabIndex = 91;
@@ -928,7 +919,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label20.Location = new System.Drawing.Point(83, 297);
+            this.label20.Location = new System.Drawing.Point(101, 297);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(24, 16);
             this.label20.TabIndex = 92;
@@ -947,7 +938,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label22.Location = new System.Drawing.Point(83, 331);
+            this.label22.Location = new System.Drawing.Point(101, 331);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(24, 16);
             this.label22.TabIndex = 97;
@@ -959,7 +950,7 @@
             this.btnStopDownload.Name = "btnStopDownload";
             this.btnStopDownload.Size = new System.Drawing.Size(57, 22);
             this.btnStopDownload.TabIndex = 98;
-            this.btnStopDownload.Text = "停止";
+            this.btnStopDownload.Text = "stop";
             this.btnStopDownload.UseVisualStyleBackColor = true;
             this.btnStopDownload.Click += new System.EventHandler(this.btnStopDownload_Click);
             // 
@@ -971,7 +962,7 @@
             // 
             this.btnACK.Location = new System.Drawing.Point(9, 240);
             this.btnACK.Name = "btnACK";
-            this.btnACK.Size = new System.Drawing.Size(74, 23);
+            this.btnACK.Size = new System.Drawing.Size(90, 23);
             this.btnACK.TabIndex = 105;
             this.btnACK.Text = "ACK";
             this.btnACK.UseVisualStyleBackColor = true;
@@ -979,7 +970,7 @@
             // 
             // tbACK
             // 
-            this.tbACK.Location = new System.Drawing.Point(106, 242);
+            this.tbACK.Location = new System.Drawing.Point(124, 242);
             this.tbACK.Name = "tbACK";
             this.tbACK.Size = new System.Drawing.Size(100, 21);
             this.tbACK.TabIndex = 113;
@@ -990,15 +981,15 @@
             this.cbLiangChan.AutoSize = true;
             this.cbLiangChan.Location = new System.Drawing.Point(19, 218);
             this.cbLiangChan.Name = "cbLiangChan";
-            this.cbLiangChan.Size = new System.Drawing.Size(72, 16);
+            this.cbLiangChan.Size = new System.Drawing.Size(66, 16);
             this.cbLiangChan.TabIndex = 114;
-            this.cbLiangChan.Text = "量产模式";
+            this.cbLiangChan.Text = "nothing";
             this.cbLiangChan.UseVisualStyleBackColor = true;
             this.cbLiangChan.CheckedChanged += new System.EventHandler(this.cbLiangChan_CheckedChanged);
             // 
             // tbAddrEnable
             // 
-            this.tbAddrEnable.Location = new System.Drawing.Point(106, 268);
+            this.tbAddrEnable.Location = new System.Drawing.Point(124, 268);
             this.tbAddrEnable.Name = "tbAddrEnable";
             this.tbAddrEnable.Size = new System.Drawing.Size(100, 21);
             this.tbAddrEnable.TabIndex = 116;
@@ -1008,7 +999,7 @@
             // 
             this.btnAddrEn.Location = new System.Drawing.Point(7, 268);
             this.btnAddrEn.Name = "btnAddrEn";
-            this.btnAddrEn.Size = new System.Drawing.Size(75, 23);
+            this.btnAddrEn.Size = new System.Drawing.Size(91, 23);
             this.btnAddrEn.TabIndex = 115;
             this.btnAddrEn.Text = "ADDREN";
             this.btnAddrEn.UseVisualStyleBackColor = true;
@@ -1016,21 +1007,21 @@
             // 
             // btnReadAddrEnable
             // 
-            this.btnReadAddrEnable.Location = new System.Drawing.Point(214, 272);
+            this.btnReadAddrEnable.Location = new System.Drawing.Point(232, 272);
             this.btnReadAddrEnable.Name = "btnReadAddrEnable";
             this.btnReadAddrEnable.Size = new System.Drawing.Size(57, 19);
             this.btnReadAddrEnable.TabIndex = 119;
-            this.btnReadAddrEnable.Text = "读取";
+            this.btnReadAddrEnable.Text = "read";
             this.btnReadAddrEnable.UseVisualStyleBackColor = true;
             this.btnReadAddrEnable.Click += new System.EventHandler(this.btnReadAddrEnable_Click);
             // 
             // btnReadACK
             // 
-            this.btnReadACK.Location = new System.Drawing.Point(214, 242);
+            this.btnReadACK.Location = new System.Drawing.Point(232, 242);
             this.btnReadACK.Name = "btnReadACK";
             this.btnReadACK.Size = new System.Drawing.Size(57, 20);
             this.btnReadACK.TabIndex = 118;
-            this.btnReadACK.Text = "读取";
+            this.btnReadACK.Text = "read";
             this.btnReadACK.UseVisualStyleBackColor = true;
             this.btnReadACK.Click += new System.EventHandler(this.btnReadACK_Click);
             // 
@@ -1042,7 +1033,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(478, 306);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "字符显示";
+            this.tabPage1.Text = "display";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // txtRecvChar
@@ -1064,6 +1055,15 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(486, 332);
             this.tabControl1.TabIndex = 22;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(78, 96);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(23, 12);
+            this.label9.TabIndex = 118;
+            this.label9.Text = "SF:";
             // 
             // main
             // 
@@ -1113,7 +1113,7 @@
             this.Controls.Add(this.label20);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "main";
-            this.Text = "Ting-01M模块测试程序(v0.6)";
+            this.Text = "LoRa-01M test(v0.6)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.Load += new System.EventHandler(this.main_Load);
             this.groupBox1.ResumeLayout(false);
@@ -1169,7 +1169,6 @@
         private System.Windows.Forms.TextBox tbPPower;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbPSF;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tbPBW;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
@@ -1232,6 +1231,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.RichTextBox txtRecvChar;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.Label label9;
     }
 }
 

@@ -7,7 +7,7 @@
 #include "low_power.h"
 
 uint8_t halt_mode = 0;
-const uint8_t info[] = "Ting-01M(V0.5)\r\n";
+const uint8_t info[] = "LoRa-01M(V0.6)\r\n";
 uint8_t ack_on;
 uint32_t ack_on_time;
 extern uint8_t RFBuffer[];

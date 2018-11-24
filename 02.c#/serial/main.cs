@@ -43,7 +43,7 @@ namespace serial
             string[] str = SerialPort.GetPortNames();
             if (str == null)
             {
-                MessageBox.Show("本机没有串口", "Error");
+                MessageBox.Show("can not found port", "Error");
                 return;
             }
             cbBaudRate.Items.Add("9600");
@@ -58,9 +58,9 @@ namespace serial
             cbStop.Items.Add("1.5");
             cbStop.Items.Add("1.2");
             cbStop.SelectedIndex = 0;
-            cbParity.Items.Add("无");
-            cbParity.Items.Add("奇校验");
-            cbParity.Items.Add("偶校验");
+            cbParity.Items.Add("NONE");
+            cbParity.Items.Add("Odd");
+            cbParity.Items.Add("Even");
             cbParity.SelectedIndex = 0;
             //添加串口
             foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
@@ -102,7 +102,7 @@ namespace serial
         {
             
             btnDownload.Enabled = true;
-            btnDownload.Text = "下载程序";
+            btnDownload.Text = "download";
             btnSend.Enabled = true;
             btnSettings.Enabled = true;
             btnRestart.Enabled = true;
@@ -127,7 +127,7 @@ namespace serial
             btnTransportIn.Enabled = true;
             btnTransportOut.Enabled = true;
             btnSaveParament.Enabled = true;
-            
+            btnReadDestAddr.Enabled = true;
             cbAutoSend.Enabled = true;
 
             cbBaudRate.Enabled = false;
@@ -139,7 +139,7 @@ namespace serial
         {
 
             btnDownload.Enabled = false;
-            btnDownload.Text = "下载程序";
+            btnDownload.Text = "download";
             btnSend.Enabled = false;
             btnSettings.Enabled = false;
             btnRestart.Enabled = false;
@@ -165,7 +165,7 @@ namespace serial
             btnTransportOut.Enabled = false;
             btnSaveParament.Enabled = false;
             cbAutoSend.Enabled = false;
-
+            btnReadDestAddr.Enabled = false;
             cbBaudRate.Enabled = true;
             cbStop.Enabled = true;
             cbData.Enabled = true;
@@ -203,22 +203,22 @@ namespace serial
                             sp1.StopBits = StopBits.Two;
                             break;
                         default:
-                            MessageBox.Show("Error:参数不正确", "Error");
+                            MessageBox.Show("Error:parament err", "Error");
                             break;
                     }
                     switch (cbParity.Text)
                     {
-                        case "无":
+                        case "NONE":
                             sp1.Parity = Parity.None;
                             break;
-                        case "奇校验":
+                        case "Odd":
                             sp1.Parity = Parity.Odd;
                             break;
-                        case "偶校验":
+                        case "Even":
                             sp1.Parity = Parity.Even;
                             break;
                         default:
-                            MessageBox.Show("Error：参数不正确!", "Error");
+                            MessageBox.Show("Error：parament err", "Error");
                             break;
                     }
                     if (sp1.IsOpen == true)//如果打开状态，则先关闭一下
@@ -230,7 +230,7 @@ namespace serial
 
                     sp1.Open();
                     cbSerial.Enabled = false;
-                    btnSwitch.Text = "关闭串口";
+                    btnSwitch.Text = "close";
                     enableBtn();
 
                 }
@@ -245,7 +245,7 @@ namespace serial
             else
             {
                
-                btnSwitch.Text = "打开串口";
+                btnSwitch.Text = "open";
                 cbSerial.Enabled = true; 
                 if ((t1 != null) )
                     t1.Abort();
@@ -285,12 +285,6 @@ namespace serial
 
         }
 
-        //private void txtRecvHex_TextChanged(object sender, EventArgs e)
-        //{
-        //    //txtRecvHex.Focus();
-        //    this.txtRecvHex.Select(this.txtRecvHex.TextLength, 0);
-        //    this.txtRecvHex.ScrollToCaret();
-        //}
 
 
         #region  打开文件以及加载
@@ -305,7 +299,7 @@ namespace serial
         private void openFile()
         {
             binFile = new OpenFileDialog();
-            binFile.Filter = "所有文件|*bin";
+            binFile.Filter = "All file|*bin";
             binFile.RestoreDirectory = true;
             if (binFile.ShowDialog() == DialogResult.OK)
             {
@@ -327,7 +321,7 @@ namespace serial
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("Error: 文件错误" , "Error");
+                MessageBox.Show("Error: file err" , "Error");
 
                 //tmSend.Enabled = false;
                 return false;
@@ -391,14 +385,14 @@ namespace serial
             t2.Suspend();
 
             disableBtn();
-            btnDownload.Text = "下载中。。。";
+            btnDownload.Text = "Downloading...";
             btnStopDownload.Enabled = true;
 
 
         }
         private void btnStopDownload_Click(object sender, EventArgs e)
         {
-            tsState.Text = "停止";
+            tsState.Text = "Stop";
             if(t1 != null)
                 t1.Abort();
             if(t2.ThreadState == ThreadState.Suspended)
@@ -436,7 +430,7 @@ namespace serial
                 switch (state)
                 { 
                     case 0://等待链接发送同步字节
-                        tsState.Text = "等待同步";
+                        tsState.Text = "wait sync...";
                         RecvString += "?\t";
                         txtRecvChar.Text = RecvString;
                         sp1.Write(bootStart,0,1);
@@ -485,7 +479,7 @@ namespace serial
 
                         break;
                     case 2:
-                        tsState.Text = "发送中。。。(" + tsProgressBar.Value.ToString() +"bytes)";
+                        tsState.Text = "sending...(" + tsProgressBar.Value.ToString() +"bytes)";
                         timeout = 500;
                         byte verify = 0;
                         buf[0] = bootWrite;
@@ -548,7 +542,7 @@ namespace serial
                         buf[0] = bootGo;
                         sp1.Write(buf,0,1);//传输写控制
                         state = 0;
-                        tsState.Text = "发送完成" + "(" + tsProgressBar.Value+ "bytes)";
+                        tsState.Text = "sended" + "(" + tsProgressBar.Value+ "bytes)";
                         //tsProgressBar.Value = tsProgressBar.Minimum;
 
                         enableBtn();
@@ -564,7 +558,7 @@ namespace serial
                         state = 0;
                         endTime = System.Environment.TickCount;
                         runTime = endTime - startTime;
-                        tsState.Text = "发送错误" + "(" + tsProgressBar.Value + ")";
+                        tsState.Text = "send failed" + "(" + tsProgressBar.Value + ")";
                         RecvString += "\r\nprogram pages:" + pageCount.ToString() + "\r\n";
                         RecvString += "Use time:" + runTime.ToString() + "\r\n";
                         RecvString += "========BootLoader  failed!========\r\n\r\n";
@@ -757,7 +751,8 @@ namespace serial
             }
         }
         #endregion
-        #region LoRa命令测试功能
+
+        #region LoRa命令设置功能
         private void ParamentLoad()
         {
             tbPFrq.Text = "433000000";
@@ -842,17 +837,6 @@ namespace serial
 
         
 
-
-        //private void btnReadConfig_Click(object sender, EventArgs e)
-        //{
-        //    byte[] buf = new byte[256];
-        //    string str = "AT+CFG?\r\n";
-        //    for (int i = 0; i < str.Length; i++)
-        //        buf[i] = Convert.ToByte(str[i]);
-        //    sp1.Write(buf, 0, str.Length);
-        //    tsLoRaCMD.Text = str;
-        //    ReadConfig = 1;
-        //}
         private void btnTest_Click(object sender, EventArgs e)
         {
             byte[] buf = new byte[256];
@@ -1104,15 +1088,43 @@ namespace serial
             sp1.Write(buf, 0, str.Length);
             tsLoRaCMD.Text = str;
         }
-        #endregion
 
-        #region 其他功能
-        private void 版本ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnTransportIn_Click(object sender, EventArgs e)
         {
-            help form1 = new help();
-            form1.Show();
+            byte[] buf = new byte[256];
+            string str = "AT+TSP\r\n";
+
+            for (int i = 0; i < str.Length; i++)
+                buf[i] = Convert.ToByte(str[i]);
+            sp1.Write(buf, 0, str.Length);
+            tsLoRaCMD.Text = str;
         }
 
+        private void btnAddrEn_Click(object sender, EventArgs e)
+        {
+            byte[] buf = new byte[256];
+            string str = "AT+ADDREN=" + tbAddrEnable.Text + "\r\n";
+
+            for (int i = 0; i < str.Length; i++)
+                buf[i] = Convert.ToByte(str[i]);
+            sp1.Write(buf, 0, str.Length);
+            tsLoRaCMD.Text = str;
+        }
+
+        private void btnTransportOut_Click(object sender, EventArgs e)
+        {
+            byte[] buf = new byte[256];
+            string str = "+++";
+
+            for (int i = 0; i < str.Length; i++)
+                buf[i] = Convert.ToByte(str[i]);
+            sp1.Write(buf, 0, str.Length);
+            tsLoRaCMD.Text = str;
+        }
+
+        #endregion
+
+        #region 发送按键
         private void btnSend_Click_1(object sender, EventArgs e)
         {
             byte[] buf = new byte[1024];
@@ -1123,13 +1135,17 @@ namespace serial
                 buf[i] = Convert.ToByte(str[i]);
             sp1.Write(buf, 0, str.Length);
         }
+        #endregion
+        
+        #region 其他功能
+        private void 版本ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            help form1 = new help();
+            form1.Show();
+        }
+        #endregion
 
-
-
-
-
-
-
+        #region 关闭事件
 
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1143,12 +1159,51 @@ namespace serial
 
 
 
+        #region 自动发送功能
+        private void cbAutoSend_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAutoSend.Checked == true)
+            {
+                timer1.Enabled  = true;
+                timer1.Interval =Convert.ToInt32(tbSendGapTime.Text);
+            }
+            else
+            {
+                timer1.Enabled = false;
 
+            }
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            byte[] buf = new byte[256];
+            string str = "AT+SEND=" + tbLoRaSendLength.Text + "\r\n";
+
+            for (int i = 0; i < str.Length; i++)
+                buf[i] = Convert.ToByte(str[i]);
+            sp1.Write(buf, 0, str.Length);
+            tsLoRaCMD.Text = str;
+
+            Thread.Sleep(200);
+
+            str = tbLoRa.Text;
+            for (int i = 0; i < str.Length; i++)
+                buf[i] = Convert.ToByte(str[i]);
+            sp1.Write(buf, 0, str.Length);
+            tsLoRaCMD.Text = str;
+
+        }
+        #endregion
+
+
+
+        #region 输入限制
         private void textInput_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (((char.IsNumber(e.KeyChar)) ||
                 (e.KeyChar >= 'a' && e.KeyChar <= 'f') ||
-                (e.KeyChar >= 'A' && e.KeyChar <= 'F')) && 
+                (e.KeyChar >= 'A' && e.KeyChar <= 'F')) &&
                 (tbAddr.Text.Count() < 4) ||
                 (e.KeyChar == (char)8))
             {
@@ -1158,7 +1213,7 @@ namespace serial
             else
             {
                 e.Handled = true;
-               // MessageBox.Show("请输入十六进制字符", "err");
+                // MessageBox.Show("请输入十六进制字符", "err");
             }
 
         }
@@ -1182,7 +1237,7 @@ namespace serial
         }
         private void textInput10_5_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if ((char.IsNumber(e.KeyChar) &&(tbSendGapTime.Text.Count() < 5)) || (e.KeyChar == (char)8))
+            if ((char.IsNumber(e.KeyChar) && (tbSendGapTime.Text.Count() < 5)) || (e.KeyChar == (char)8))
             {
 
 
@@ -1194,109 +1249,10 @@ namespace serial
             }
 
         }
-        private void cbAutoSend_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbAutoSend.Checked == true)
-            {
-                timer1.Enabled  = true;
-                timer1.Interval =Convert.ToInt32(tbSendGapTime.Text);
-            }
-            else
-            {
-                timer1.Enabled = false;
-
-            }
-
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            byte[] buf = new byte[256];
-            string str = "AT+SEND=" + tbLoRaSendLength.Text + "\r\n";
-
-            for (int i = 0; i < str.Length; i++)
-                buf[i] = Convert.ToByte(str[i]);
-           // sp1.Write(buf, 0, str.Length);
-            tsLoRaCMD.Text = str;
-
-            Thread.Sleep(200);
-
-            str = tbLoRa.Text;
-            for (int i = 0; i < str.Length; i++)
-                buf[i] = Convert.ToByte(str[i]);
-            sp1.Write(buf, 0, str.Length);
-            tsLoRaCMD.Text = str;
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            byte[] buf = new byte[256];
-            string str = "AT+TSP\r\n";
-
-            for (int i = 0; i < str.Length; i++)
-                buf[i] = Convert.ToByte(str[i]);
-            sp1.Write(buf, 0, str.Length);
-            tsLoRaCMD.Text = str;
-        }
-
-        private void btnAddrEn_Click(object sender, EventArgs e)
-        {
-            byte[] buf = new byte[256];
-            string str = "AT+ADDREN=" + tbAddrEnable.Text +  "\r\n";
-
-            for (int i = 0; i < str.Length; i++)
-                buf[i] = Convert.ToByte(str[i]);
-            sp1.Write(buf, 0, str.Length);
-            tsLoRaCMD.Text = str;
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            byte[] buf = new byte[256];
-            string str = "+++";
-
-            for (int i = 0; i < str.Length; i++)
-                buf[i] = Convert.ToByte(str[i]);
-            sp1.Write(buf, 0, str.Length);
-            tsLoRaCMD.Text = str;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        #endregion
 
 
 
     }
 }
 
-
-/*        private void tbSCmd_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((char.IsNumber(e.KeyChar)) || (e.KeyChar == (char)8))
-            {
-
-            }
-            else
-            {
-                e.Handled = true;
-                MessageBox.Show("请输入0~9之间的数字", "err");
-            }
-        }
-*/
